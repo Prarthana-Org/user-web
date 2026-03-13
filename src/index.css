@@ -53,6 +53,13 @@ body {
 }
 
 
+/* Centered content wrapper - ensures all content is visually centered */
+.content-center {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
 .container {
   max-width: 1280px;
   margin-left: auto;
@@ -63,20 +70,48 @@ body {
 
 @media (min-width: 768px) {
   .container {
-    padding-left: 2rem;
-    padding-right: 2rem;
+    padding-left: 2.5rem;
+    padding-right: 2.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container {
+    padding-left: 3rem;
+    padding-right: 3rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  .container {
+    padding-left: 4rem;
+    padding-right: 4rem;
   }
 }
 
 .section-spacing {
-  padding-top: 6rem;
-  padding-bottom: 6rem;
+  padding-top: 8rem;
+  padding-bottom: 8rem;
+}
+
+@media (min-width: 768px) {
+  .section-spacing {
+    padding-top: 10rem;
+    padding-bottom: 10rem;
+  }
 }
 
 @media (min-width: 1024px) {
   .section-spacing {
-    padding-top: 10rem;
-    padding-bottom: 10rem;
+    padding-top: 14rem;
+    padding-bottom: 14rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  .section-spacing {
+    padding-top: 18rem;
+    padding-bottom: 18rem;
   }
 }
 

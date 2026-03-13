@@ -11,7 +11,7 @@ function App() {
     <div className="min-h-screen bg-[#FFF3E0] selection:bg-orange-200">
       <Navbar />
       <main className="relative">
-        <div className="section-spacing" id="home">
+        <div className="min-h-screen grid place-items-center pt-24 md:pt-28 pb-24 md:pb-28" id="home">
           <Hero />
         </div>
 
@@ -19,7 +19,7 @@ function App() {
           <AppShowcase />
         </div>
 
-        <div className="section-spacing" id="features">
+        <div className="section-spacing">
           <Features />
         </div>
       </main>

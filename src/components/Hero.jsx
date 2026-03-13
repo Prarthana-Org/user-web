@@ -1,11 +1,11 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Star } from 'lucide-react';
-import Waitlist from './Waitlist';
+import './Hero.css';
 
 const Hero = () => {
     return (
-        <section id="home" className="overflow-hidden relative">
+        <section className="hero-section">
             {/* Dynamic Background Elements */}
             <motion.div
                 animate={{
@@ -14,87 +14,97 @@ const Hero = () => {
                     rotate: [0, 90, 0]
                 }}
                 transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
-                className="absolute top-0 right-0 w-[600px] h-[600px] bg-gradient-to-bl from-orange-200 to-transparent rounded-full blur-[100px] -z-10 translate-x-1/3 -translate-y-1/4"
+                className="hero-bg-blob-orange"
             />
             <motion.div
                 animate={{ x: [0, 50, 0], y: [0, 30, 0] }}
                 transition={{ duration: 8, repeat: Infinity }}
-                className="absolute top-40 left-10 w-64 h-64 bg-pink-200 rounded-full blur-[80px] opacity-30 -z-10"
+                className="hero-bg-blob-pink"
             />
 
-            <div className="container mx-auto px-6">
-                <div className="flex flex-col items-center text-center max-w-4xl mx-auto space-y-12">
-
+            <div className="hero-content">
+                <div className="hero-inner">
                     {/* Badge */}
                     <motion.div
-                        initial={{ opacity: 0, y: 20 }}
+                        initial={{ opacity: 0, y: 30 }}
                         animate={{ opacity: 1, y: 0 }}
-                        className="inline-flex items-center gap-2 px-4 py-2 bg-white/60 backdrop-blur-md border border-white/50 rounded-full shadow-sm"
+                        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                        className="hero-badge"
                     >
-                        <span className="flex h-2 w-2 relative">
-                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-orange-400 opacity-75"></span>
-                            <span className="relative inline-flex rounded-full h-2 w-2 bg-orange-500"></span>
+                        <span className="hero-badge-dot">
+                            <span className="hero-badge-dot-ping" />
+                            <span className="hero-badge-dot-solid" />
                         </span>
-                        <span className="text-sm font-semibold text-gray-600 tracking-wide">#1 Spiritual App in 2024</span>
+                        <span className="hero-badge-text">#1 Spiritual App in 2026</span>
                     </motion.div>
 
                     {/* Heading */}
                     <motion.h1
-                        initial={{ opacity: 0, y: 30 }}
+                        initial={{ opacity: 0, y: 40 }}
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.1 }}
-                        className="text-6xl lg:text-8xl font-bold leading-tight text-gray-900 tracking-tight"
+                        transition={{ delay: 0.15, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+                        className="hero-title"
                     >
                         Start your <span className="gradient-text">spiritual journey</span> today
                     </motion.h1>
 
+                    {/* Subtitle */}
                     <motion.p
-                        initial={{ opacity: 0, y: 20 }}
+                        initial={{ opacity: 0, y: 30 }}
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.2 }}
-                        className="text-2xl text-gray-600 leading-relaxed max-w-2xl px-4 font-light"
+                        transition={{ delay: 0.3, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                        className="hero-subtitle"
                     >
                         Your personal temple for daily darshans, soothing chants, and ancient wisdom. Experience devotion like never before.
                     </motion.p>
 
                     {/* Buttons */}
                     <motion.div
-                        initial={{ opacity: 0, scale: 0.9 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        transition={{ delay: 0.3 }}
-                        className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto pt-4"
+                        initial={{ opacity: 0, y: 25, scale: 0.92 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        transition={{ delay: 0.45, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                        className="hero-buttons"
                     >
-                        <button className="bg-black text-white px-8 py-4 rounded-xl flex items-center justify-center gap-3 shadow-xl hover:bg-gray-900 transition-all hover:scale-105 active:scale-95 group">
-                            <div className="flex flex-col items-start leading-none">
-                                <span className="text-xs text-gray-400">Download on the</span>
-                                <span className="text-lg font-bold">App Store</span>
+                        <motion.button
+                            type="button"
+                            initial={{ opacity: 0, x: -20 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ delay: 0.55, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                            className="hero-button"
+                        >
+                            <div className="hero-button-inner">
+                                <span className="hero-button-label">Download on the</span>
+                                <span className="hero-button-store">App Store</span>
                             </div>
-                        </button>
+                        </motion.button>
 
-                        <button className="bg-black text-white px-8 py-4 rounded-xl flex items-center justify-center gap-3 shadow-xl hover:bg-gray-900 transition-all hover:scale-105 active:scale-95 group">
-                            <div className="flex flex-col items-start leading-none">
-                                <span className="text-xs text-gray-400">GET IT ON</span>
-                                <span className="text-lg font-bold">Google Play</span>
+                        <motion.button
+                            type="button"
+                            initial={{ opacity: 0, x: 20 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ delay: 0.65, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                            className="hero-button"
+                        >
+                            <div className="hero-button-inner">
+                                <span className="hero-button-label">GET IT ON</span>
+                                <span className="hero-button-store">Google Play</span>
                             </div>
-                        </button>
+                        </motion.button>
                     </motion.div>
-
-                    {/* Waitlist */}
-                    <Waitlist />
 
                     {/* Verification Strip */}
                     <motion.div
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ delay: 0.5 }}
-                        className="flex items-center gap-8 pt-8 opacity-60 grayscale hover:grayscale-0 transition-all duration-500"
+                        initial={{ opacity: 0, y: 15 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.55, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                        className="hero-verification"
                     >
-                        <div className="flex items-center gap-2">
+                        <div className="hero-verification-rating">
                             <Star size={16} fill="currentColor" className="text-yellow-500" />
-                            <span className="font-bold text-sm">4.9/5 Rating</span>
+                            <span className="hero-verification-rating-text">4.9/5 Rating</span>
                         </div>
-                        <div className="h-4 w-px bg-gray-300" />
-                        <div className="text-sm font-semibold">10k+ Downloads</div>
+                        <div className="hero-verification-divider" />
+                        <span className="hero-verification-downloads">10k+ Downloads</span>
                     </motion.div>
                 </div>
             </div>

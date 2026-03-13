@@ -33,9 +33,11 @@ const Navbar = () => {
                         }`}>
                         {/* Logo */}
                         <a href="#" className="flex items-center gap-3 group">
-                            <div className="w-10 h-10 bg-gradient-to-br from-orange-500 to-orange-600 rounded-xl flex items-center justify-center text-white font-bold text-xl shadow-lg shadow-orange-500/20 group-hover:scale-105 transition-transform duration-300">
-                                P
-                            </div>
+                            <img
+                                src={`${import.meta.env.BASE_URL}prarthana_logo.png`}
+                                alt="Prarthana"
+                                className="h-10 w-auto object-contain group-hover:scale-105 transition-transform duration-300"
+                            />
                             <span className="text-xl font-bold text-gray-800 tracking-tight group-hover:text-orange-600 transition-colors">
                                 Prarthana
                             </span>

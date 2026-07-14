@@ -32,7 +32,7 @@ const Footer = () => {
 
                 <div className="border-t border-gray-800 pt-10 flex flex-col md:flex-row items-center justify-center md:justify-between gap-6 text-center">
                     <div className="text-gray-500 text-sm">
-                        © 2024 Prarthana App. All rights reserved.
+                        © 2026 Prarthana App. All rights reserved.
                     </div>
                     <div className="flex items-center gap-6">
                         <Facebook size={20} className="text-gray-400 hover:text-white transition-colors cursor-pointer" />

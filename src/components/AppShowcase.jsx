@@ -3,107 +3,109 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Home, Video, Compass, MapPin, Music, BookOpen, Hash, Play, ChevronRight, Clock, Users, Flame } from 'lucide-react';
 
 const banners = [
-    { title: 'Shri Mata Vaisno Darshan', subtitle: 'Live from Katra, J&K', image: 'https://images.unsplash.com/photo-1606298855672-3efb63017be8?q=80&w=400&h=200&fit=crop', viewers: '12.4K watching' },
-    { title: 'Ganga Aarti Darshan', subtitle: 'Varanasi Ghats', image: 'https://images.unsplash.com/photo-1582510003544-4d00b7f74220?w=400&h=200&fit=crop', viewers: '8.2K watching' },
-    { title: 'Hanuman Ji Aarti', subtitle: 'Connaught Place, Delhi', image: 'https://images.unsplash.com/photo-1564507592333-c60657eea523?w=400&h=200&fit=crop', viewers: '5.7K watching' },
+    { title: 'The Sound of Koshas', subtitle: 'Live Sonic Meditation', image: 'https://images.unsplash.com/photo-1606298855672-3efb63017be8?q=80&w=400&h=200&fit=crop', viewers: '12.4K' },
+    { title: 'Morning Brainwaves', subtitle: 'Gamma Frequency Session', image: 'https://images.unsplash.com/photo-1582510003544-4d00b7f74220?w=400&h=200&fit=crop', viewers: '8.2K' },
+    { title: 'Deep Rest Protocol', subtitle: 'Yoga Nidra Series', image: 'https://images.unsplash.com/photo-1564507592333-c60657eea523?w=400&h=200&fit=crop', viewers: '5.7K' },
 ];
 
 const chants = [
-    { title: 'Morning Chant', artist: 'Temple Priest', duration: '4:32', image: 'https://images.unsplash.com/photo-1604608672516-f1b9b1d37076?w=100&h=100&fit=crop' },
-    { title: 'Evening Prayer', artist: 'Spiritual Guru', duration: '6:15', image: 'https://images.unsplash.com/photo-1625072290979-cac544181be8?w=100&h=100&fit=crop' },
-    { title: 'Om Namah Shivaya', artist: 'Divine Voices', duration: '3:48', image: 'https://images.unsplash.com/photo-1564507592333-c60657eea523?w=100&h=100&fit=crop' },
-    { title: 'Hanuman Chalisa', artist: 'Bhajan Mandali', duration: '8:20', image: 'https://images.unsplash.com/photo-1604608672516-f1b9b1d37076?w=100&h=100&fit=crop' },
+    { title: '432Hz Alignment', artist: 'Binaural Basics', duration: '4:32', image: 'https://images.unsplash.com/photo-1604608672516-f1b9b1d37076?w=100&h=100&fit=crop' },
+    { title: 'Breath Cadence', artist: 'Resonance', duration: '6:15', image: 'https://images.unsplash.com/photo-1625072290979-cac544181be8?w=100&h=100&fit=crop' },
+    { title: 'Delta Wave Sleep', artist: 'NeuroTones', duration: '3:48', image: 'https://images.unsplash.com/photo-1564507592333-c60657eea523?w=100&h=100&fit=crop' },
 ];
 
 const tabs = [
     {
         id: 'home', label: 'Home', icon: <Home size={16} />,
-        gradient: 'linear-gradient(135deg, #FF6B35, #E55A2B)',
-        title: 'Namaskaram',
+        gradient: 'var(--panel-2)',
+        border: 'var(--thread)',
+        title: 'Dashboard',
     },
     {
         id: 'shorts', label: 'Shorts', icon: <Video size={16} />,
-        gradient: 'linear-gradient(135deg, #0D9488, #14B8A6)',
-        title: 'Prarthana Shorts',
+        gradient: 'var(--panel-2)',
+        border: 'var(--thread)',
+        title: 'Micro-Learning',
     },
     {
         id: 'explore', label: 'Explore', icon: <Compass size={16} />,
-        gradient: 'linear-gradient(135deg, #DB2777, #EC4899)',
-        title: 'Bhajans & Aartis',
+        gradient: 'var(--panel-2)',
+        border: 'var(--thread)',
+        title: 'Discover',
     },
     {
-        id: 'location', label: 'Temples', icon: <MapPin size={16} />,
-        gradient: 'linear-gradient(135deg, #059669, #10B981)',
-        title: 'Find Temples',
+        id: 'location', label: 'Heritage', icon: <MapPin size={16} />,
+        gradient: 'var(--panel-2)',
+        border: 'var(--thread)',
+        title: 'Sacred Geography',
     },
     {
         id: 'audio', label: 'Audio', icon: <Music size={16} />,
-        gradient: 'linear-gradient(135deg, #7C3AED, #8B5CF6)',
-        title: 'Devotional Audio',
+        gradient: 'var(--panel-2)',
+        border: 'var(--thread)',
+        title: 'Sonic Therapy',
     },
     {
         id: 'courses', label: 'Courses', icon: <BookOpen size={16} />,
-        gradient: 'linear-gradient(135deg, #2563EB, #3B82F6)',
-        title: 'Learn & Grow',
+        gradient: 'var(--panel-2)',
+        border: 'var(--thread)',
+        title: 'Curriculums',
     },
     {
         id: 'chant', label: 'Counter', icon: <Hash size={16} />,
-        gradient: 'linear-gradient(135deg, #D97706, #F59E0B)',
-        title: 'Mantra Counter',
+        gradient: 'var(--panel-2)',
+        border: 'var(--thread)',
+        title: 'Metrics',
     },
 ];
 
-// Tab content components for cleaner rendering
 const HomeContent = () => (
     <>
-        {/* Live Banner */}
-        <div style={{ borderRadius: 12, overflow: 'hidden', position: 'relative', aspectRatio: '16/9' }}>
+        <div style={{ borderRadius: 12, overflow: 'hidden', position: 'relative', aspectRatio: '16/9', border: '1px solid var(--line)' }}>
             <img src={banners[0].image} alt={banners[0].title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-            <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(0,0,0,0.8), transparent 60%)' }} />
+            <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(11,14,26,0.9), transparent 60%)' }} />
             <div style={{ position: 'absolute', bottom: 8, left: 10, right: 10 }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 4 }}>
-                    <span style={{ background: '#EF4444', fontSize: 7, fontWeight: 700, padding: '2px 6px', borderRadius: 4, color: 'white', letterSpacing: '0.05em' }}>● LIVE</span>
-                    <span style={{ fontSize: 7, color: 'rgba(255,255,255,0.7)' }}>{banners[0].viewers}</span>
+                    <span style={{ background: 'var(--sindoor)', fontSize: 7, fontWeight: 700, padding: '2px 6px', borderRadius: 4, color: 'var(--ink)', letterSpacing: '0.05em' }}>● LIVE</span>
+                    <span style={{ fontSize: 7, color: 'var(--faint)' }}>{banners[0].viewers} online</span>
                 </div>
-                <p style={{ color: 'white', fontSize: 10, fontWeight: 700, lineHeight: 1.2 }}>{banners[0].title}</p>
-                <p style={{ color: 'rgba(255,255,255,0.7)', fontSize: 8 }}>{banners[0].subtitle}</p>
+                <p style={{ color: 'var(--ink)', fontSize: 11, fontFamily: 'var(--font-disp)', fontWeight: 600, lineHeight: 1.2 }}>{banners[0].title}</p>
+                <p style={{ color: 'var(--body)', fontSize: 8 }}>{banners[0].subtitle}</p>
             </div>
         </div>
 
-        {/* Quick Features */}
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 6 }}>
             {[
-                { label: 'Chant', icon: '🕉️', bg: 'linear-gradient(135deg, #FFF7ED, #FFEDD5)' },
-                { label: 'Streaming', icon: '📺', bg: 'linear-gradient(135deg, #FEF2F2, #FECACA)' },
-                { label: 'Courses', icon: '📚', bg: 'linear-gradient(135deg, #EFF6FF, #DBEAFE)' },
-                { label: 'Temples', icon: '🛕', bg: 'linear-gradient(135deg, #ECFDF5, #D1FAE5)' },
+                { label: 'Breathe', icon: '🌬️' },
+                { label: 'Listen', icon: '🎧' },
+                { label: 'Learn', icon: '🧠' },
+                { label: 'Explore', icon: '🧭' },
             ].map((t, i) => (
                 <div key={i} style={{
-                    padding: '8px 6px', borderRadius: 10, background: t.bg,
+                    padding: '8px 6px', borderRadius: 10, background: 'var(--panel)', border: '1px solid var(--line)',
                     display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 4,
                 }}>
                     <span style={{ fontSize: 12 }}>{t.icon}</span>
-                    <span style={{ fontSize: 9, fontWeight: 600, color: '#374151' }}>{t.label}</span>
+                    <span style={{ fontSize: 9, fontWeight: 500, color: 'var(--ink)' }}>{t.label}</span>
                 </div>
             ))}
         </div>
 
-        {/* Recent Chants */}
         <div>
-            <p style={{ fontSize: 9, fontWeight: 700, color: 'var(--text-secondary)', marginBottom: 6, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Recent Chants</p>
+            <p className="eyebrow">Recent Sessions</p>
             {chants.slice(0, 2).map((c, i) => (
                 <div key={i} style={{
                     display: 'flex', gap: 8, padding: 8, marginBottom: 4,
-                    background: 'var(--card-background)', borderRadius: 10,
-                    border: '1px solid rgba(0,0,0,0.04)', alignItems: 'center',
+                    background: 'var(--panel)', borderRadius: 10,
+                    border: '1px solid var(--line)', alignItems: 'center',
                 }}>
                     <img src={c.image} alt="" style={{ width: 38, height: 38, borderRadius: 8, objectFit: 'cover', flexShrink: 0 }} />
                     <div style={{ flex: 1, minWidth: 0 }}>
-                        <p style={{ fontSize: 10, fontWeight: 600, color: 'var(--text-primary)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{c.title}</p>
-                        <p style={{ fontSize: 8, color: 'var(--text-secondary)' }}>{c.artist} • {c.duration}</p>
+                        <p style={{ fontSize: 10, fontWeight: 600, color: 'var(--ink)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{c.title}</p>
+                        <p style={{ fontSize: 8, color: 'var(--body)' }}>{c.artist} • {c.duration}</p>
                     </div>
-                    <div style={{ width: 28, height: 28, borderRadius: '50%', background: 'linear-gradient(135deg, #FF6B35, #E55A2B)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                        <Play size={11} color="white" fill="white" />
+                    <div style={{ width: 28, height: 28, borderRadius: '50%', background: 'var(--panel-2)', border: '1px solid var(--thread-dim)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                        <Play size={11} color="var(--thread)" fill="var(--thread)" />
                     </div>
                 </div>
             ))}
@@ -115,65 +117,50 @@ const ShortsContent = () => (
     <>
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 6 }}>
             {banners.slice(0, 2).map((b, i) => (
-                <div key={i} style={{ borderRadius: 12, overflow: 'hidden', position: 'relative', aspectRatio: '9/14' }}>
+                <div key={i} style={{ borderRadius: 12, overflow: 'hidden', position: 'relative', aspectRatio: '9/14', border: '1px solid var(--line)' }}>
                     <img src={b.image} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                    <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(0,0,0,0.7), transparent 50%)' }} />
+                    <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(11,14,26,0.9), transparent 50%)' }} />
                     <div style={{ position: 'absolute', bottom: 6, left: 6, right: 6 }}>
-                        <p style={{ color: 'white', fontSize: 8, fontWeight: 600 }}>{b.title}</p>
+                        <p style={{ color: 'var(--ink)', fontSize: 9, fontFamily: 'var(--font-disp)' }}>{b.title}</p>
                         <div style={{ display: 'flex', alignItems: 'center', gap: 4, marginTop: 2 }}>
-                            <Users size={8} color="rgba(255,255,255,0.6)" />
-                            <span style={{ fontSize: 7, color: 'rgba(255,255,255,0.6)' }}>{b.viewers}</span>
+                            <Users size={8} color="var(--body)" />
+                            <span style={{ fontSize: 7, color: 'var(--body)' }}>{b.viewers}</span>
                         </div>
                     </div>
                     <div style={{ position: 'absolute', top: 6, right: 6 }}>
-                        <div style={{ width: 20, height: 20, borderRadius: '50%', background: 'rgba(255,255,255,0.2)', backdropFilter: 'blur(4px)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                            <Play size={8} color="white" fill="white" />
+                        <div style={{ width: 20, height: 20, borderRadius: '50%', background: 'rgba(11,14,26,0.4)', backdropFilter: 'blur(4px)', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '1px solid var(--line)' }}>
+                            <Play size={8} color="var(--ink)" fill="var(--ink)" />
                         </div>
                     </div>
                 </div>
             ))}
         </div>
-        <p style={{ fontSize: 9, fontWeight: 700, color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Trending</p>
-        {chants.slice(0, 2).map((c, i) => (
-            <div key={i} style={{
-                display: 'flex', gap: 8, padding: 6,
-                background: 'var(--card-background)', borderRadius: 10,
-                border: '1px solid rgba(0,0,0,0.04)', alignItems: 'center',
-            }}>
-                <img src={c.image} alt="" style={{ width: 36, height: 36, borderRadius: 8, objectFit: 'cover', flexShrink: 0 }} />
-                <div style={{ flex: 1, minWidth: 0 }}>
-                    <p style={{ fontSize: 9, fontWeight: 600, color: 'var(--text-primary)' }}>{c.title}</p>
-                    <p style={{ fontSize: 7, color: 'var(--text-secondary)' }}>{c.artist}</p>
-                </div>
-                <Flame size={12} color="#EF4444" />
-            </div>
-        ))}
     </>
 );
 
 const AudioExploreContent = ({ title }) => (
     <>
-        <p style={{ fontSize: 9, fontWeight: 700, color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>{title}</p>
+        <p className="eyebrow">{title}</p>
         {chants.map((c, i) => (
             <div key={i} style={{
                 display: 'flex', gap: 8, padding: 8,
-                background: 'var(--card-background)', borderRadius: 10,
-                border: '1px solid rgba(0,0,0,0.04)', alignItems: 'center',
+                background: 'var(--panel)', borderRadius: 10,
+                border: '1px solid var(--line)', alignItems: 'center',
             }}>
                 <img src={c.image} alt="" style={{ width: 40, height: 40, borderRadius: 10, objectFit: 'cover', flexShrink: 0 }} />
                 <div style={{ flex: 1, minWidth: 0 }}>
-                    <p style={{ fontSize: 10, fontWeight: 600, color: 'var(--text-primary)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{c.title}</p>
+                    <p style={{ fontSize: 10, fontWeight: 600, color: 'var(--ink)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{c.title}</p>
                     <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-                        <p style={{ fontSize: 8, color: 'var(--text-secondary)' }}>{c.artist}</p>
-                        <span style={{ fontSize: 7, color: 'var(--text-hint)' }}>•</span>
+                        <p style={{ fontSize: 8, color: 'var(--body)' }}>{c.artist}</p>
+                        <span style={{ fontSize: 7, color: 'var(--faint)' }}>•</span>
                         <div style={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-                            <Clock size={8} color="var(--text-hint)" />
-                            <span style={{ fontSize: 7, color: 'var(--text-hint)' }}>{c.duration}</span>
+                            <Clock size={8} color="var(--faint)" />
+                            <span style={{ fontSize: 7, color: 'var(--faint)' }}>{c.duration}</span>
                         </div>
                     </div>
                 </div>
-                <div style={{ width: 28, height: 28, borderRadius: '50%', background: 'linear-gradient(135deg, #FF6B35, #E55A2B)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                    <Play size={11} color="white" fill="white" />
+                <div style={{ width: 28, height: 28, borderRadius: '50%', background: 'var(--panel-2)', border: '1px solid var(--thread-dim)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                    <Play size={11} color="var(--thread)" fill="var(--thread)" />
                 </div>
             </div>
         ))}
@@ -182,25 +169,25 @@ const AudioExploreContent = ({ title }) => (
 
 const TempleContent = () => (
     <>
-        <p style={{ fontSize: 9, fontWeight: 700, color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Nearby Temples</p>
+        <p className="eyebrow">Heritage Sites</p>
         {[
-            { name: 'Shri Mata Vaishno Devi', loc: 'Katra, Jammu', dist: '2.5 km', img: banners[0].image },
-            { name: 'Kashi Vishwanath', loc: 'Varanasi, UP', dist: '5.1 km', img: banners[1].image },
-            { name: 'Tirupati Balaji', loc: 'Tirumala, AP', dist: '12 km', img: banners[2].image },
+            { name: 'Ellora Caves', loc: 'Maharashtra, IN', dist: 'UNESCO', img: banners[0].image },
+            { name: 'Brihadisvara', loc: 'Thanjavur, TN', dist: '11th C', img: banners[1].image },
         ].map((t, i) => (
             <div key={i} style={{
                 display: 'flex', gap: 8, padding: 8,
-                background: 'var(--card-background)', borderRadius: 10,
-                border: '1px solid rgba(0,0,0,0.04)', alignItems: 'center',
+                background: 'var(--panel)', borderRadius: 10,
+                border: '1px solid var(--line)', alignItems: 'center',
             }}>
                 <img src={t.img} alt="" style={{ width: 44, height: 44, borderRadius: 10, objectFit: 'cover', flexShrink: 0 }} />
                 <div style={{ flex: 1, minWidth: 0 }}>
-                    <p style={{ fontSize: 10, fontWeight: 600, color: 'var(--text-primary)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{t.name}</p>
-                    <p style={{ fontSize: 8, color: 'var(--text-secondary)' }}>{t.loc}</p>
+                    <p style={{ fontSize: 10, fontWeight: 600, color: 'var(--ink)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{t.name}</p>
+                    <p style={{ fontSize: 8, color: 'var(--body)' }}>{t.loc}</p>
                 </div>
                 <div style={{
-                    padding: '4px 8px', borderRadius: 8,
-                    background: 'rgba(16, 185, 129, 0.1)', fontSize: 8, fontWeight: 600, color: '#059669',
+                    padding: '4px 8px', borderRadius: 4,
+                    background: 'rgba(45, 212, 191, 0.1)', fontSize: 8, fontWeight: 600, color: 'var(--secondary)',
+                    fontFamily: 'var(--font-mono)'
                 }}>
                     {t.dist}
                 </div>
@@ -209,40 +196,39 @@ const TempleContent = () => (
         {/* Mini map placeholder */}
         <div style={{
             borderRadius: 12, padding: 12, textAlign: 'center',
-            background: 'linear-gradient(135deg, #ECFDF5, #D1FAE5)',
-            border: '1px dashed rgba(16, 185, 129, 0.3)',
+            background: 'var(--panel-2)',
+            border: '1px dashed var(--line)',
         }}>
-            <MapPin size={16} color="#059669" style={{ margin: '0 auto 4px' }} />
-            <p style={{ fontSize: 9, fontWeight: 600, color: '#059669' }}>View on Map</p>
-            <p style={{ fontSize: 7, color: '#6B7280' }}>Discover temples around you</p>
+            <MapPin size={16} color="var(--thread)" style={{ margin: '0 auto 4px' }} />
+            <p style={{ fontSize: 9, fontWeight: 600, color: 'var(--ink)' }}>Explore Archive Map</p>
         </div>
     </>
 );
 
 const CourseContent = () => (
     <>
-        <p style={{ fontSize: 9, fontWeight: 700, color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Popular Courses</p>
+        <p className="eyebrow">Curriculums</p>
         {[
-            { title: 'Bhagavad Gita', lessons: '24 lessons', img: banners[2].image, progress: 65 },
-            { title: 'Meditation Basics', lessons: '12 lessons', img: banners[0].image, progress: 30 },
+            { title: 'Neurology of Meditation', lessons: '24 modules', img: banners[2].image, progress: 65 },
+            { title: 'Acoustics & Chants', lessons: '12 modules', img: banners[0].image, progress: 30 },
         ].map((c, i) => (
             <div key={i} style={{
                 borderRadius: 12, overflow: 'hidden',
-                background: 'var(--card-background)',
-                border: '1px solid rgba(0,0,0,0.04)',
+                background: 'var(--panel)',
+                border: '1px solid var(--line)',
             }}>
                 <div style={{ position: 'relative' }}>
                     <img src={c.img} alt="" style={{ width: '100%', height: 56, objectFit: 'cover' }} />
-                    <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(0,0,0,0.5), transparent)' }} />
+                    <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(11,14,26,0.8), transparent)' }} />
                 </div>
                 <div style={{ padding: '8px 10px' }}>
-                    <p style={{ fontSize: 10, fontWeight: 700, color: 'var(--text-primary)' }}>{c.title}</p>
+                    <p style={{ fontSize: 10, fontFamily: 'var(--font-disp)', color: 'var(--ink)' }}>{c.title}</p>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 4 }}>
-                        <span style={{ fontSize: 8, color: 'var(--text-secondary)' }}>{c.lessons}</span>
-                        <span style={{ fontSize: 8, fontWeight: 600, color: '#2563EB' }}>{c.progress}%</span>
+                        <span style={{ fontSize: 8, color: 'var(--body)' }}>{c.lessons}</span>
+                        <span style={{ fontSize: 8, fontFamily: 'var(--font-mono)', color: 'var(--thread)' }}>{c.progress}%</span>
                     </div>
-                    <div style={{ height: 3, borderRadius: 2, background: 'rgba(37, 99, 235, 0.1)', marginTop: 4 }}>
-                        <div style={{ height: '100%', borderRadius: 2, width: `${c.progress}%`, background: 'linear-gradient(90deg, #2563EB, #3B82F6)' }} />
+                    <div style={{ height: 3, borderRadius: 2, background: 'var(--line)', marginTop: 4 }}>
+                        <div style={{ height: '100%', borderRadius: 2, width: `${c.progress}%`, background: 'var(--thread)' }} />
                     </div>
                 </div>
             </div>
@@ -254,34 +240,33 @@ const ChantCounterContent = () => (
     <>
         <div style={{
             borderRadius: 16, padding: 16, textAlign: 'center',
-            background: 'linear-gradient(135deg, #FFF7ED, #FFEDD5)',
-            border: '1px solid rgba(217, 119, 6, 0.15)',
+            background: 'var(--panel-2)',
+            border: '1px solid var(--line)',
         }}>
-            <p style={{ fontSize: 28, fontWeight: 800, color: '#92400E', lineHeight: 1 }}>108</p>
-            <p style={{ fontSize: 14, color: '#B45309', marginTop: 4, fontWeight: 600 }}>ॐ नमः शिवाय</p>
-            <p style={{ fontSize: 9, color: '#D97706', marginTop: 2 }}>Om Namah Shivaya</p>
+            <p style={{ fontSize: 28, fontFamily: 'var(--font-mono)', color: 'var(--thread)', lineHeight: 1 }}>108</p>
+            <p style={{ fontSize: 12, color: 'var(--ink)', marginTop: 4, fontFamily: 'var(--font-disp)' }}>Focus Rhythm</p>
             <div style={{ display: 'flex', justifyContent: 'center', gap: 12, marginTop: 10 }}>
                 <button style={{
-                    padding: '4px 12px', borderRadius: 8, fontSize: 8, fontWeight: 600,
-                    background: '#F59E0B', color: 'white', border: 'none',
-                }}>Reset</button>
+                    padding: '4px 12px', borderRadius: 4, fontSize: 8, fontFamily: 'var(--font-mono)',
+                    background: 'var(--thread)', color: 'var(--midnight)', border: 'none',
+                }}>RESET</button>
                 <button style={{
-                    padding: '4px 12px', borderRadius: 8, fontSize: 8, fontWeight: 600,
-                    background: 'white', color: '#92400E', border: '1px solid rgba(217, 119, 6, 0.3)',
-                }}>History</button>
+                    padding: '4px 12px', borderRadius: 4, fontSize: 8, fontFamily: 'var(--font-mono)',
+                    background: 'transparent', color: 'var(--thread)', border: '1px solid var(--line)',
+                }}>LOG</button>
             </div>
         </div>
-        <p style={{ fontSize: 9, fontWeight: 700, color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Choose Mantra</p>
+        <p className="eyebrow mt-4">Select Target</p>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
-            {['Om', 'Gayatri Mantra', 'Hare Krishna', 'Ram Mantra'].map((m, i) => (
+            {['108 Reps', '216 Reps', '500 Reps'].map((m, i) => (
                 <div key={i} style={{
                     padding: '8px 10px', borderRadius: 10,
-                    background: i === 0 ? 'linear-gradient(135deg, #FFF7ED, #FFEDD5)' : 'var(--card-background)',
-                    border: i === 0 ? '1px solid rgba(217, 119, 6, 0.2)' : '1px solid rgba(0,0,0,0.04)',
+                    background: i === 0 ? 'var(--panel-2)' : 'var(--panel)',
+                    border: i === 0 ? '1px solid var(--thread-dim)' : '1px solid var(--line)',
                     display: 'flex', alignItems: 'center', justifyContent: 'space-between',
                 }}>
-                    <span style={{ fontSize: 10, fontWeight: i === 0 ? 700 : 500, color: i === 0 ? '#92400E' : 'var(--text-primary)' }}>{m}</span>
-                    <ChevronRight size={12} color={i === 0 ? '#D97706' : 'var(--text-hint)'} />
+                    <span style={{ fontSize: 10, fontFamily: 'var(--font-mono)', color: i === 0 ? 'var(--thread)' : 'var(--body)' }}>{m}</span>
+                    <ChevronRight size={12} color={i === 0 ? 'var(--thread)' : 'var(--faint)'} />
                 </div>
             ))}
         </div>
@@ -292,8 +277,8 @@ const getTabContent = (tabId) => {
     switch (tabId) {
         case 'home': return <HomeContent />;
         case 'shorts': return <ShortsContent />;
-        case 'explore': return <AudioExploreContent title="Bhajans & Aartis" />;
-        case 'audio': return <AudioExploreContent title="Devotional Audio" />;
+        case 'explore': return <AudioExploreContent title="Soundscapes" />;
+        case 'audio': return <AudioExploreContent title="Frequencies" />;
         case 'location': return <TempleContent />;
         case 'courses': return <CourseContent />;
         case 'chant': return <ChantCounterContent />;
@@ -306,21 +291,7 @@ const AppShowcase = () => {
 
     return (
         <section id="showcase" className="overflow-hidden relative">
-            {/* Background decoration */}
-            <div style={{
-                position: 'absolute', top: '20%', left: '-10%',
-                width: 500, height: 500, borderRadius: '50%',
-                background: 'radial-gradient(circle, rgba(255, 107, 53, 0.08), transparent 70%)',
-                filter: 'blur(60px)', zIndex: 0, pointerEvents: 'none',
-            }} />
-            <div style={{
-                position: 'absolute', bottom: '10%', right: '-5%',
-                width: 400, height: 400, borderRadius: '50%',
-                background: 'radial-gradient(circle, rgba(236, 72, 153, 0.06), transparent 70%)',
-                filter: 'blur(60px)', zIndex: 0, pointerEvents: 'none',
-            }} />
-
-            <div className="container mx-auto px-8 md:px-12 lg:px-16" style={{ position: 'relative', zIndex: 1 }}>
+            <div className="container mx-auto px-8 md:px-12 lg:px-16">
                 <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 xl:gap-24 items-center max-w-6xl mx-auto">
 
                     {/* Left: Title + Tabs */}
@@ -330,17 +301,12 @@ const AppShowcase = () => {
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                         >
-                            <p style={{
-                                fontSize: 13, fontWeight: 600, textTransform: 'uppercase',
-                                letterSpacing: '0.12em', color: '#FF6B35', marginBottom: 12,
-                            }}>
-                                App Preview
-                            </p>
-                            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-[var(--text-primary)] leading-tight tracking-tight">
-                                Experience the <span className="gradient-text">Divine Interface</span>
+                            <p className="eyebrow mb-3">Simulation Layer</p>
+                            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-disp text-[var(--ink)] leading-tight">
+                                A Living Interface for <span className="gradient-text">Inner Science</span>
                             </h2>
-                            <p className="text-lg sm:text-xl text-[var(--text-secondary)] max-w-lg mx-auto lg:mx-0 leading-relaxed mt-5">
-                                Navigate seamlessly between darshans, chants, and wisdom. Designed for peace and easy access.
+                            <p className="text-lg sm:text-xl text-[var(--body)] max-w-lg mx-auto lg:mx-0 leading-relaxed mt-5">
+                                Navigate seamlessly between ancient methodologies and modern tracking. Designed for cognitive clarity.
                             </p>
                         </motion.div>
 
@@ -370,15 +336,13 @@ const AppShowcase = () => {
                                                 display: 'flex', alignItems: 'center', gap: 7,
                                                 padding: isActive ? '10px 18px' : '10px 16px',
                                                 borderRadius: 50,
-                                                border: 'none',
+                                                border: isActive ? `1px solid ${tab.border}` : '1px solid var(--line)',
                                                 cursor: 'pointer',
-                                                fontSize: 13, fontWeight: 600,
+                                                fontSize: 12, fontFamily: 'var(--font-mono)',
                                                 transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-                                                background: isActive ? tab.gradient : 'var(--card-background)',
-                                                color: isActive ? 'white' : 'var(--text-secondary)',
-                                                boxShadow: isActive
-                                                    ? '0 4px 15px -3px rgba(0,0,0,0.2)'
-                                                    : '0 1px 3px rgba(0,0,0,0.06)',
+                                                background: isActive ? tab.gradient : 'var(--panel)',
+                                                color: isActive ? 'var(--thread)' : 'var(--body)',
+                                                boxShadow: isActive ? 'var(--shadow-glow)' : 'none',
                                             }}
                                         >
                                             {tab.icon}
@@ -399,27 +363,21 @@ const AppShowcase = () => {
                             transition={{ delay: 0.15, duration: 0.6 }}
                             style={{ position: 'relative' }}
                         >
-                            {/* Phone glow */}
-                            <div style={{
-                                position: 'absolute', inset: -30, borderRadius: 50,
-                                background: `radial-gradient(ellipse at center, rgba(255, 107, 53, 0.12), transparent 70%)`,
-                                filter: 'blur(30px)', zIndex: 0, pointerEvents: 'none',
-                            }} />
-
                             {/* Phone frame */}
                             <div style={{
                                 position: 'relative', zIndex: 1,
                                 padding: '12px 10px',
-                                background: 'linear-gradient(160deg, #1a1a1a, #0a0a0a)',
+                                background: 'linear-gradient(160deg, #171D33, #0B0E1A)',
                                 borderRadius: 40,
-                                boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255,255,255,0.05)',
+                                border: '1px solid var(--line)',
+                                boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(232,180,74,0.1)',
                             }}>
                                 {/* Screen */}
                                 <div style={{
                                     width: 280,
                                     borderRadius: 30,
                                     overflow: 'hidden',
-                                    background: 'var(--background-color)',
+                                    background: 'var(--midnight)',
                                 }}>
                                     <AnimatePresence mode="wait">
                                         <motion.div
@@ -434,26 +392,26 @@ const AppShowcase = () => {
                                             <div style={{
                                                 height: 36, display: 'flex', justifyContent: 'center',
                                                 alignItems: 'flex-end', paddingBottom: 4,
-                                                background: 'linear-gradient(to bottom, rgba(0,0,0,0.03), transparent)',
+                                                background: 'linear-gradient(to bottom, rgba(0,0,0,0.5), transparent)',
                                                 flexShrink: 0,
                                             }}>
-                                                <div style={{ width: 70, height: 22, background: '#000', borderRadius: 12 }} />
+                                                <div style={{ width: 70, height: 22, background: '#000', borderRadius: 12, border: '1px solid rgba(255,255,255,0.05)' }} />
                                             </div>
 
                                             {/* Header */}
                                             <div style={{ padding: '4px 14px 8px', flexShrink: 0 }}>
                                                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                                                     <div>
-                                                        <p style={{ fontSize: 8, fontWeight: 700, color: '#FF6B35', textTransform: 'uppercase', letterSpacing: '0.08em' }}>Prarthana</p>
-                                                        <p style={{ fontSize: 14, fontWeight: 800, color: 'var(--text-primary)', lineHeight: 1.2 }}>{activeTab.title}</p>
+                                                        <p style={{ fontSize: 7, fontFamily: 'var(--font-mono)', color: 'var(--sindoor)', textTransform: 'uppercase', letterSpacing: '0.15em' }}>Node Active</p>
+                                                        <p style={{ fontSize: 16, fontFamily: 'var(--font-disp)', color: 'var(--ink)', lineHeight: 1.2 }}>{activeTab.title}</p>
                                                     </div>
                                                     <div style={{
                                                         width: 28, height: 28, borderRadius: 10,
-                                                        background: 'var(--card-background)',
-                                                        boxShadow: '0 1px 3px rgba(0,0,0,0.08)',
+                                                        background: 'var(--panel)',
+                                                        border: '1px solid var(--line)',
                                                         display: 'flex', alignItems: 'center', justifyContent: 'center',
                                                     }}>
-                                                        <span style={{ fontSize: 12 }}>🔔</span>
+                                                        <span style={{ fontSize: 12, color: 'var(--thread)' }}>○</span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -470,18 +428,18 @@ const AppShowcase = () => {
                                             <div style={{
                                                 height: 44, flexShrink: 0,
                                                 display: 'flex', alignItems: 'center', justifyContent: 'space-around',
-                                                background: 'var(--card-background)',
-                                                borderTop: '1px solid rgba(0,0,0,0.05)',
+                                                background: 'var(--panel)',
+                                                borderTop: '1px solid var(--line)',
                                                 paddingBottom: 4,
                                             }}>
                                                 {[Home, Compass, Music].map((Icon, i) => (
                                                     <div key={i} style={{
                                                         display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 2,
                                                     }}>
-                                                        <Icon size={16} color={i === 0 ? '#FF6B35' : 'var(--text-hint)'} />
+                                                        <Icon size={16} color={i === 0 ? 'var(--thread)' : 'var(--faint)'} />
                                                         <div style={{
                                                             width: i === 0 ? 4 : 0, height: 4, borderRadius: '50%',
-                                                            background: '#FF6B35', transition: 'width 0.2s',
+                                                            background: 'var(--thread)', transition: 'width 0.2s',
                                                         }} />
                                                     </div>
                                                 ))}

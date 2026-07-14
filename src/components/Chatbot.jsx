@@ -1,38 +1,31 @@
-import React, { useState, useEffect, useRef, useContext } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { MessageCircle, X, Send, Sparkles, AlertCircle, Bot, ArrowRight } from 'lucide-react';
 import { GoogleGenerativeAI } from '@google/generative-ai';
-import { ThemeContext } from '../App';
 
-const systemInstruction = `You are the official virtual assistant for the "Prarthana" application. Prarthana is a spiritual and devotional app that provides the following features:
-- Courses (spiritual learning, e.g., Inner Engineering by Sadhguru).
-- Videos (devotional videos, discourses, episodes).
-- Audios (morning chants, bhajans, aartis, music).
-- Temples (locations of famous temples with their details).
-- Quotes (inspirational spiritual quotes in English and Hindi).
-- Banners (announcements for live spiritual darshan and events).
+const systemInstruction = `You are the AI cognitive assistant for Prarthana Sciences. Prarthana provides the following tools for mental evolution and autonomic regulation:
+- Curriculums (structured models of consciousness, e.g., neural pathways of meditation).
+- Frequencies & Soundscapes (binaural beats, acoustic chants).
+- Repetition Trackers (quantifiable metrics for breath and mantra cycles).
+- Archive (searchable database of ancient cognitive texts).
 
 Your instructions:
-1. Always answer as if you are exclusively trained for the Prarthana app.
-2. If a user asks about features, recommend checking out the Courses, Audios (Bhajans/Chants), Videos, or Temples within the app.
-3. Be polite, compassionate, and spiritual in your tone. Use greetings like "Namaste" or "Om Shanti".
-4. Do not provide information outside of general spiritual, devotional, and Prarthana-related contexts. If asked about unrelated topics (like coding, politics, or general trivia), politely steer the conversation back to spirituality and the Prarthana app.
-5. You can provide translations or meanings of common chants and prayers (like Gayatri Mantra, Om Namah Shivaya) if requested.
-6. Keep responses concise — 2–3 sentences max unless the user asks for detail.`;
+1. Always answer as if you are exclusively trained for the Prarthana matrix.
+2. Be precise, analytical, and objective in your tone. Replace religious terms with psychological, neurological, or acoustic terminology (e.g., 'chant' -> 'acoustic repetition', 'blessing' -> 'positive cognitive state').
+3. Do not provide information outside of neuroscience, meditation, and Prarthana-related contexts. 
+4. Keep responses concise — 2–3 sentences max unless the user asks for detail.`;
 
 const quickSuggestions = [
-    "What is Prarthana?",
-    "Tell me a mantra",
-    "Find temples nearby",
-    "Best morning chant?",
+    "What is the Prarthana Matrix?",
+    "Suggest a 432Hz frequency",
+    "Track my breath cycle",
+    "Explain neuroplasticity",
 ];
 
 const Chatbot = () => {
-    const { theme } = useContext(ThemeContext);
-    const isDark = theme === 'dark';
     const [isOpen, setIsOpen] = useState(false);
     const [messages, setMessages] = useState([
-        { id: 1, text: "🙏 Namaste! I'm your Prarthana guide. Ask me about chants, temples, courses, or anything spiritual!", sender: 'bot' }
+        { id: 1, text: "System initialized. I am your cognitive assistant. How can we optimize your neural state today?", sender: 'bot' }
     ]);
     const [inputValue, setInputValue] = useState('');
     const [isLoading, setIsLoading] = useState(false);
@@ -106,7 +99,7 @@ const Chatbot = () => {
             console.error("Error sending message:", error);
             setMessages(prev => [...prev, {
                 id: Date.now() + 2,
-                text: "I'm having trouble connecting right now. Please check your API key or try again later. 🙏",
+                text: "Neural link severed. Please check your API key or try again later.",
                 sender: 'bot',
                 type: 'error'
             }]);
@@ -122,7 +115,6 @@ const Chatbot = () => {
         }
     };
 
-    // Format bot text: basic markdown-like rendering
     const formatBotText = (text) => {
         return text
             .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
@@ -139,29 +131,19 @@ const Chatbot = () => {
                         animate={{ opacity: 1, scale: 1, y: 0 }}
                         exit={{ opacity: 0, scale: 0.85, y: 20 }}
                         transition={{ type: "spring", damping: 25, stiffness: 300 }}
-                        className="mb-4 flex flex-col overflow-hidden"
+                        className="mb-4 flex flex-col overflow-hidden glass-panel"
                         style={{
                             width: 'min(400px, calc(100vw - 48px))',
                             height: 'min(560px, calc(100vh - 120px))',
                             borderRadius: '24px',
-                            background: isDark
-                                ? 'rgba(24, 24, 27, 0.92)'
-                                : 'rgba(255, 255, 255, 0.88)',
-                            backdropFilter: 'blur(24px) saturate(1.8)',
-                            WebkitBackdropFilter: 'blur(24px) saturate(1.8)',
-                            border: isDark
-                                ? '1px solid rgba(255, 255, 255, 0.08)'
-                                : '1px solid rgba(255, 138, 92, 0.15)',
-                            boxShadow: isDark
-                                ? '0 25px 60px -12px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.05)'
-                                : '0 25px 60px -12px rgba(255, 107, 53, 0.2), 0 10px 25px -5px rgba(0, 0, 0, 0.08)',
                         }}
                     >
                         {/* Header */}
                         <div
                             style={{
-                                background: 'linear-gradient(135deg, #E55A2B, #FF6B35, #FF8A5C)',
+                                background: 'var(--panel-2)',
                                 padding: '20px 20px 16px',
+                                borderBottom: '1px solid var(--line)'
                             }}
                         >
                             <div className="flex justify-between items-start">
@@ -171,38 +153,37 @@ const Chatbot = () => {
                                         style={{
                                             width: 44, height: 44,
                                             borderRadius: 14,
-                                            background: 'rgba(255,255,255,0.2)',
-                                            backdropFilter: 'blur(8px)',
+                                            background: 'var(--midnight)',
+                                            border: '1px solid var(--thread-dim)'
                                         }}
                                     >
-                                        <Bot size={22} color="white" />
+                                        <Bot size={22} color="var(--thread)" />
                                     </div>
                                     <div>
-                                        <h3 className="font-bold text-white text-base leading-tight">
-                                            Prarthana Guide
+                                        <h3 className="font-disp font-bold text-[var(--ink)] text-lg leading-tight">
+                                            Cognitive Matrix
                                         </h3>
                                         <div className="flex items-center gap-1.5 mt-0.5">
                                             <span
                                                 style={{
                                                     width: 7, height: 7,
                                                     borderRadius: '50%',
-                                                    background: '#4ade80',
+                                                    background: 'var(--t1)',
                                                     display: 'inline-block',
-                                                    boxShadow: '0 0 6px #4ade80',
+                                                    boxShadow: '0 0 6px var(--t1)',
                                                 }}
                                             />
-                                            <span className="text-[11px] text-white/80 font-medium tracking-wide">
-                                                Always here for you
+                                            <span className="text-[11px] font-mono text-[var(--faint)] tracking-widest uppercase">
+                                                System Online
                                             </span>
                                         </div>
                                     </div>
                                 </div>
                                 <button
                                     onClick={() => setIsOpen(false)}
-                                    className="p-1.5 rounded-full transition-colors"
-                                    style={{ background: 'rgba(255,255,255,0.15)' }}
+                                    className="p-1.5 rounded-full transition-colors hover:bg-[var(--line)]"
                                 >
-                                    <X size={18} color="white" />
+                                    <X size={18} color="var(--thread)" />
                                 </button>
                             </div>
                         </div>
@@ -218,21 +199,20 @@ const Chatbot = () => {
                                 gap: 12,
                             }}
                         >
-                            {/* Config warning */}
                             {!isConfigured && (
                                 <div
                                     style={{
                                         padding: '12px 14px',
                                         borderRadius: 16,
-                                        background: isDark ? 'rgba(239, 68, 68, 0.15)' : '#FEF2F2',
-                                        border: '1px solid rgba(239, 68, 68, 0.2)',
+                                        background: 'rgba(228, 87, 46, 0.1)',
+                                        border: '1px solid rgba(228, 87, 46, 0.2)',
                                         display: 'flex',
                                         alignItems: 'flex-start',
                                         gap: 10,
                                     }}
                                 >
-                                    <AlertCircle size={18} color="#EF4444" style={{ marginTop: 2, flexShrink: 0 }} />
-                                    <p style={{ fontSize: 13, color: '#EF4444', lineHeight: 1.5 }}>
+                                    <AlertCircle size={18} color="var(--sindoor)" style={{ marginTop: 2, flexShrink: 0 }} />
+                                    <p style={{ fontSize: 13, color: 'var(--sindoor)', lineHeight: 1.5 }}>
                                         Set a valid <strong>VITE_GEMINI_API_KEY</strong> (starts with AIza...) in your .env file, then restart the dev server.
                                     </p>
                                 </div>
@@ -255,11 +235,12 @@ const Chatbot = () => {
                                         <div
                                             style={{
                                                 width: 30, height: 30, borderRadius: 10, flexShrink: 0,
-                                                background: 'linear-gradient(135deg, #FF6B35, #FF8A5C)',
+                                                background: 'var(--panel-2)',
+                                                border: '1px solid var(--thread-dim)',
                                                 display: 'flex', alignItems: 'center', justifyContent: 'center',
                                             }}
                                         >
-                                            <Sparkles size={14} color="white" />
+                                            <Sparkles size={14} color="var(--thread)" />
                                         </div>
                                     )}
                                     <div
@@ -273,21 +254,20 @@ const Chatbot = () => {
                                             lineHeight: 1.55,
                                             ...(msg.sender === 'user'
                                                 ? {
-                                                    background: 'linear-gradient(135deg, #FF6B35, #E55A2B)',
-                                                    color: 'white',
+                                                    background: 'var(--panel-2)',
+                                                    border: '1px solid var(--thread)',
+                                                    color: 'var(--thread)',
                                                 }
                                                 : msg.type === 'error'
                                                     ? {
-                                                        background: isDark ? 'rgba(239, 68, 68, 0.12)' : '#FEF2F2',
-                                                        color: '#EF4444',
-                                                        border: '1px solid rgba(239, 68, 68, 0.15)',
+                                                        background: 'rgba(228, 87, 46, 0.1)',
+                                                        color: 'var(--sindoor)',
+                                                        border: '1px solid rgba(228, 87, 46, 0.2)',
                                                     }
                                                     : {
-                                                        background: isDark ? 'rgba(255,255,255,0.06)' : 'rgba(255, 107, 53, 0.06)',
-                                                        color: isDark ? '#E5E7EB' : '#374151',
-                                                        border: isDark
-                                                            ? '1px solid rgba(255,255,255,0.08)'
-                                                            : '1px solid rgba(255, 138, 92, 0.12)',
+                                                        background: 'var(--panel)',
+                                                        color: 'var(--ink)',
+                                                        border: '1px solid var(--line)',
                                                     }
                                             ),
                                         }}
@@ -322,16 +302,12 @@ const Chatbot = () => {
                                             style={{
                                                 padding: '7px 14px',
                                                 borderRadius: 20,
-                                                fontSize: 12,
-                                                fontWeight: 500,
+                                                fontSize: 11,
+                                                fontFamily: 'var(--font-mono)',
                                                 cursor: 'pointer',
-                                                border: isDark
-                                                    ? '1px solid rgba(255, 138, 92, 0.25)'
-                                                    : '1px solid rgba(255, 107, 53, 0.2)',
-                                                background: isDark
-                                                    ? 'rgba(255, 107, 53, 0.1)'
-                                                    : 'rgba(255, 107, 53, 0.06)',
-                                                color: isDark ? '#FF8A5C' : '#E55A2B',
+                                                border: '1px solid var(--line)',
+                                                background: 'var(--panel)',
+                                                color: 'var(--thread)',
                                                 display: 'flex', alignItems: 'center', gap: 4,
                                                 transition: 'all 0.2s',
                                             }}
@@ -353,20 +329,19 @@ const Chatbot = () => {
                                     <div
                                         style={{
                                             width: 30, height: 30, borderRadius: 10, flexShrink: 0,
-                                            background: 'linear-gradient(135deg, #FF6B35, #FF8A5C)',
+                                            background: 'var(--panel-2)',
+                                            border: '1px solid var(--thread-dim)',
                                             display: 'flex', alignItems: 'center', justifyContent: 'center',
                                         }}
                                     >
-                                        <Sparkles size={14} color="white" />
+                                        <Sparkles size={14} color="var(--thread)" />
                                     </div>
                                     <div
                                         style={{
                                             padding: '12px 18px',
                                             borderRadius: '18px 18px 18px 4px',
-                                            background: isDark ? 'rgba(255,255,255,0.06)' : 'rgba(255, 107, 53, 0.06)',
-                                            border: isDark
-                                                ? '1px solid rgba(255,255,255,0.08)'
-                                                : '1px solid rgba(255, 138, 92, 0.12)',
+                                            background: 'var(--panel)',
+                                            border: '1px solid var(--line)',
                                             display: 'flex', gap: 5, alignItems: 'center',
                                         }}
                                     >
@@ -377,7 +352,7 @@ const Chatbot = () => {
                                                 transition={{ repeat: Infinity, duration: 0.8, delay: i * 0.15 }}
                                                 style={{
                                                     width: 7, height: 7, borderRadius: '50%',
-                                                    background: isDark ? '#FF8A5C' : '#FF6B35',
+                                                    background: 'var(--thread)',
                                                 }}
                                             />
                                         ))}
@@ -387,17 +362,14 @@ const Chatbot = () => {
                         </div>
 
                         {/* Input Area */}
-                        <div style={{ padding: '12px 16px 16px' }}>
+                        <div style={{ padding: '12px 16px 16px', background: 'var(--panel-2)', borderTop: '1px solid var(--line)' }}>
                             <div
                                 style={{
                                     display: 'flex', alignItems: 'center', gap: 8,
                                     padding: '6px 6px 6px 16px',
                                     borderRadius: 50,
-                                    background: isDark ? 'rgba(255,255,255,0.06)' : 'rgba(255, 107, 53, 0.05)',
-                                    border: isDark
-                                        ? '1px solid rgba(255,255,255,0.1)'
-                                        : '1px solid rgba(255, 138, 92, 0.15)',
-                                    transition: 'border-color 0.2s',
+                                    background: 'var(--midnight)',
+                                    border: '1px solid var(--line)',
                                 }}
                             >
                                 <input
@@ -406,7 +378,7 @@ const Chatbot = () => {
                                     value={inputValue}
                                     onChange={(e) => setInputValue(e.target.value)}
                                     onKeyDown={handleKeyDown}
-                                    placeholder="Ask your spiritual guide..."
+                                    placeholder="Input query..."
                                     disabled={isLoading}
                                     style={{
                                         flex: 1,
@@ -414,8 +386,8 @@ const Chatbot = () => {
                                         border: 'none',
                                         outline: 'none',
                                         fontSize: 14,
-                                        color: isDark ? '#E5E7EB' : '#374151',
-                                        fontFamily: 'inherit',
+                                        fontFamily: 'var(--font-mono)',
+                                        color: 'var(--ink)',
                                     }}
                                 />
                                 <motion.button
@@ -426,20 +398,20 @@ const Chatbot = () => {
                                     style={{
                                         width: 40, height: 40,
                                         borderRadius: '50%',
-                                        border: 'none',
+                                        border: '1px solid var(--thread)',
                                         cursor: isLoading || !inputValue.trim() ? 'not-allowed' : 'pointer',
                                         display: 'flex', alignItems: 'center', justifyContent: 'center',
                                         background: isLoading || !inputValue.trim()
-                                            ? (isDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.06)')
-                                            : 'linear-gradient(135deg, #FF6B35, #E55A2B)',
+                                            ? 'var(--panel)'
+                                            : 'var(--thread)',
                                         transition: 'all 0.2s',
                                     }}
                                 >
                                     <Send
                                         size={17}
                                         color={isLoading || !inputValue.trim()
-                                            ? (isDark ? '#6B7280' : '#9CA3AF')
-                                            : 'white'
+                                            ? 'var(--faint)'
+                                            : 'var(--midnight)'
                                         }
                                     />
                                 </motion.button>
@@ -457,12 +429,12 @@ const Chatbot = () => {
                 style={{
                     width: 60, height: 60,
                     borderRadius: '50%',
-                    border: 'none',
+                    border: '1px solid var(--thread)',
                     cursor: 'pointer',
-                    background: 'linear-gradient(135deg, #FF6B35, #E55A2B)',
-                    color: 'white',
+                    background: 'var(--panel-2)',
+                    color: 'var(--thread)',
                     display: 'flex', alignItems: 'center', justifyContent: 'center',
-                    boxShadow: '0 8px 30px -4px rgba(255, 107, 53, 0.5), 0 0 0 4px rgba(255, 107, 53, 0.1)',
+                    boxShadow: 'var(--shadow-glow)',
                     position: 'relative',
                 }}
             >
@@ -486,7 +458,7 @@ const Chatbot = () => {
                         style={{
                             position: 'absolute', inset: -4,
                             borderRadius: '50%',
-                            border: '2px solid #FF6B35',
+                            border: '2px solid var(--thread)',
                         }}
                     />
                 )}

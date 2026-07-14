@@ -1,7 +1,8 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useContext } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { MessageCircle, X, Send, Sparkles, AlertCircle } from 'lucide-react';
+import { MessageCircle, X, Send, Sparkles, AlertCircle, Bot, ArrowRight } from 'lucide-react';
 import { GoogleGenerativeAI } from '@google/generative-ai';
+import { ThemeContext } from '../App';
 
 const systemInstruction = `You are the official virtual assistant for the "Prarthana" application. Prarthana is a spiritual and devotional app that provides the following features:
 - Courses (spiritual learning, e.g., Inner Engineering by Sadhguru).
@@ -16,19 +17,31 @@ Your instructions:
 2. If a user asks about features, recommend checking out the Courses, Audios (Bhajans/Chants), Videos, or Temples within the app.
 3. Be polite, compassionate, and spiritual in your tone. Use greetings like "Namaste" or "Om Shanti".
 4. Do not provide information outside of general spiritual, devotional, and Prarthana-related contexts. If asked about unrelated topics (like coding, politics, or general trivia), politely steer the conversation back to spirituality and the Prarthana app.
-5. You can provide translations or meanings of common chants and prayers (like Gayatri Mantra, Om Namah Shivaya) if requested.`;
+5. You can provide translations or meanings of common chants and prayers (like Gayatri Mantra, Om Namah Shivaya) if requested.
+6. Keep responses concise — 2–3 sentences max unless the user asks for detail.`;
+
+const quickSuggestions = [
+    "What is Prarthana?",
+    "Tell me a mantra",
+    "Find temples nearby",
+    "Best morning chant?",
+];
 
 const Chatbot = () => {
+    const { theme } = useContext(ThemeContext);
+    const isDark = theme === 'dark';
     const [isOpen, setIsOpen] = useState(false);
     const [messages, setMessages] = useState([
-        { id: 1, text: "Namaste! I am your Prarthana virtual assistant. How can I guide you on your spiritual journey today?", sender: 'bot' }
+        { id: 1, text: "🙏 Namaste! I'm your Prarthana guide. Ask me about chants, temples, courses, or anything spiritual!", sender: 'bot' }
     ]);
     const [inputValue, setInputValue] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const [chatSession, setChatSession] = useState(null);
     const [isConfigured, setIsConfigured] = useState(true);
+    const [showSuggestions, setShowSuggestions] = useState(true);
 
     const scrollRef = useRef(null);
+    const inputRef = useRef(null);
 
     useEffect(() => {
         if (scrollRef.current) {
@@ -37,8 +50,14 @@ const Chatbot = () => {
     }, [messages, isLoading]);
 
     useEffect(() => {
+        if (isOpen && inputRef.current) {
+            setTimeout(() => inputRef.current?.focus(), 300);
+        }
+    }, [isOpen]);
+
+    useEffect(() => {
         const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
-        if (!apiKey) {
+        if (!apiKey || !apiKey.startsWith('AIza')) {
             setIsConfigured(false);
             return;
         }
@@ -46,7 +65,7 @@ const Chatbot = () => {
         try {
             const genAI = new GoogleGenerativeAI(apiKey);
             const model = genAI.getGenerativeModel({
-                model: 'gemini-1.5-flash',
+                model: 'gemini-2.0-flash',
                 systemInstruction: systemInstruction,
             });
             const session = model.startChat();
@@ -58,19 +77,20 @@ const Chatbot = () => {
         }
     }, []);
 
-    const handleSend = async () => {
-        if (!inputValue.trim() || isLoading) return;
+    const handleSend = async (text) => {
+        const userText = (text || inputValue).trim();
+        if (!userText || isLoading) return;
 
-        const userText = inputValue.trim();
         const userMessage = { id: Date.now(), text: userText, sender: 'user' };
         setMessages(prev => [...prev, userMessage]);
         setInputValue('');
         setIsLoading(true);
+        setShowSuggestions(false);
 
         if (!isConfigured || !chatSession) {
             setMessages(prev => [...prev, {
                 id: Date.now() + 1,
-                text: "API Key is missing or invalid. Please check your .env file.",
+                text: "The Gemini API key is missing or invalid. Please add a valid key (starting with AIza...) to your .env file as VITE_GEMINI_API_KEY.",
                 sender: 'bot',
                 type: 'error'
             }]);
@@ -86,7 +106,7 @@ const Chatbot = () => {
             console.error("Error sending message:", error);
             setMessages(prev => [...prev, {
                 id: Date.now() + 2,
-                text: "Sorry, I encountered an error connecting to the spiritual realm. Please try again later.",
+                text: "I'm having trouble connecting right now. Please check your API key or try again later. 🙏",
                 sender: 'bot',
                 type: 'error'
             }]);
@@ -95,103 +115,334 @@ const Chatbot = () => {
         }
     };
 
+    const handleKeyDown = (e) => {
+        if (e.key === 'Enter' && !e.shiftKey) {
+            e.preventDefault();
+            handleSend();
+        }
+    };
+
+    // Format bot text: basic markdown-like rendering
+    const formatBotText = (text) => {
+        return text
+            .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+            .replace(/\*(.*?)\*/g, '<em>$1</em>')
+            .replace(/^- /gm, '• ');
+    };
+
     return (
         <div className="fixed bottom-6 right-6 z-[100]">
             <AnimatePresence>
                 {isOpen && (
                     <motion.div
-                        initial={{ opacity: 0, scale: 0.8, y: 20 }}
+                        initial={{ opacity: 0, scale: 0.85, y: 20 }}
                         animate={{ opacity: 1, scale: 1, y: 0 }}
-                        exit={{ opacity: 0, scale: 0.8, y: 20 }}
-                        className="mb-4 w-[350px] sm:w-[400px] h-[500px] bg-white rounded-3xl shadow-2xl border border-orange-100 flex flex-col overflow-hidden"
+                        exit={{ opacity: 0, scale: 0.85, y: 20 }}
+                        transition={{ type: "spring", damping: 25, stiffness: 300 }}
+                        className="mb-4 flex flex-col overflow-hidden"
+                        style={{
+                            width: 'min(400px, calc(100vw - 48px))',
+                            height: 'min(560px, calc(100vh - 120px))',
+                            borderRadius: '24px',
+                            background: isDark
+                                ? 'rgba(24, 24, 27, 0.92)'
+                                : 'rgba(255, 255, 255, 0.88)',
+                            backdropFilter: 'blur(24px) saturate(1.8)',
+                            WebkitBackdropFilter: 'blur(24px) saturate(1.8)',
+                            border: isDark
+                                ? '1px solid rgba(255, 255, 255, 0.08)'
+                                : '1px solid rgba(255, 138, 92, 0.15)',
+                            boxShadow: isDark
+                                ? '0 25px 60px -12px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.05)'
+                                : '0 25px 60px -12px rgba(255, 107, 53, 0.2), 0 10px 25px -5px rgba(0, 0, 0, 0.08)',
+                        }}
                     >
                         {/* Header */}
-                        <div className="bg-gradient-to-r from-orange-500 to-orange-600 p-4 text-white flex justify-between items-center">
-                            <div className="flex items-center gap-3">
-                                <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
-                                    <Sparkles size={20} />
+                        <div
+                            style={{
+                                background: 'linear-gradient(135deg, #E55A2B, #FF6B35, #FF8A5C)',
+                                padding: '20px 20px 16px',
+                            }}
+                        >
+                            <div className="flex justify-between items-start">
+                                <div className="flex items-center gap-3">
+                                    <div
+                                        className="flex items-center justify-center"
+                                        style={{
+                                            width: 44, height: 44,
+                                            borderRadius: 14,
+                                            background: 'rgba(255,255,255,0.2)',
+                                            backdropFilter: 'blur(8px)',
+                                        }}
+                                    >
+                                        <Bot size={22} color="white" />
+                                    </div>
+                                    <div>
+                                        <h3 className="font-bold text-white text-base leading-tight">
+                                            Prarthana Guide
+                                        </h3>
+                                        <div className="flex items-center gap-1.5 mt-0.5">
+                                            <span
+                                                style={{
+                                                    width: 7, height: 7,
+                                                    borderRadius: '50%',
+                                                    background: '#4ade80',
+                                                    display: 'inline-block',
+                                                    boxShadow: '0 0 6px #4ade80',
+                                                }}
+                                            />
+                                            <span className="text-[11px] text-white/80 font-medium tracking-wide">
+                                                Always here for you
+                                            </span>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div>
-                                    <h3 className="font-bold">Prarthana Guide</h3>
-                                    <div className="text-[10px] opacity-80 uppercase tracking-widest font-bold">Online Now</div>
-                                </div>
+                                <button
+                                    onClick={() => setIsOpen(false)}
+                                    className="p-1.5 rounded-full transition-colors"
+                                    style={{ background: 'rgba(255,255,255,0.15)' }}
+                                >
+                                    <X size={18} color="white" />
+                                </button>
                             </div>
-                            <button onClick={() => setIsOpen(false)} className="hover:bg-white/10 p-2 rounded-full transition-colors">
-                                <X size={20} />
-                            </button>
                         </div>
 
                         {/* Messages Area */}
-                        <div ref={scrollRef} className="flex-1 overflow-y-auto p-5 space-y-5 bg-orange-50/30">
+                        <div
+                            ref={scrollRef}
+                            className="flex-1 overflow-y-auto"
+                            style={{
+                                padding: '16px 16px 8px',
+                                display: 'flex',
+                                flexDirection: 'column',
+                                gap: 12,
+                            }}
+                        >
+                            {/* Config warning */}
                             {!isConfigured && (
-                                <div className="p-4 bg-red-50 text-red-600 rounded-2xl border border-red-100 flex items-start gap-3">
-                                    <AlertCircle size={20} className="shrink-0 mt-0.5" />
-                                    <p className="text-sm">Please set VITE_GEMINI_API_KEY in your .env file and restart the server.</p>
+                                <div
+                                    style={{
+                                        padding: '12px 14px',
+                                        borderRadius: 16,
+                                        background: isDark ? 'rgba(239, 68, 68, 0.15)' : '#FEF2F2',
+                                        border: '1px solid rgba(239, 68, 68, 0.2)',
+                                        display: 'flex',
+                                        alignItems: 'flex-start',
+                                        gap: 10,
+                                    }}
+                                >
+                                    <AlertCircle size={18} color="#EF4444" style={{ marginTop: 2, flexShrink: 0 }} />
+                                    <p style={{ fontSize: 13, color: '#EF4444', lineHeight: 1.5 }}>
+                                        Set a valid <strong>VITE_GEMINI_API_KEY</strong> (starts with AIza...) in your .env file, then restart the dev server.
+                                    </p>
                                 </div>
                             )}
-                            
+
                             {messages.map((msg) => (
                                 <motion.div
                                     key={msg.id}
-                                    initial={{ opacity: 0, x: msg.sender === 'user' ? 20 : -20 }}
-                                    animate={{ opacity: 1, x: 0 }}
-                                    className={`flex ${msg.sender === 'user' ? 'justify-end' : 'justify-start items-start'}`}
+                                    initial={{ opacity: 0, y: 8 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ duration: 0.25 }}
+                                    style={{
+                                        display: 'flex',
+                                        justifyContent: msg.sender === 'user' ? 'flex-end' : 'flex-start',
+                                        alignItems: 'flex-end',
+                                        gap: 8,
+                                    }}
                                 >
                                     {msg.sender === 'bot' && (
-                                        <div className="w-8 h-8 rounded-full bg-orange-100 flex items-center justify-center mr-3 mt-1 shrink-0 border border-orange-200">
-                                            <Sparkles size={14} className="text-orange-600" />
+                                        <div
+                                            style={{
+                                                width: 30, height: 30, borderRadius: 10, flexShrink: 0,
+                                                background: 'linear-gradient(135deg, #FF6B35, #FF8A5C)',
+                                                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                                            }}
+                                        >
+                                            <Sparkles size={14} color="white" />
                                         </div>
                                     )}
-                                    <div className={`max-w-[80%] p-4 rounded-2xl text-sm leading-relaxed ${msg.sender === 'user'
-                                            ? 'bg-orange-500 text-white rounded-tr-none'
-                                            : msg.type === 'error'
-                                                ? 'bg-red-50 text-red-600 border border-red-100 rounded-tl-none flex items-start gap-2'
-                                                : 'bg-white text-gray-800 shadow-sm border border-orange-100 rounded-tl-none'
-                                        }`}>
-                                        {msg.type === 'error' && <AlertCircle size={16} className="shrink-0 mt-0.5" />}
-                                        <div className="flex-1 whitespace-pre-wrap">
-                                            {msg.text}
-                                        </div>
+                                    <div
+                                        style={{
+                                            maxWidth: '78%',
+                                            padding: '10px 14px',
+                                            borderRadius: msg.sender === 'user'
+                                                ? '18px 18px 4px 18px'
+                                                : '18px 18px 18px 4px',
+                                            fontSize: 13.5,
+                                            lineHeight: 1.55,
+                                            ...(msg.sender === 'user'
+                                                ? {
+                                                    background: 'linear-gradient(135deg, #FF6B35, #E55A2B)',
+                                                    color: 'white',
+                                                }
+                                                : msg.type === 'error'
+                                                    ? {
+                                                        background: isDark ? 'rgba(239, 68, 68, 0.12)' : '#FEF2F2',
+                                                        color: '#EF4444',
+                                                        border: '1px solid rgba(239, 68, 68, 0.15)',
+                                                    }
+                                                    : {
+                                                        background: isDark ? 'rgba(255,255,255,0.06)' : 'rgba(255, 107, 53, 0.06)',
+                                                        color: isDark ? '#E5E7EB' : '#374151',
+                                                        border: isDark
+                                                            ? '1px solid rgba(255,255,255,0.08)'
+                                                            : '1px solid rgba(255, 138, 92, 0.12)',
+                                                    }
+                                            ),
+                                        }}
+                                    >
+                                        {msg.type === 'error' && (
+                                            <AlertCircle size={14} style={{ display: 'inline', marginRight: 6, verticalAlign: 'middle' }} />
+                                        )}
+                                        <span
+                                            dangerouslySetInnerHTML={{ __html: msg.sender === 'bot' ? formatBotText(msg.text) : msg.text }}
+                                        />
                                     </div>
                                 </motion.div>
                             ))}
+
+                            {/* Quick Suggestions */}
+                            {showSuggestions && messages.length <= 1 && (
+                                <motion.div
+                                    initial={{ opacity: 0, y: 10 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ delay: 0.3 }}
+                                    style={{
+                                        display: 'flex', flexWrap: 'wrap', gap: 8,
+                                        paddingTop: 4, paddingLeft: 38,
+                                    }}
+                                >
+                                    {quickSuggestions.map((suggestion, i) => (
+                                        <motion.button
+                                            key={i}
+                                            whileHover={{ scale: 1.04 }}
+                                            whileTap={{ scale: 0.96 }}
+                                            onClick={() => handleSend(suggestion)}
+                                            style={{
+                                                padding: '7px 14px',
+                                                borderRadius: 20,
+                                                fontSize: 12,
+                                                fontWeight: 500,
+                                                cursor: 'pointer',
+                                                border: isDark
+                                                    ? '1px solid rgba(255, 138, 92, 0.25)'
+                                                    : '1px solid rgba(255, 107, 53, 0.2)',
+                                                background: isDark
+                                                    ? 'rgba(255, 107, 53, 0.1)'
+                                                    : 'rgba(255, 107, 53, 0.06)',
+                                                color: isDark ? '#FF8A5C' : '#E55A2B',
+                                                display: 'flex', alignItems: 'center', gap: 4,
+                                                transition: 'all 0.2s',
+                                            }}
+                                        >
+                                            {suggestion}
+                                            <ArrowRight size={12} />
+                                        </motion.button>
+                                    ))}
+                                </motion.div>
+                            )}
+
+                            {/* Typing indicator */}
                             {isLoading && (
                                 <motion.div
                                     initial={{ opacity: 0 }}
                                     animate={{ opacity: 1 }}
-                                    className="flex justify-start items-start"
+                                    style={{ display: 'flex', alignItems: 'flex-end', gap: 8 }}
                                 >
-                                    <div className="w-8 h-8 rounded-full bg-orange-100 flex items-center justify-center mr-3 mt-1 shrink-0 border border-orange-200">
-                                        <Sparkles size={14} className="text-orange-600" />
+                                    <div
+                                        style={{
+                                            width: 30, height: 30, borderRadius: 10, flexShrink: 0,
+                                            background: 'linear-gradient(135deg, #FF6B35, #FF8A5C)',
+                                            display: 'flex', alignItems: 'center', justifyContent: 'center',
+                                        }}
+                                    >
+                                        <Sparkles size={14} color="white" />
                                     </div>
-                                    <div className="bg-white text-gray-800 shadow-sm border border-orange-100 rounded-2xl rounded-tl-none p-4 flex gap-1">
-                                        <motion.div animate={{ y: [0, -5, 0] }} transition={{ repeat: Infinity, duration: 0.6 }} className="w-2 h-2 bg-gray-400 rounded-full" />
-                                        <motion.div animate={{ y: [0, -5, 0] }} transition={{ repeat: Infinity, duration: 0.6, delay: 0.2 }} className="w-2 h-2 bg-gray-400 rounded-full" />
-                                        <motion.div animate={{ y: [0, -5, 0] }} transition={{ repeat: Infinity, duration: 0.6, delay: 0.4 }} className="w-2 h-2 bg-gray-400 rounded-full" />
+                                    <div
+                                        style={{
+                                            padding: '12px 18px',
+                                            borderRadius: '18px 18px 18px 4px',
+                                            background: isDark ? 'rgba(255,255,255,0.06)' : 'rgba(255, 107, 53, 0.06)',
+                                            border: isDark
+                                                ? '1px solid rgba(255,255,255,0.08)'
+                                                : '1px solid rgba(255, 138, 92, 0.12)',
+                                            display: 'flex', gap: 5, alignItems: 'center',
+                                        }}
+                                    >
+                                        {[0, 1, 2].map(i => (
+                                            <motion.div
+                                                key={i}
+                                                animate={{ y: [0, -4, 0], opacity: [0.4, 1, 0.4] }}
+                                                transition={{ repeat: Infinity, duration: 0.8, delay: i * 0.15 }}
+                                                style={{
+                                                    width: 7, height: 7, borderRadius: '50%',
+                                                    background: isDark ? '#FF8A5C' : '#FF6B35',
+                                                }}
+                                            />
+                                        ))}
                                     </div>
                                 </motion.div>
                             )}
                         </div>
 
                         {/* Input Area */}
-                        <div className="p-4 bg-white border-t border-orange-100">
-                            <div className="flex gap-2 bg-orange-50 rounded-2xl p-2 border border-orange-100">
+                        <div style={{ padding: '12px 16px 16px' }}>
+                            <div
+                                style={{
+                                    display: 'flex', alignItems: 'center', gap: 8,
+                                    padding: '6px 6px 6px 16px',
+                                    borderRadius: 50,
+                                    background: isDark ? 'rgba(255,255,255,0.06)' : 'rgba(255, 107, 53, 0.05)',
+                                    border: isDark
+                                        ? '1px solid rgba(255,255,255,0.1)'
+                                        : '1px solid rgba(255, 138, 92, 0.15)',
+                                    transition: 'border-color 0.2s',
+                                }}
+                            >
                                 <input
+                                    ref={inputRef}
                                     type="text"
                                     value={inputValue}
                                     onChange={(e) => setInputValue(e.target.value)}
-                                    onKeyPress={(e) => e.key === 'Enter' && handleSend()}
+                                    onKeyDown={handleKeyDown}
                                     placeholder="Ask your spiritual guide..."
-                                    disabled={!isConfigured || isLoading}
-                                    className="flex-1 bg-transparent border-none outline-none px-3 text-sm text-gray-700 placeholder:text-gray-400 disabled:cursor-not-allowed"
+                                    disabled={isLoading}
+                                    style={{
+                                        flex: 1,
+                                        background: 'transparent',
+                                        border: 'none',
+                                        outline: 'none',
+                                        fontSize: 14,
+                                        color: isDark ? '#E5E7EB' : '#374151',
+                                        fontFamily: 'inherit',
+                                    }}
                                 />
-                                <button
-                                    onClick={handleSend}
-                                    disabled={!isConfigured || isLoading || !inputValue.trim()}
-                                    className="bg-orange-500 text-white p-2 rounded-xl hover:bg-orange-600 transition-colors disabled:opacity-50"
+                                <motion.button
+                                    whileHover={{ scale: 1.08 }}
+                                    whileTap={{ scale: 0.92 }}
+                                    onClick={() => handleSend()}
+                                    disabled={isLoading || !inputValue.trim()}
+                                    style={{
+                                        width: 40, height: 40,
+                                        borderRadius: '50%',
+                                        border: 'none',
+                                        cursor: isLoading || !inputValue.trim() ? 'not-allowed' : 'pointer',
+                                        display: 'flex', alignItems: 'center', justifyContent: 'center',
+                                        background: isLoading || !inputValue.trim()
+                                            ? (isDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.06)')
+                                            : 'linear-gradient(135deg, #FF6B35, #E55A2B)',
+                                        transition: 'all 0.2s',
+                                    }}
                                 >
-                                    <Send size={18} />
-                                </button>
+                                    <Send
+                                        size={17}
+                                        color={isLoading || !inputValue.trim()
+                                            ? (isDark ? '#6B7280' : '#9CA3AF')
+                                            : 'white'
+                                        }
+                                    />
+                                </motion.button>
                             </div>
                         </div>
                     </motion.div>
@@ -203,14 +454,40 @@ const Chatbot = () => {
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
                 onClick={() => setIsOpen(!isOpen)}
-                className="w-16 h-16 bg-gradient-to-br from-orange-500 to-orange-600 text-white rounded-full shadow-2xl flex items-center justify-center border-4 border-white group relative"
+                style={{
+                    width: 60, height: 60,
+                    borderRadius: '50%',
+                    border: 'none',
+                    cursor: 'pointer',
+                    background: 'linear-gradient(135deg, #FF6B35, #E55A2B)',
+                    color: 'white',
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    boxShadow: '0 8px 30px -4px rgba(255, 107, 53, 0.5), 0 0 0 4px rgba(255, 107, 53, 0.1)',
+                    position: 'relative',
+                }}
             >
-                {isOpen ? <X size={28} /> : <MessageCircle size={28} />}
+                <AnimatePresence mode="wait">
+                    <motion.div
+                        key={isOpen ? 'close' : 'open'}
+                        initial={{ rotate: -90, opacity: 0 }}
+                        animate={{ rotate: 0, opacity: 1 }}
+                        exit={{ rotate: 90, opacity: 0 }}
+                        transition={{ duration: 0.2 }}
+                    >
+                        {isOpen ? <X size={26} /> : <MessageCircle size={26} />}
+                    </motion.div>
+                </AnimatePresence>
+
+                {/* Pulse ring */}
                 {!isOpen && (
                     <motion.div
-                        animate={{ scale: [1, 1.2, 1], opacity: [0.5, 0.8, 0.5] }}
+                        animate={{ scale: [1, 1.5, 1.5], opacity: [0.5, 0, 0] }}
                         transition={{ duration: 2, repeat: Infinity }}
-                        className="absolute inset-0 bg-orange-400 rounded-full -z-10"
+                        style={{
+                            position: 'absolute', inset: -4,
+                            borderRadius: '50%',
+                            border: '2px solid #FF6B35',
+                        }}
                     />
                 )}
             </motion.button>

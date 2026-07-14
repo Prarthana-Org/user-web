@@ -3,9 +3,9 @@
    ============================================ */
 
 .features-section {
-  background: rgba(255, 255, 255, 0.5);
+  background: var(--surface-color);
   backdrop-filter: blur(4px);
-  padding: 1rem 0;
+  padding: 4rem 0;
 }
 
 /* Centered content wrapper - single source of truth for max-width and horizontal centering */
@@ -58,7 +58,7 @@
 .features-title {
   font-size: 1.875rem;
   font-weight: 700;
-  color: #111827;
+  color: var(--text-primary);
   letter-spacing: -0.025em;
   line-height: 1.2;
   margin-bottom: 1.5rem;
@@ -85,7 +85,7 @@
 
 .features-subtitle {
   font-size: 1.125rem;
-  color: #4b5563;
+  color: var(--text-secondary);
   line-height: 1.6;
   font-weight: 300;
 }
@@ -162,7 +162,7 @@
 .feature-card-icon-wrapper {
   width: 3.5rem;
   height: 3.5rem;
-  background: white;
+  background: var(--card-background);
   border-radius: 0.75rem;
   box-shadow: 0 1px 3px rgb(0 0 0 / 0.1);
   display: flex;
@@ -174,61 +174,36 @@
 .feature-card-title {
   font-size: 1.25rem;
   font-weight: 700;
-  color: #1f2937;
+  color: var(--text-primary);
   margin-bottom: 1.25rem;
 }
 
 .feature-card-desc {
-  color: #4b5563;
+  color: var(--text-secondary);
   line-height: 1.6;
   font-size: 1rem;
 }
 
 /* Color variants for feature cards */
-.feature-card--pink {
-  background: #fdf2f8;
-  border-color: #fbcfe8;
-}
+.feature-card--pink { background: #fdf2f8; border-color: #fbcfe8; }
+.feature-card--cyan { background: #ecfeff; border-color: #a5f3fc; }
+.feature-card--blue { background: #eff6ff; border-color: #bfdbfe; }
+.feature-card--emerald { background: #ecfdf5; border-color: #a7f3d0; }
+.feature-card--orange { background: #fff7ed; border-color: #fed7aa; }
+.feature-card--teal { background: #f0fdfa; border-color: #99f6e4; }
+.feature-card--violet { background: #f5f3ff; border-color: #ddd6fe; }
+.feature-card--indigo { background: #eef2ff; border-color: #c7d2fe; }
+.feature-card--rose { background: #fff1f2; border-color: #fecdd3; }
 
-.feature-card--cyan {
-  background: #ecfeff;
-  border-color: #a5f3fc;
-}
-
-.feature-card--blue {
-  background: #eff6ff;
-  border-color: #bfdbfe;
-}
-
-.feature-card--emerald {
-  background: #ecfdf5;
-  border-color: #a7f3d0;
-}
-
-.feature-card--orange {
-  background: #fff7ed;
-  border-color: #fed7aa;
-}
-
-.feature-card--teal {
-  background: #f0fdfa;
-  border-color: #99f6e4;
-}
-
-.feature-card--violet {
-  background: #f5f3ff;
-  border-color: #ddd6fe;
-}
-
-.feature-card--indigo {
-  background: #eef2ff;
-  border-color: #c7d2fe;
-}
-
-.feature-card--rose {
-  background: #fff1f2;
-  border-color: #fecdd3;
-}
+[data-theme="dark"] .feature-card--pink { background: rgba(219, 39, 119, 0.1); border-color: rgba(219, 39, 119, 0.2); }
+[data-theme="dark"] .feature-card--cyan { background: rgba(8, 145, 178, 0.1); border-color: rgba(8, 145, 178, 0.2); }
+[data-theme="dark"] .feature-card--blue { background: rgba(37, 99, 235, 0.1); border-color: rgba(37, 99, 235, 0.2); }
+[data-theme="dark"] .feature-card--emerald { background: rgba(5, 150, 105, 0.1); border-color: rgba(5, 150, 105, 0.2); }
+[data-theme="dark"] .feature-card--orange { background: rgba(234, 88, 12, 0.1); border-color: rgba(234, 88, 12, 0.2); }
+[data-theme="dark"] .feature-card--teal { background: rgba(13, 148, 136, 0.1); border-color: rgba(13, 148, 136, 0.2); }
+[data-theme="dark"] .feature-card--violet { background: rgba(124, 58, 237, 0.1); border-color: rgba(124, 58, 237, 0.2); }
+[data-theme="dark"] .feature-card--indigo { background: rgba(79, 70, 229, 0.1); border-color: rgba(79, 70, 229, 0.2); }
+[data-theme="dark"] .feature-card--rose { background: rgba(225, 29, 72, 0.1); border-color: rgba(225, 29, 72, 0.2); }
 
 /* Spacer between grid and Pro banner - prevents margin collapse */
 .features-spacer {

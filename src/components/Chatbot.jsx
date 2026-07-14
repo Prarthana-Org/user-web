@@ -1,26 +1,32 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { MessageCircle, X, Send, Sparkles, Download, AlertCircle } from 'lucide-react';
+import { MessageCircle, X, Send, Sparkles, AlertCircle } from 'lucide-react';
+import { GoogleGenerativeAI } from '@google/generative-ai';
 
-const WELLBEING_RESPONSES = {
-    peace: "Close your eyes and focus on your breath. Peace is not in the absence of noise, but in the stillness within. Try a 5-minute guided meditation on the Prarthana app.",
-    stress: "Stress is like a cloud, but you are the sky. Clouds come and go, but the sky remains vast. Chanting 'Om' or listening to soothing bhajans can help calm your mind.",
-    anxiety: "Take a deep breath. Focus on the present moment. Reciting the 'Gayatri Mantra' 11 times can help ground your energy and provide clarity.",
-    focus: "Concentration is a muscle. Practice Trataka (candle gazing) or listen to rhythmic Vedic chants to improve your mental sharpness.",
-    sleep: "Rest is sacred. Prior to sleeping, listen to the 'Nidra Yoga' session or peaceful flute music available in our library.",
-    default: "I am here to guide you on your spiritual journey. Try asking about peace, meditation, or daily darshans."
-};
+const systemInstruction = `You are the official virtual assistant for the "Prarthana" application. Prarthana is a spiritual and devotional app that provides the following features:
+- Courses (spiritual learning, e.g., Inner Engineering by Sadhguru).
+- Videos (devotional videos, discourses, episodes).
+- Audios (morning chants, bhajans, aartis, music).
+- Temples (locations of famous temples with their details).
+- Quotes (inspirational spiritual quotes in English and Hindi).
+- Banners (announcements for live spiritual darshan and events).
 
-const INAPPROPRIATE_KEYWORDS = ['violence', 'hate', 'badword1', 'badword2']; // Example placeholders
+Your instructions:
+1. Always answer as if you are exclusively trained for the Prarthana app.
+2. If a user asks about features, recommend checking out the Courses, Audios (Bhajans/Chants), Videos, or Temples within the app.
+3. Be polite, compassionate, and spiritual in your tone. Use greetings like "Namaste" or "Om Shanti".
+4. Do not provide information outside of general spiritual, devotional, and Prarthana-related contexts. If asked about unrelated topics (like coding, politics, or general trivia), politely steer the conversation back to spirituality and the Prarthana app.
+5. You can provide translations or meanings of common chants and prayers (like Gayatri Mantra, Om Namah Shivaya) if requested.`;
 
 const Chatbot = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [messages, setMessages] = useState([
-        { id: 1, text: "Namaste! I am your Prarthana Guide. How can I help your wellbeing today?", sender: 'bot' }
+        { id: 1, text: "Namaste! I am your Prarthana virtual assistant. How can I guide you on your spiritual journey today?", sender: 'bot' }
     ]);
     const [inputValue, setInputValue] = useState('');
-    const [queryCount, setQueryCount] = useState(0);
-    const [isBlocked, setIsBlocked] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
+    const [chatSession, setChatSession] = useState(null);
+    const [isConfigured, setIsConfigured] = useState(true);
 
     const scrollRef = useRef(null);
 
@@ -28,53 +34,65 @@ const Chatbot = () => {
         if (scrollRef.current) {
             scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
         }
-    }, [messages]);
+    }, [messages, isLoading]);
 
-    const handleSend = () => {
-        if (!inputValue.trim() || isBlocked) return;
-
-        const userMessage = { id: Date.now(), text: inputValue, sender: 'user' };
-        setMessages(prev => [...prev, userMessage]);
-        setInputValue('');
-
-        // 1. Content Filtering
-        const isInappropriate = INAPPROPRIATE_KEYWORDS.some(word => inputValue.toLowerCase().includes(word));
-        if (isInappropriate) {
-            setTimeout(() => {
-                setMessages(prev => [...prev, {
-                    id: Date.now() + 1,
-                    text: "I am here to support your spiritual growth. Please keep our conversation focused on wellbeing and peace.",
-                    sender: 'bot',
-                    type: 'error'
-                }]);
-            }, 600);
+    useEffect(() => {
+        const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
+        if (!apiKey) {
+            setIsConfigured(false);
             return;
         }
 
-        // 2. Query Limiting & Response Logic
-        setTimeout(() => {
-            const currentCount = queryCount + 1;
-            setQueryCount(currentCount);
+        try {
+            const genAI = new GoogleGenerativeAI(apiKey);
+            const model = genAI.getGenerativeModel({
+                model: 'gemini-1.5-flash',
+                systemInstruction: systemInstruction,
+            });
+            const session = model.startChat();
+            setChatSession(session);
+            setIsConfigured(true);
+        } catch (error) {
+            console.error("Error initializing Gemini:", error);
+            setIsConfigured(false);
+        }
+    }, []);
 
-            if (currentCount >= 3) {
-                setMessages(prev => [...prev, {
-                    id: Date.now() + 2,
-                    text: "To access personalized guidance, live darshans, and our full library of Vedic wisdom, download the Prarthana app today!",
-                    sender: 'bot',
-                    type: 'cta'
-                }]);
-                setIsBlocked(true);
-            } else {
-                let botResponse = WELLBEING_RESPONSES.default;
-                for (let key in WELLBEING_RESPONSES) {
-                    if (inputValue.toLowerCase().includes(key)) {
-                        botResponse = WELLBEING_RESPONSES[key];
-                        break;
-                    }
-                }
-                setMessages(prev => [...prev, { id: Date.now() + 2, text: botResponse, sender: 'bot' }]);
-            }
-        }, 800);
+    const handleSend = async () => {
+        if (!inputValue.trim() || isLoading) return;
+
+        const userText = inputValue.trim();
+        const userMessage = { id: Date.now(), text: userText, sender: 'user' };
+        setMessages(prev => [...prev, userMessage]);
+        setInputValue('');
+        setIsLoading(true);
+
+        if (!isConfigured || !chatSession) {
+            setMessages(prev => [...prev, {
+                id: Date.now() + 1,
+                text: "API Key is missing or invalid. Please check your .env file.",
+                sender: 'bot',
+                type: 'error'
+            }]);
+            setIsLoading(false);
+            return;
+        }
+
+        try {
+            const result = await chatSession.sendMessage(userText);
+            const responseText = result.response.text();
+            setMessages(prev => [...prev, { id: Date.now() + 2, text: responseText, sender: 'bot' }]);
+        } catch (error) {
+            console.error("Error sending message:", error);
+            setMessages(prev => [...prev, {
+                id: Date.now() + 2,
+                text: "Sorry, I encountered an error connecting to the spiritual realm. Please try again later.",
+                sender: 'bot',
+                type: 'error'
+            }]);
+        } finally {
+            setIsLoading(false);
+        }
     };
 
     return (
@@ -104,39 +122,55 @@ const Chatbot = () => {
                         </div>
 
                         {/* Messages Area */}
-                        <div ref={scrollRef} className="flex-1 overflow-y-auto p-4 space-y-4 bg-orange-50/30">
+                        <div ref={scrollRef} className="flex-1 overflow-y-auto p-5 space-y-5 bg-orange-50/30">
+                            {!isConfigured && (
+                                <div className="p-4 bg-red-50 text-red-600 rounded-2xl border border-red-100 flex items-start gap-3">
+                                    <AlertCircle size={20} className="shrink-0 mt-0.5" />
+                                    <p className="text-sm">Please set VITE_GEMINI_API_KEY in your .env file and restart the server.</p>
+                                </div>
+                            )}
+                            
                             {messages.map((msg) => (
                                 <motion.div
                                     key={msg.id}
                                     initial={{ opacity: 0, x: msg.sender === 'user' ? 20 : -20 }}
                                     animate={{ opacity: 1, x: 0 }}
-                                    className={`flex ${msg.sender === 'user' ? 'justify-end' : 'justify-start'}`}
+                                    className={`flex ${msg.sender === 'user' ? 'justify-end' : 'justify-start items-start'}`}
                                 >
-                                    <div className={`max-w-[80%] p-4 rounded-2xl text-sm ${msg.sender === 'user'
+                                    {msg.sender === 'bot' && (
+                                        <div className="w-8 h-8 rounded-full bg-orange-100 flex items-center justify-center mr-3 mt-1 shrink-0 border border-orange-200">
+                                            <Sparkles size={14} className="text-orange-600" />
+                                        </div>
+                                    )}
+                                    <div className={`max-w-[80%] p-4 rounded-2xl text-sm leading-relaxed ${msg.sender === 'user'
                                             ? 'bg-orange-500 text-white rounded-tr-none'
                                             : msg.type === 'error'
                                                 ? 'bg-red-50 text-red-600 border border-red-100 rounded-tl-none flex items-start gap-2'
-                                                : msg.type === 'cta'
-                                                    ? 'bg-gray-900 text-white rounded-tl-none shadow-xl border border-orange-500/30'
-                                                    : 'bg-white text-gray-700 shadow-sm border border-orange-100 rounded-tl-none'
+                                                : 'bg-white text-gray-800 shadow-sm border border-orange-100 rounded-tl-none'
                                         }`}>
                                         {msg.type === 'error' && <AlertCircle size={16} className="shrink-0 mt-0.5" />}
-                                        <div>
+                                        <div className="flex-1 whitespace-pre-wrap">
                                             {msg.text}
-                                            {msg.type === 'cta' && (
-                                                <div className="mt-4 flex gap-2">
-                                                    <button className="flex-1 bg-orange-500 text-white py-2 rounded-lg text-xs font-bold hover:bg-orange-600 transition-colors flex items-center justify-center gap-1">
-                                                        <Download size={12} /> App Store
-                                                    </button>
-                                                    <button className="flex-1 bg-white text-gray-900 py-2 rounded-lg text-xs font-bold hover:bg-gray-100 transition-colors flex items-center justify-center gap-1">
-                                                        <Download size={12} /> Google Play
-                                                    </button>
-                                                </div>
-                                            )}
                                         </div>
                                     </div>
                                 </motion.div>
                             ))}
+                            {isLoading && (
+                                <motion.div
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: 1 }}
+                                    className="flex justify-start items-start"
+                                >
+                                    <div className="w-8 h-8 rounded-full bg-orange-100 flex items-center justify-center mr-3 mt-1 shrink-0 border border-orange-200">
+                                        <Sparkles size={14} className="text-orange-600" />
+                                    </div>
+                                    <div className="bg-white text-gray-800 shadow-sm border border-orange-100 rounded-2xl rounded-tl-none p-4 flex gap-1">
+                                        <motion.div animate={{ y: [0, -5, 0] }} transition={{ repeat: Infinity, duration: 0.6 }} className="w-2 h-2 bg-gray-400 rounded-full" />
+                                        <motion.div animate={{ y: [0, -5, 0] }} transition={{ repeat: Infinity, duration: 0.6, delay: 0.2 }} className="w-2 h-2 bg-gray-400 rounded-full" />
+                                        <motion.div animate={{ y: [0, -5, 0] }} transition={{ repeat: Infinity, duration: 0.6, delay: 0.4 }} className="w-2 h-2 bg-gray-400 rounded-full" />
+                                    </div>
+                                </motion.div>
+                            )}
                         </div>
 
                         {/* Input Area */}
@@ -147,13 +181,13 @@ const Chatbot = () => {
                                     value={inputValue}
                                     onChange={(e) => setInputValue(e.target.value)}
                                     onKeyPress={(e) => e.key === 'Enter' && handleSend()}
-                                    placeholder={isBlocked ? "App required for more queries..." : "Type your query..."}
-                                    disabled={isBlocked}
+                                    placeholder="Ask your spiritual guide..."
+                                    disabled={!isConfigured || isLoading}
                                     className="flex-1 bg-transparent border-none outline-none px-3 text-sm text-gray-700 placeholder:text-gray-400 disabled:cursor-not-allowed"
                                 />
                                 <button
                                     onClick={handleSend}
-                                    disabled={isBlocked || !inputValue.trim()}
+                                    disabled={!isConfigured || isLoading || !inputValue.trim()}
                                     className="bg-orange-500 text-white p-2 rounded-xl hover:bg-orange-600 transition-colors disabled:opacity-50"
                                 >
                                     <Send size={18} />

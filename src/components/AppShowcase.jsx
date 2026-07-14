@@ -49,11 +49,11 @@ const AppShowcase = () => {
                         <motion.h2
                             initial={{ opacity: 0, y: 20 }}
                             whileInView={{ opacity: 1, y: 0 }}
-                            className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight tracking-tight"
+                            className="text-4xl sm:text-5xl lg:text-6xl font-bold text-[var(--text-primary)] leading-tight tracking-tight"
                         >
                             Experience the <span className="gradient-text">Divine Interface</span>
                         </motion.h2>
-                        <p className="text-lg sm:text-xl text-gray-600 max-w-lg mx-auto lg:mx-0 leading-relaxed">
+                        <p className="text-lg sm:text-xl text-[var(--text-secondary)] max-w-lg mx-auto lg:mx-0 leading-relaxed">
                             Navigate seamlessly between darshans, chants, and wisdom. Designed for peace and easy access.
                         </p>
 
@@ -63,14 +63,14 @@ const AppShowcase = () => {
                                     key={tab.id}
                                     onClick={() => setActiveTab(tab)}
                                     className={`w-full text-left px-6 py-4 rounded-xl flex items-center gap-4 transition-all duration-300 border ${activeTab.id === tab.id
-                                        ? 'bg-white shadow-lg border-orange-100'
-                                        : 'bg-transparent border-transparent hover:bg-white/50'
+                                        ? 'bg-[var(--card-background)] shadow-lg border-orange-500/20'
+                                        : 'bg-transparent border-transparent hover:bg-[var(--surface-color)]/50'
                                         }`}
                                 >
-                                    <div className={`w-10 h-10 rounded-lg flex items-center justify-center text-white shrink-0 ${activeTab.id === tab.id ? tab.color : 'bg-gray-200 text-gray-400'}`}>
+                                    <div className={`w-10 h-10 rounded-lg flex items-center justify-center text-white shrink-0 ${activeTab.id === tab.id ? tab.color : 'bg-[var(--text-hint)]/20 text-[var(--text-secondary)]'}`}>
                                         {tab.icon}
                                     </div>
-                                    <span className={`font-semibold ${activeTab.id === tab.id ? 'text-gray-900' : 'text-gray-500'}`}>
+                                    <span className={`font-semibold ${activeTab.id === tab.id ? 'text-[var(--text-primary)]' : 'text-[var(--text-secondary)]'}`}>
                                         {tab.label}
                                     </span>
                                 </motion.button>
@@ -88,7 +88,7 @@ const AppShowcase = () => {
                             {/* Phone frame - padding as bezel */}
                             <div className="p-4 bg-gray-900 rounded-[2rem] shadow-2xl">
                                 {/* Screen */}
-                                <div className="w-[240px] sm:w-[260px] rounded-[1.5rem] overflow-hidden bg-[#FFF3E0] shadow-inner">
+                                <div className="w-[240px] sm:w-[260px] rounded-[1.5rem] overflow-hidden bg-[var(--background-color)] shadow-inner">
                                     <AnimatePresence mode="wait">
                                         <motion.div
                                             key={activeTab.id}
@@ -109,9 +109,9 @@ const AppShowcase = () => {
                                                 <div className="flex justify-between items-center mb-2 shrink-0">
                                                     <div>
                                                         <p className="text-[9px] text-orange-600 font-bold uppercase">Prarthana</p>
-                                                        <p className="text-xs font-bold text-gray-800">{activeTab.title}</p>
+                                                        <p className="text-xs font-bold text-[var(--text-primary)]">{activeTab.title}</p>
                                                     </div>
-                                                    <div className="w-6 h-6 rounded-full bg-white shadow-sm" />
+                                                    <div className="w-6 h-6 rounded-full bg-[var(--card-background)] shadow-sm" />
                                                 </div>
 
                                                 {/* Content based on tab */}
@@ -132,21 +132,21 @@ const AppShowcase = () => {
                                                                     <p className="text-white/80 text-[8px]">Join live spiritual darshan</p>
                                                                 </div>
                                                             </div>
-                                                            <p className="text-[9px] font-bold text-gray-600">Features</p>
+                                                            <p className="text-[9px] font-bold text-[var(--text-secondary)]">Features</p>
                                                             <div className="grid grid-cols-2 gap-1.5">
                                                                 {featureTiles.map((t, i) => (
                                                                     <div key={i} className={`rounded-lg ${t.color} p-2 flex items-center justify-center`}>
-                                                                        <span className="text-[9px] font-semibold text-white">{t.label}</span>
+                                                                        <span className="text-[9px] font-semibold text-[var(--card-background)]">{t.label}</span>
                                                                     </div>
                                                                 ))}
                                                             </div>
-                                                            <p className="text-[9px] font-bold text-gray-600">Recent Chants</p>
+                                                            <p className="text-[9px] font-bold text-[var(--text-secondary)]">Recent Chants</p>
                                                             {chants.slice(0, 2).map((c, i) => (
-                                                                <div key={i} className="flex gap-2 p-1.5 bg-white rounded-lg">
+                                                                <div key={i} className="flex gap-2 p-1.5 bg-[var(--card-background)] rounded-lg border border-[var(--text-hint)]/10">
                                                                     <img src={c.image} alt="" className="w-10 h-10 rounded object-cover shrink-0" />
                                                                     <div className="min-w-0 flex-1">
-                                                                        <p className="text-[10px] font-semibold text-gray-800 truncate">{c.title}</p>
-                                                                        <p className="text-[8px] text-gray-500">{c.artist}</p>
+                                                                        <p className="text-[10px] font-semibold text-[var(--text-primary)] truncate">{c.title}</p>
+                                                                        <p className="text-[8px] text-[var(--text-secondary)]">{c.artist}</p>
                                                                     </div>
                                                                     <Play size={14} className="text-orange-500 shrink-0 self-center" />
                                                                 </div>
@@ -157,13 +157,13 @@ const AppShowcase = () => {
                                                     {/* Explore / Audio: Chant list with images */}
                                                     {(activeTab.id === 'explore' || activeTab.id === 'audio') && (
                                                         <>
-                                                            <p className="text-[9px] font-bold text-gray-600">Bhajans & Aartis</p>
+                                                            <p className="text-[9px] font-bold text-[var(--text-secondary)]">Bhajans & Aartis</p>
                                                             {chants.map((c, i) => (
-                                                                <div key={i} className="flex gap-2 p-2 bg-white rounded-lg">
+                                                                <div key={i} className="flex gap-2 p-2 bg-[var(--card-background)] rounded-lg border border-[var(--text-hint)]/10">
                                                                     <img src={c.image} alt="" className="w-12 h-12 rounded-lg object-cover shrink-0" />
                                                                     <div className="min-w-0 flex-1">
-                                                                        <p className="text-[10px] font-semibold text-gray-800 truncate">{c.title}</p>
-                                                                        <p className="text-[8px] text-gray-500">{c.artist}</p>
+                                                                        <p className="text-[10px] font-semibold text-[var(--text-primary)] truncate">{c.title}</p>
+                                                                        <p className="text-[8px] text-[var(--text-secondary)]">{c.artist}</p>
                                                                     </div>
                                                                     <Play size={16} className="text-orange-500 shrink-0 self-center" />
                                                                 </div>
@@ -174,17 +174,17 @@ const AppShowcase = () => {
                                                     {/* Location: Temple list */}
                                                     {activeTab.id === 'location' && (
                                                         <>
-                                                            <p className="text-[9px] font-bold text-gray-600">Nearby Temples</p>
+                                                            <p className="text-[9px] font-bold text-[var(--text-secondary)]">Nearby Temples</p>
                                                             {[
                                                                 { name: 'Shri Mata Vaishno Devi', img: banners[0].image },
                                                                 { name: 'Kashi Vishwanath', img: banners[1].image },
                                                                 { name: 'Tirupati Balaji', img: banners[2].image },
                                                             ].map((t, i) => (
-                                                                <div key={i} className="flex gap-2 p-2 bg-white rounded-lg">
+                                                                <div key={i} className="flex gap-2 p-2 bg-[var(--card-background)] rounded-lg border border-[var(--text-hint)]/10">
                                                                     <img src={t.img} alt="" className="w-12 h-12 rounded-lg object-cover shrink-0" />
                                                                     <div className="min-w-0 flex-1">
-                                                                        <p className="text-[10px] font-semibold text-gray-800 truncate">{t.name}</p>
-                                                                        <p className="text-[8px] text-gray-500">2.5 km away</p>
+                                                                        <p className="text-[10px] font-semibold text-[var(--text-primary)] truncate">{t.name}</p>
+                                                                        <p className="text-[8px] text-[var(--text-secondary)]">2.5 km away</p>
                                                                     </div>
                                                                 </div>
                                                             ))}
@@ -194,16 +194,16 @@ const AppShowcase = () => {
                                                     {/* Courses */}
                                                     {activeTab.id === 'courses' && (
                                                         <>
-                                                            <p className="text-[9px] font-bold text-gray-600">Prarthana Course</p>
+                                                            <p className="text-[9px] font-bold text-[var(--text-secondary)]">Prarthana Course</p>
                                                             {[
                                                                 { title: 'Bhagavad Gita', img: banners[2].image },
                                                                 { title: 'Meditation Basics', img: banners[0].image },
                                                             ].map((c, i) => (
-                                                                <div key={i} className="rounded-lg overflow-hidden bg-white">
+                                                                <div key={i} className="rounded-lg overflow-hidden bg-[var(--card-background)] border border-[var(--text-hint)]/10">
                                                                     <img src={c.img} alt="" className="w-full h-14 object-cover" />
                                                                     <div className="p-1.5">
-                                                                        <p className="text-[10px] font-semibold text-gray-800">{c.title}</p>
-                                                                        <p className="text-[8px] text-gray-500">Learn & Grow</p>
+                                                                        <p className="text-[10px] font-semibold text-[var(--text-primary)]">{c.title}</p>
+                                                                        <p className="text-[8px] text-[var(--text-secondary)]">Learn & Grow</p>
                                                                     </div>
                                                                 </div>
                                                             ))}
@@ -218,10 +218,10 @@ const AppShowcase = () => {
                                                                 <p className="text-[9px] text-amber-700">ॐ नमः शिवाय</p>
                                                                 <p className="text-[8px] text-amber-600">Om Namah Shivaya</p>
                                                             </div>
-                                                            <p className="text-[9px] font-bold text-gray-600">Mantras</p>
+                                                            <p className="text-[9px] font-bold text-[var(--text-secondary)]">Mantras</p>
                                                             <div className="space-y-1">
                                                                 {['Om', 'Gayatri Mantra', 'Hare Krishna', 'Ram Mantra'].map((m, i) => (
-                                                                    <div key={i} className="p-2 bg-white rounded-lg text-[10px] font-medium">{m}</div>
+                                                                    <div key={i} className="p-2 bg-[var(--card-background)] rounded-lg border border-[var(--text-hint)]/10 text-[10px] font-medium text-[var(--text-primary)]">{m}</div>
                                                                 ))}
                                                             </div>
                                                         </>
@@ -229,10 +229,10 @@ const AppShowcase = () => {
                                                 </div>
 
                                                 {/* Bottom nav */}
-                                                <div className="h-11 flex items-center justify-around bg-white rounded-b-xl border-t shrink-0 mt-2">
-                                                    <div className="w-5 h-5 rounded-full bg-orange-200" />
-                                                    <div className="w-5 h-5 rounded-full bg-gray-200" />
-                                                    <div className="w-5 h-5 rounded-full bg-gray-200" />
+                                                <div className="h-11 flex items-center justify-around bg-[var(--card-background)] rounded-b-xl border-t border-[var(--text-hint)]/20 shrink-0 mt-2">
+                                                    <div className="w-5 h-5 rounded-full bg-orange-200/50" />
+                                                    <div className="w-5 h-5 rounded-full bg-[var(--text-hint)]/20" />
+                                                    <div className="w-5 h-5 rounded-full bg-[var(--text-hint)]/20" />
                                                 </div>
                                             </div>
                                         </motion.div>

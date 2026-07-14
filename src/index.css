@@ -31,6 +31,22 @@
   --radius-full: 9999px;
 }
 
+[data-theme="dark"] {
+  --background-color: #121212;
+  --surface-color: #1E1E1E;
+  --card-background: #2A2A2A;
+
+  --text-primary: #F9FAFB;
+  --text-secondary: #D1D5DB;
+  --text-hint: #9CA3AF;
+
+  --shadow-sm: 0 4px 6px -1px rgb(0 0 0 / 0.3);
+  --shadow-md: 0 10px 15px -3px rgb(0 0 0 / 0.4);
+  --shadow-lg: 0 20px 25px -5px rgb(0 0 0 / 0.5);
+  --shadow-orange: 0 15px 35px -5px rgba(255, 107, 53, 0.3);
+  --shadow-glass: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
+}
+
 
 * {
   margin: 0;
@@ -123,6 +139,11 @@ body {
   box-shadow: var(--shadow-glass);
 }
 
+[data-theme="dark"] .glass-panel {
+  background: rgba(30, 30, 30, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
 .gradient-text {
   background: linear-gradient(to right, #E55A2B, #FF6B35, #FF8A5C);
   -webkit-background-clip: text;
@@ -169,6 +190,15 @@ body {
 .btn-glass:hover {
   background: rgba(255, 255, 255, 0.95);
   transform: translateY(-1px);
+}
+
+[data-theme="dark"] .btn-glass {
+  background: rgba(40, 40, 40, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+[data-theme="dark"] .btn-glass:hover {
+  background: rgba(60, 60, 60, 0.95);
 }
 
 /* Custom Scrollbar */

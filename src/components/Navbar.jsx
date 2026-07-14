@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import { Download, Menu, X } from 'lucide-react';
+import React, { useState, useEffect, useContext } from 'react';
+import { Download, Menu, X, Moon, Sun } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { ThemeContext } from '../App';
 
 const Navbar = () => {
     const [scrolled, setScrolled] = useState(false);
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+    const { theme, toggleTheme } = useContext(ThemeContext);
 
     useEffect(() => {
         const handleScroll = () => setScrolled(window.scrollY > 20);
@@ -29,7 +31,7 @@ const Navbar = () => {
             >
                 <div className={`container mx-auto px-6 ${scrolled ? '' : 'max-w-6xl'
                     }`}>
-                    <div className={`glass-panel rounded-full px-6 py-3 flex items-center justify-between transition-all duration-300 ${scrolled ? 'bg-white/90 shadow-lg' : 'bg-white/60 shadow-sm border-white/40'
+                    <div className={`glass-panel rounded-full px-6 py-3 flex items-center justify-between transition-all duration-300 ${scrolled ? 'bg-[var(--surface-color)] shadow-lg' : 'bg-[var(--surface-color)]/60 shadow-sm border-[var(--text-hint)]/20'
                         }`}>
                         {/* Logo */}
                         <a href="#" className="flex items-center gap-3 group">
@@ -38,7 +40,7 @@ const Navbar = () => {
                                 alt="Prarthana"
                                 className="h-10 w-auto object-contain group-hover:scale-105 transition-transform duration-300"
                             />
-                            <span className="text-xl font-bold text-gray-800 tracking-tight group-hover:text-orange-600 transition-colors">
+                            <span className="text-xl font-bold text-[var(--text-primary)] tracking-tight group-hover:text-orange-600 transition-colors">
                                 Prarthana
                             </span>
                         </a>
@@ -49,7 +51,7 @@ const Navbar = () => {
                                 <a
                                     key={link.name}
                                     href={link.href}
-                                    className="relative text-gray-600 font-medium hover:text-orange-600 transition-colors px-2 py-1 group"
+                                    className="relative text-[var(--text-secondary)] font-medium hover:text-orange-600 transition-colors px-2 py-1 group"
                                 >
                                     {link.name}
                                     <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-orange-500 transition-all duration-300 group-hover:w-full opacity-80" />
@@ -57,8 +59,15 @@ const Navbar = () => {
                             ))}
                         </div>
 
-                        {/* CTA */}
-                        <div className="hidden md:block">
+                        {/* Actions */}
+                        <div className="hidden md:flex items-center gap-4">
+                            <button
+                                onClick={toggleTheme}
+                                className="p-2 text-[var(--text-secondary)] hover:bg-[var(--text-hint)]/10 rounded-full transition-colors"
+                                aria-label="Toggle theme"
+                            >
+                                {theme === 'light' ? <Moon size={20} /> : <Sun size={20} />}
+                            </button>
                             <motion.button
                                 whileHover={{ scale: 1.05 }}
                                 whileTap={{ scale: 0.95 }}
@@ -70,12 +79,20 @@ const Navbar = () => {
                         </div>
 
                         {/* Mobile Toggle */}
-                        <button
-                            className="md:hidden p-2 text-gray-600 hover:bg-gray-100 rounded-full transition-colors"
-                            onClick={() => setMobileMenuOpen(true)}
-                        >
-                            <Menu size={24} />
-                        </button>
+                        <div className="flex md:hidden items-center gap-2">
+                            <button
+                                onClick={toggleTheme}
+                                className="p-2 text-[var(--text-secondary)] hover:bg-[var(--text-hint)]/10 rounded-full transition-colors"
+                            >
+                                {theme === 'light' ? <Moon size={20} /> : <Sun size={20} />}
+                            </button>
+                            <button
+                                className="p-2 text-[var(--text-secondary)] hover:bg-[var(--text-hint)]/10 rounded-full transition-colors"
+                                onClick={() => setMobileMenuOpen(true)}
+                            >
+                                <Menu size={24} />
+                            </button>
+                        </div>
                     </div>
                 </div>
             </motion.nav>
@@ -87,7 +104,7 @@ const Navbar = () => {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
-                        className="fixed inset-0 z-[60] bg-black/20 backdrop-blur-sm"
+                        className="fixed inset-0 z-[60] bg-black/40 backdrop-blur-sm"
                         onClick={() => setMobileMenuOpen(false)}
                     >
                         <motion.div
@@ -95,14 +112,14 @@ const Navbar = () => {
                             animate={{ x: 0 }}
                             exit={{ x: '100%' }}
                             transition={{ type: "spring", damping: 25, stiffness: 200 }}
-                            className="absolute right-0 top-0 bottom-0 w-3/4 max-w-sm bg-white shadow-2xl p-6"
+                            className="absolute right-0 top-0 bottom-0 w-3/4 max-w-sm bg-[var(--surface-color)] shadow-2xl p-6"
                             onClick={e => e.stopPropagation()}
                         >
                             <div className="flex items-center justify-between mb-8">
-                                <span className="text-xl font-bold text-gray-800">Menu</span>
+                                <span className="text-xl font-bold text-[var(--text-primary)]">Menu</span>
                                 <button
                                     onClick={() => setMobileMenuOpen(false)}
-                                    className="p-2 hover:bg-gray-100 rounded-full"
+                                    className="p-2 hover:bg-[var(--text-hint)]/10 rounded-full text-[var(--text-primary)]"
                                 >
                                     <X size={24} />
                                 </button>
@@ -114,12 +131,12 @@ const Navbar = () => {
                                         key={link.name}
                                         href={link.href}
                                         onClick={() => setMobileMenuOpen(false)}
-                                        className="text-lg font-medium text-gray-700 p-3 hover:bg-orange-50 hover:text-orange-600 rounded-xl transition-colors"
+                                        className="text-lg font-medium text-[var(--text-secondary)] p-3 hover:bg-[var(--text-hint)]/10 hover:text-orange-600 rounded-xl transition-colors"
                                     >
                                         {link.name}
                                     </a>
                                 ))}
-                                <div className="h-px bg-gray-100 my-2" />
+                                <div className="h-px bg-[var(--text-hint)]/20 my-2" />
                                 <button className="btn-primary w-full justify-center">
                                     Download App
                                 </button>

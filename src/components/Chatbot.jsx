@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef, useContext } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { MessageCircle, X, Send, Sparkles, AlertCircle, Bot, ArrowRight } from 'lucide-react';
 import { GoogleGenerativeAI } from '@google/generative-ai';
-import { ThemeContext } from '../App';
+import { ThemeContext } from '../ThemeContext';
 
 const systemInstruction = `You are the official virtual assistant for the "Prarthana" application. Prarthana is a spiritual and devotional app that provides the following features:
 - Courses (spiritual learning, e.g., Inner Engineering by Sadhguru).

@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PRARTHANA — Master Architecture Flowchart</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@500;600;700;800&family=Josefin+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F7F5F0;--panel:#FFFFFF;--panel2:#FCFBF8;
+  --ink:#20242E;--body:#4C5566;--faint:#8A91A0;
+  --gold:#A9791E;--gold-dim:rgba(169,121,30,.35);--gold-bg:rgba(169,121,30,.07);
+  --sindoor:#C24A26;--sindoor-bg:rgba(194,74,38,.06);
+  --green:#2E7D53;--green-bg:rgba(46,125,83,.07);
+  --blue:#2F6D8F;--blue-bg:rgba(47,109,143,.07);
+  --line:#E6E2D8;--shadow:0 1px 3px rgba(32,36,46,.06),0 4px 14px rgba(32,36,46,.05);
+  --disp:'League Spartan',ui-sans-serif,sans-serif;--sans:'Josefin Sans',ui-sans-serif,sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--body);font-family:var(--sans);font-weight:400;line-height:1.6}
+::selection{background:var(--sindoor);color:#fff}
+.wrap{max-width:1200px;margin:0 auto;padding:0 22px}
+
+/* hero */
+.hero{text-align:center;padding:70px 22px 20px}
+.hero .om{color:var(--gold);font-size:1.9rem}
+.hero .tag{font-family:var(--sans);font-weight:600;font-size:.66rem;letter-spacing:.34em;color:var(--sindoor);text-transform:uppercase;margin:14px 0 10px}
+.hero h1{font-family:var(--disp);font-weight:800;color:var(--ink);font-size:clamp(2.6rem,8vw,5.4rem);line-height:.98;letter-spacing:.02em}
+.hero .sub{max-width:660px;margin:16px auto 0;font-size:1.02rem}
+.hero .taglines{margin-top:18px;font-family:var(--sans);font-style:italic;color:var(--faint);font-size:.95rem}
+
+/* legend */
+.legend{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin:24px 0 6px;font-weight:600;font-size:.64rem;letter-spacing:.1em;text-transform:uppercase}
+.legend span{display:flex;align-items:center;gap:7px;color:var(--faint)}
+.sw{width:12px;height:12px;border-radius:3px;border:1.5px solid}
+.sw.learn{border-color:var(--gold);background:var(--gold-bg)}
+.sw.practice{border-color:var(--green);background:var(--green-bg)}
+.sw.daily{border-color:var(--sindoor);background:var(--sindoor-bg)}
+.sw.connect{border-color:var(--blue);background:var(--blue-bg)}
+.sw.know{border-color:var(--ink);background:#EEEBE3}
+
+/* diagram block */
+.mapblock{margin:16px 0;background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:24px 12px 12px;box-shadow:var(--shadow);overflow-x:auto}
+.mapblock h2{font-family:var(--sans);font-weight:600;font-size:.66rem;letter-spacing:.3em;color:var(--faint);text-transform:uppercase;text-align:center;margin-bottom:6px}
+svg{display:block;margin:0 auto;min-width:940px}
+svg text{font-family:'Josefin Sans',sans-serif}
+.n-t{fill:var(--ink);font-weight:700;text-anchor:middle}
+.n-s{fill:var(--faint);font-size:9px;font-weight:500;text-anchor:middle;letter-spacing:.04em}
+.grp{font-weight:700;text-anchor:middle;letter-spacing:.14em}
+.rootline{stroke:#C9C3B4;stroke-width:1.5;fill:none}
+.feedline{stroke:var(--gold-dim);stroke-width:1.3;fill:none;stroke-dasharray:2 4}
+
+/* section headers */
+.sec{padding:44px 0 4px}
+.sec .eyebrow{font-weight:600;font-size:.64rem;letter-spacing:.3em;text-transform:uppercase;color:var(--sindoor);margin-bottom:8px}
+.sec h3{font-family:var(--disp);font-weight:700;color:var(--ink);font-size:clamp(1.5rem,3.4vw,2.1rem);letter-spacing:-.01em}
+.sec p{max-width:800px;margin:10px 0 0;font-size:.98rem}
+
+/* feature cards grid */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;margin-top:22px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px 18px;box-shadow:var(--shadow);border-top:3px solid var(--gold)}
+.card.g-learn{border-top-color:var(--gold)}
+.card.g-practice{border-top-color:var(--green)}
+.card.g-daily{border-top-color:var(--sindoor)}
+.card.g-connect{border-top-color:var(--blue)}
+.card .fnum{font-family:var(--disp);font-weight:700;font-size:.72rem;color:var(--faint);letter-spacing:.1em}
+.card h4{font-family:var(--disp);font-weight:700;color:var(--ink);font-size:1.12rem;margin:3px 0 6px;letter-spacing:.01em}
+.card p{font-size:.9rem;margin-bottom:8px}
+.card .powers{font-size:.78rem;color:var(--body);border-top:1px dashed var(--line);padding-top:8px;margin-top:4px}
+.card .powers b{font-weight:600;font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:2px}
+.card .ai{display:inline-block;font-weight:600;font-size:.6rem;letter-spacing:.08em;text-transform:uppercase;color:var(--blue);background:var(--blue-bg);border:1px solid rgba(47,109,143,.3);border-radius:4px;padding:1px 7px;margin-top:6px}
+.card .cost{display:inline-block;font-weight:600;font-size:.6rem;letter-spacing:.08em;text-transform:uppercase;color:var(--green);background:var(--green-bg);border:1px solid rgba(46,125,83,.3);border-radius:4px;padding:1px 7px;margin:6px 0 0 4px}
+
+/* knowledge branches */
+.kgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px;margin-top:22px}
+.kcard{background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:16px 18px;box-shadow:var(--shadow)}
+.kcard h4{font-family:var(--disp);font-weight:700;color:var(--ink);font-size:1.05rem;margin-bottom:8px}
+.kcard ul{list-style:none}
+.kcard li{font-size:.86rem;padding:5px 0;border-bottom:1px solid #EFECE4;display:flex;justify-content:space-between;gap:10px}
+.kcard li:last-child{border-bottom:none}
+.kcard li span{color:var(--faint);font-size:.78rem;text-align:right;flex:none}
+.kcard li b{font-weight:600;color:var(--body)}
+
+/* callout */
+.callout{background:var(--sindoor-bg);border:1px solid rgba(194,74,38,.25);border-left:4px solid var(--sindoor);border-radius:10px;padding:18px 22px;margin:26px 0}
+.callout b{font-family:var(--disp);color:var(--sindoor);font-weight:700}
+
+.coda{text-align:center;padding:56px 22px 80px}
+.coda .om2{color:var(--gold);font-size:1.4rem}
+.coda p{max-width:640px;margin:12px auto 0;font-size:.95rem}
+@media(max-width:520px){.hero h1{letter-spacing:.01em}}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="om">ॐ</div>
+  <div class="tag">Master Architecture · App × Knowledge</div>
+  <h1>PRARTHANA</h1>
+  <p class="sub">Science with spirituality, from the ancient culture and scriptures of Bhārata — presented globally with elegance, modernized for today.</p>
+  <div class="taglines">“Reviving and modernizing the ancient culture of Bhārata.”<br>“Traditional practice, presented with scientific fact.”</div>
+</header>
+
+<div class="wrap">
+
+<div class="legend">
+  <span><span class="sw learn"></span>Learn &amp; Discover</span>
+  <span><span class="sw practice"></span>Practice &amp; Wellbeing</span>
+  <span><span class="sw daily"></span>Daily Connection</span>
+  <span><span class="sw connect"></span>Community &amp; Live</span>
+  <span><span class="sw know"></span>Knowledge Source</span>
+</div>
+
+<!-- ============ MASTER COMBINED DIAGRAM ============ -->
+<div class="mapblock">
+<h2>The Combined Map — the App above, the Knowledge below, feeding it</h2>
+<svg viewBox="0 0 980 675" width="100%" role="img" aria-label="Prarthana combined architecture">
+  <defs>
+    <marker id="arr" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="#C9C3B4"/></marker>
+    <marker id="farr" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="5.5" markerHeight="5.5" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="#A9791E"/></marker>
+  </defs>
+
+  <!-- ROOT -->
+  <rect x="405" y="16" width="170" height="52" rx="12" fill="rgba(169,121,30,.08)" stroke="#A9791E" stroke-width="1.6"/>
+  <text class="n-t" x="490" y="41" font-size="19" fill="#A9791E" letter-spacing="2">PRARTHANA</text>
+  <text class="n-s" x="490" y="58">THE APP</text>
+
+  <!-- four group hubs -->
+  <path class="rootline" d="M490 68 L490 86 L150 86 L150 104" marker-end="url(#arr)"/>
+  <path class="rootline" d="M490 86 L377 86 L377 104" marker-end="url(#arr)"/>
+  <path class="rootline" d="M490 86 L603 86 L603 104" marker-end="url(#arr)"/>
+  <path class="rootline" d="M490 86 L830 86 L830 104" marker-end="url(#arr)"/>
+
+  <!-- group boxes -->
+  <rect x="70" y="106" width="160" height="46" rx="10" fill="rgba(169,121,30,.07)" stroke="#A9791E" stroke-width="1.3"/>
+  <text class="grp" x="150" y="126" font-size="12" fill="#A9791E">LEARN &amp; DISCOVER</text>
+  <text class="n-s" x="150" y="141">video · shorts · docs · map</text>
+
+  <rect x="297" y="106" width="160" height="46" rx="10" fill="rgba(46,125,83,.07)" stroke="#2E7D53" stroke-width="1.3"/>
+  <text class="grp" x="377" y="126" font-size="12" fill="#2E7D53">PRACTICE</text>
+  <text class="n-s" x="377" y="141">yoga · jap · ayurveda</text>
+
+  <rect x="523" y="106" width="160" height="46" rx="10" fill="rgba(194,74,38,.07)" stroke="#C24A26" stroke-width="1.3"/>
+  <text class="grp" x="603" y="126" font-size="12" fill="#C24A26">DAILY CONNECTION</text>
+  <text class="n-s" x="603" y="141">sky · quote · reminders</text>
+
+  <rect x="750" y="106" width="160" height="46" rx="10" fill="rgba(47,109,143,.07)" stroke="#2F6D8F" stroke-width="1.3"/>
+  <text class="grp" x="830" y="126" font-size="12" fill="#2F6D8F">COMMUNITY &amp; LIVE</text>
+  <text class="n-s" x="830" y="141">aarti · group VC</text>
+
+  <!-- feature leaves under each hub -->
+  <!-- LEARN -->
+  <g font-size="10">
+  <path class="rootline" d="M150 152 L150 168 L90 168 L90 182" marker-end="url(#arr)"/>
+  <path class="rootline" d="M150 168 L150 182" marker-end="url(#arr)"/>
+  <path class="rootline" d="M150 168 L210 168 L210 182" marker-end="url(#arr)"/>
+  <path class="rootline" d="M150 168 L150 204 L90 204 L90 218" marker-end="url(#arr)"/>
+  <rect x="52" y="184" width="76" height="30" rx="7" fill="#FCFBF8" stroke="#D8D3C6"/><text class="n-t" x="90" y="203" font-size="9.5">Video library</text>
+  <rect x="132" y="184" width="40" height="30" rx="7" fill="#FCFBF8" stroke="#D8D3C6"/><text class="n-t" x="152" y="203" font-size="9.5">Shorts</text>
+  <rect x="176" y="184" width="70" height="30" rx="7" fill="#FCFBF8" stroke="#D8D3C6"/><text class="n-t" x="211" y="203" font-size="9.5">Vedic docs</text>
+  <rect x="42" y="220" width="96" height="30" rx="7" fill="#FCFBF8" stroke="#D8D3C6"/><text class="n-t" x="90" y="239" font-size="9">Hotspot locator</text>
+  </g>
+
+  <!-- PRACTICE -->
+  <g>
+  <path class="rootline" d="M377 152 L377 168 L320 168 L320 182" marker-end="url(#arr)"/>
+  <path class="rootline" d="M377 168 L377 182" marker-end="url(#arr)"/>
+  <path class="rootline" d="M377 168 L434 168 L434 182" marker-end="url(#arr)"/>
+  <rect x="286" y="184" width="66" height="30" rx="7" fill="#FCFBF8" stroke="#D8D3C6"/><text class="n-t" x="319" y="203" font-size="9.5">Yoga cards</text>
+  <rect x="356" y="184" width="42" height="30" rx="7" fill="#FCFBF8" stroke="#D8D3C6"/><text class="n-t" x="377" y="203" font-size="9.5">Jap</text>
+  <rect x="402" y="184" width="66" height="30" rx="7" fill="#FCFBF8" stroke="#D8D3C6"/><text class="n-t" x="435" y="203" font-size="9.5">Āyurveda</text>
+  </g>
+
+  <!-- DAILY -->
+  <g>
+  <path class="rootline" d="M603 152 L603 168 L548 168 L548 182" marker-end="url(#arr)"/>
+  <path class="rootline" d="M603 168 L603 182" marker-end="url(#arr)"/>
+  <path class="rootline" d="M603 168 L660 168 L660 182" marker-end="url(#arr)"/>
+  <rect x="512" y="184" width="72" height="30" rx="7" fill="#FCFBF8" stroke="#D8D3C6"/><text class="n-t" x="548" y="203" font-size="8.5">Sky/horoscope</text>
+  <rect x="588" y="184" width="42" height="30" rx="7" fill="#FCFBF8" stroke="#D8D3C6"/><text class="n-t" x="609" y="203" font-size="9.5">Quote</text>
+  <rect x="634" y="184" width="66" height="30" rx="7" fill="#FCFBF8" stroke="#D8D3C6"/><text class="n-t" x="667" y="203" font-size="9">Reminders</text>
+  </g>
+
+  <!-- COMMUNITY -->
+  <g>
+  <path class="rootline" d="M830 152 L830 168 L788 168 L788 182" marker-end="url(#arr)"/>
+  <path class="rootline" d="M830 168 L872 168 L872 182" marker-end="url(#arr)"/>
+  <rect x="748" y="184" width="80" height="30" rx="7" fill="#FCFBF8" stroke="#D8D3C6"/><text class="n-t" x="788" y="203" font-size="9">Live aarti</text>
+  <rect x="836" y="184" width="88" height="30" rx="7" fill="#FCFBF8" stroke="#D8D3C6"/><text class="n-t" x="880" y="203" font-size="8.5">Group VC + reader</text>
+  </g>
+
+  <!-- AI SPINE (cross-cutting) -->
+  <rect x="330" y="272" width="320" height="40" rx="10" fill="rgba(47,109,143,.07)" stroke="#2F6D8F" stroke-width="1.3" stroke-dasharray="5 4"/>
+  <text class="grp" x="490" y="290" font-size="11" fill="#2F6D8F">AI LAYER · CROSS-CUTTING</text>
+  <text class="n-s" x="490" y="304">free chatbot guide · translation · verification · personalization</text>
+  <text class="n-s" x="490" y="258" font-size="8.5" fill="#2F6D8F">powers every module above ↑</text>
+
+  <!-- DIVIDER -->
+  <line x1="60" y1="340" x2="920" y2="340" stroke="#E6E2D8" stroke-width="1.5" stroke-dasharray="2 5"/>
+  <text class="n-s" x="490" y="334" font-size="9" letter-spacing="2" fill="#8A91A0">▲ THE APP   ·   THE KNOWLEDGE THAT FEEDS IT ▼</text>
+
+  <!-- KNOWLEDGE ROOT -->
+  <rect x="380" y="356" width="220" height="46" rx="12" fill="#EEEBE3" stroke="#20242E" stroke-width="1.4"/>
+  <text class="n-t" x="490" y="376" font-size="14">ANCIENT INDIAN KNOWLEDGE</text>
+  <text class="n-s" x="490" y="392">ŚRUTI · SMṚTI · ŚĀSTRA · DARŚANA</text>
+
+  <!-- knowledge branches -->
+  <path class="rootline" d="M490 402 L490 418 L120 418 L120 436" marker-end="url(#arr)"/>
+  <path class="rootline" d="M490 418 L305 418 L305 436" marker-end="url(#arr)"/>
+  <path class="rootline" d="M490 418 L490 436" marker-end="url(#arr)"/>
+  <path class="rootline" d="M490 418 L675 418 L675 436" marker-end="url(#arr)"/>
+  <path class="rootline" d="M490 418 L860 418 L860 436" marker-end="url(#arr)"/>
+
+  <g>
+  <rect x="52" y="438" width="136" height="52" rx="10" fill="#FFFFFF" stroke="#D8D3C6"/>
+  <text class="n-t" x="120" y="458" font-size="11">SCIENCES</text>
+  <text class="n-s" x="120" y="472">Vedāṅga · Śāstra</text>
+  <text class="n-s" x="120" y="484">math · astro · logic</text>
+
+  <rect x="237" y="438" width="136" height="52" rx="10" fill="#FFFFFF" stroke="#D8D3C6"/>
+  <text class="n-t" x="305" y="458" font-size="11">MEDICINE</text>
+  <text class="n-s" x="305" y="472">Āyurveda</text>
+  <text class="n-s" x="305" y="484">Caraka · Suśruta</text>
+
+  <rect x="422" y="438" width="136" height="52" rx="10" fill="#FFFFFF" stroke="#D8D3C6"/>
+  <text class="n-t" x="490" y="458" font-size="11">MIND &amp; BODY</text>
+  <text class="n-s" x="490" y="472">Yoga Sūtras</text>
+  <text class="n-s" x="490" y="484">Upaniṣads · Gītā</text>
+
+  <rect x="607" y="438" width="136" height="52" rx="10" fill="#FFFFFF" stroke="#D8D3C6"/>
+  <text class="n-t" x="675" y="458" font-size="11">CALENDAR / SKY</text>
+  <text class="n-s" x="675" y="472">Jyotiṣa · pañcāṅga</text>
+  <text class="n-s" x="675" y="484">real astronomy</text>
+
+  <rect x="792" y="438" width="136" height="52" rx="10" fill="#FFFFFF" stroke="#D8D3C6"/>
+  <text class="n-t" x="860" y="458" font-size="11">HERITAGE</text>
+  <text class="n-s" x="860" y="472">temples · tīrtha</text>
+  <text class="n-s" x="860" y="484">Sthala-purāṇa · arts</text>
+  </g>
+
+  <!-- FEEDS-INTO labels (clean, directly under each knowledge box) -->
+  <g>
+  <text class="n-s" x="120" y="506" font-size="8.5" fill="#A9791E">feeds → Docs &amp; Courses</text>
+  <text class="n-s" x="305" y="506" font-size="8.5" fill="#A9791E">feeds → Āyurveda feature</text>
+  <text class="n-s" x="490" y="506" font-size="8.5" fill="#A9791E">feeds → Yoga · Jap · Meditation</text>
+  <text class="n-s" x="675" y="506" font-size="8.5" fill="#A9791E">feeds → Daily Sky &amp; Quote</text>
+  <text class="n-s" x="860" y="506" font-size="8.5" fill="#A9791E">feeds → Locator &amp; Aarti</text>
+  </g>
+
+  <!-- single clean "feeds up into the app" arrow -->
+  <path class="feedline" d="M490 520 L490 545" marker-end="url(#farr)"/>
+  <rect x="330" y="548" width="320" height="40" rx="10" fill="rgba(169,121,30,.06)" stroke="#A9791E" stroke-width="1.2" stroke-dasharray="4 4"/>
+  <text class="n-t" x="490" y="566" font-size="10.5" fill="#A9791E">ALL KNOWLEDGE → THE APP&#39;S FEATURES ABOVE</text>
+  <text class="n-s" x="490" y="580">each verified, tiered, and referenced before it appears in a feature</text>
+
+  <!-- bottom principle -->
+  <rect x="250" y="612" width="480" height="46" rx="12" fill="#FCFBF8" stroke="#D8D3C6" stroke-dasharray="4 4"/>
+  <text class="n-t" x="490" y="632" font-size="11.5" fill="#20242E">EVERY FEATURE CARRIES A SCIENTIFIC / FACTUAL REFERENCE</text>
+  <text class="n-s" x="490" y="648">tradition presented as verifiable knowledge — the core promise</text>
+</svg>
+</div>
+
+<p style="text-align:center;font-size:.82rem;color:var(--faint);margin-top:6px">Dashed gold lines show which body of ancient knowledge <em>feeds</em> which app feature. The AI layer cuts across everything.</p>
+
+<!-- ============ GROUP 1: LEARN & DISCOVER ============ -->
+<section class="sec">
+  <div class="eyebrow">Group 1 · Learn &amp; Discover</div>
+  <h3>Content that teaches the culture — as knowledge, not doctrine</h3>
+  <p>Zero-to-low content cost by embedding, with Prarthana adding the layer nobody else has: the <strong>scientific and factual significance</strong> beside every piece.</p>
+</section>
+<div class="grid">
+  <div class="card g-learn">
+    <div class="fnum">FEATURE 01</div><h4>Video Library</h4>
+    <p>Curated courses &amp; playlists on Indian culture, embedded from YouTube by topic — history, scriptures, arts, science.</p>
+    <div class="powers"><b>Powered by</b>The full canon tree → topic taxonomy; the 52 science correspondences become course spines.</div>
+    <span class="cost">Zero hosting cost</span>
+  </div>
+  <div class="card g-learn">
+    <div class="fnum">FEATURE 02</div><h4>Shorts Feed</h4>
+    <p>Vertically scrollable short clips — bite-size facts, verses, and "did you know" science parallels.</p>
+    <div class="powers"><b>Powered by</b>T1/T2 fact snippets from the reference table, one card each.</div>
+    <span class="cost">Zero hosting cost</span>
+  </div>
+  <div class="card g-learn">
+    <div class="fnum">FEATURE 04 + 10</div><h4>Vedic Docs &amp; Facts</h4>
+    <p>Long-form documentaries and readable fact-cards presenting the scientific significance of scriptures — with exact references and honesty tiers.</p>
+    <div class="powers"><b>Powered by</b>The "Bhārata Vidyā" paper — Parts I &amp; II, verbatim source material.</div>
+    <span class="ai">AI: level-shift &amp; summarize</span>
+  </div>
+  <div class="card g-learn">
+    <div class="fnum">FEATURE 03</div><h4>Cultural Hotspot Locator</h4>
+    <p>Wherever the user travels, surfaces the nearest cultural sites from a curated database — temples, heritage sites, museums, festivals.</p>
+    <div class="powers"><b>Powered by</b>Sthala-purāṇa &amp; heritage database; geolocation + your feeded dataset.</div>
+    <span class="ai">AI: auto-generate site blurbs</span>
+  </div>
+</div>
+
+<!-- ============ GROUP 2: PRACTICE ============ -->
+<section class="sec">
+  <div class="eyebrow">Group 2 · Practice &amp; Wellbeing</div>
+  <h3>Do the tradition — with the science of why it works</h3>
+  <p>Each practice pairs the authentic instruction with the actual contemplative-science or health note — honest about what is proven and what is heritage.</p>
+</section>
+<div class="grid">
+  <div class="card g-practice">
+    <div class="fnum">FEATURE 08</div><h4>Yoga Flashcards</h4>
+    <p>Swipeable āsana &amp; meditation cards to inspire physical and mental fitness, with pose, breath, and benefit.</p>
+    <div class="powers"><b>Powered by</b>Yoga Sūtras (Patañjali) + Haṭha texts; benefits cited to contemplative-neuroscience research (Lutz 2008, Tang 2015).</div>
+  </div>
+  <div class="card g-practice">
+    <div class="fnum">FEATURE 06</div><h4>Jap Counter</h4>
+    <p>A digital mālā for meditation — tap or auto-count, set targets, track streaks calmly (no dark-pattern pressure).</p>
+    <div class="powers"><b>Powered by</b>Mantra corpus; the 108-bead tradition explained factually.</div>
+  </div>
+  <div class="card g-practice">
+    <div class="fnum">FEATURE 07</div><h4>Āyurvedic Lifestyle</h4>
+    <p>Weekly Āyurvedic tips to improve wellbeing — routine, diet-as-culture, seasonal living.</p>
+    <div class="powers"><b>Powered by</b>Caraka &amp; Suśruta Saṃhitās — framed as historical/lifestyle wisdom.</div>
+    <span class="ai">AI: personalize weekly tip</span>
+  </div>
+</div>
+<div class="callout">
+  <b>One care note on Āyurveda &amp; wellbeing.</b> Present these as lifestyle and heritage wisdom, with a clear "not a substitute for medical advice" line on any health-adjacent tip. That honesty protects your users and your brand — and it's exactly what lets a wellness feature scale globally without legal or credibility risk.
+</div>
+
+<!-- ============ GROUP 3: DAILY ============ -->
+<section class="sec">
+  <div class="eyebrow">Group 3 · Daily Connection</div>
+  <h3>The daily ritual — real sky, real calendar, real reflection</h3>
+  <p>This is the segment-retention hook you wanted (like horoscope/astrology) — but reframed so it stays credible forever: keep the daily touchpoint, replace prediction with astronomy + reflection.</p>
+</section>
+<div class="grid">
+  <div class="card g-daily">
+    <div class="fnum">FEATURE 05</div><h4>Scientific "Horoscope" / Sky Today</h4>
+    <p>A minimal daily astro-segment that keeps users hooked — but shows the <em>real</em> sky: today's tithi, nakṣatra, moon phase, planetary positions, and any real events (eclipses, conjunctions), each explained.</p>
+    <div class="powers"><b>Powered by</b>Jyotiṣa as observational astronomy + a live ephemeris; the honest core of the tradition.</div>
+    <span class="ai">AI: plain-language daily sky note</span>
+  </div>
+  <div class="card g-daily">
+    <div class="fnum">FEATURE 12a</div><h4>Daily Quote</h4>
+    <p>One verse or teaching per day — with reference, meaning, and a reflective prompt. The "thought for the day" people seek from horoscopes, grounded in the corpus.</p>
+    <div class="powers"><b>Powered by</b>Gītā, Upaniṣads, Tirukkuṟaḷ, sant poetry — tiered &amp; referenced.</div>
+  </div>
+  <div class="card g-daily">
+    <div class="fnum">FEATURE 12b</div><h4>Wellbeing Reminders</h4>
+    <p>Gentle nudges — water, yoga time, breath breaks, the day's Āyurvedic tip — as a calm ritual, not a compulsive streak-trap.</p>
+    <div class="powers"><b>Powered by</b>Dinacaryā (daily-routine) tradition + wellbeing best practice.</div>
+  </div>
+</div>
+
+<!-- ============ GROUP 4: COMMUNITY ============ -->
+<section class="sec">
+  <div class="eyebrow">Group 4 · Community &amp; Live</div>
+  <h3>Together, across distance — the emotional heart</h3>
+  <p>The features that turn an app into a shared practice — and the most defensible against copycats, because they build a network.</p>
+</section>
+<div class="grid">
+  <div class="card g-connect">
+    <div class="fnum">FEATURE 09</div><h4>Live Aarti Viewing</h4>
+    <p>Live aarti streamed directly through the app via YouTube — zero running cost. Scales as temples add their streams once the userbase grows.</p>
+    <div class="powers"><b>Powered by</b>Embedded live streams; a temple-partner directory over time.</div>
+    <span class="cost">Zero streaming cost</span>
+  </div>
+  <div class="card g-connect">
+    <div class="fnum">FEATURE 13</div><h4>Group Video Calling + Reader</h4>
+    <p>Far-away families do a video call on the app — with an integrated <strong>reader</strong> to chant, meditate, or do aarti together on auspicious occasions. This is the unique, first-of-its-kind feature.</p>
+    <div class="powers"><b>Powered by</b>WebRTC group calls + a synced chant/aarti reader pane; occasion calendar from the pañcāṅga.</div>
+    <span class="ai">AI: syllable-sync &amp; pronunciation guide</span>
+  </div>
+</div>
+
+<!-- ============ AI LAYER ============ -->
+<section class="sec">
+  <div class="eyebrow">Cross-cutting · The AI Layer</div>
+  <h3>Unique, and free to run</h3>
+  <p>You wanted a chatbot that's unique and doesn't cost you. The answer to both: a <strong>retrieval-grounded guide</strong> that only answers from Prarthana's own verified content — cheap (small model + your corpus), and unique precisely because no other app has this tiered, referenced knowledge base behind it.</p>
+</section>
+<div class="grid">
+  <div class="card g-connect" style="border-top-color:var(--blue)">
+    <div class="fnum">AI 01</div><h4>"Ask Prarthana" Guide</h4>
+    <p>A chatbot grounded only in your verified corpus — answers with references and honesty tiers, never invents. Unique because the knowledge base is unique.</p>
+    <div class="powers"><b>Cost control</b>Small open model + retrieval over your own docs = minimal per-query cost; cache common answers.</div>
+  </div>
+  <div class="card g-connect" style="border-top-color:var(--blue)">
+    <div class="fnum">AI 02</div><h4>Translation &amp; Access</h4>
+    <p>Body content into many languages (Sanskrit terms preserved &amp; glossed) + text-to-speech narration — the biggest lever for going global.</p>
+    <div class="powers"><b>Cost control</b>Translate once, cache; on-device TTS where possible.</div>
+  </div>
+  <div class="card g-connect" style="border-top-color:var(--blue)">
+    <div class="fnum">AI 03</div><h4>Pronunciation &amp; Sync</h4>
+    <p>For jap, chant, and the group-call reader: syllable-sync and pronunciation scoring so anyone can recite correctly.</p>
+    <div class="powers"><b>Cost control</b>On-device speech APIs; forced alignment runs locally.</div>
+  </div>
+  <div class="card g-connect" style="border-top-color:var(--blue)">
+    <div class="fnum">AI 04</div><h4>Personalization &amp; Verification</h4>
+    <p>Sequences content to each user; and behind the scenes, an AI checks every new fact against sources and flags its tier before publish.</p>
+    <div class="powers"><b>The moat</b>Verification AI keeps thousands of claims rigorous — the credibility engine.</div>
+  </div>
+</div>
+
+<!-- ============ KNOWLEDGE MAP DETAIL ============ -->
+<section class="sec">
+  <div class="eyebrow">The foundation · Knowledge → Feature mapping</div>
+  <h3>Which scripture powers which feature</h3>
+  <p>The content graph beneath the whole app. Every branch of the tradition feeds a specific product surface.</p>
+</section>
+<div class="kgrid">
+  <div class="kcard">
+    <h4>Sciences → Docs &amp; Courses</h4>
+    <ul>
+      <li><b>Piṅgala's binary</b> <span>Chandaḥśāstra 8</span></li>
+      <li><b>Brahmagupta's zero</b> <span>BSpS ch. 18</span></li>
+      <li><b>Āryabhaṭa's astronomy</b> <span>Āryabhaṭīya</span></li>
+      <li><b>Nyāya logic</b> <span>Nyāya Sūtras</span></li>
+    </ul>
+  </div>
+  <div class="kcard">
+    <h4>Medicine → Āyurveda Feature</h4>
+    <ul>
+      <li><b>Internal medicine</b> <span>Caraka Saṃhitā</span></li>
+      <li><b>Surgery</b> <span>Suśruta Saṃhitā</span></li>
+      <li><b>Daily routine</b> <span>dinacaryā texts</span></li>
+      <li><b>Seasonal living</b> <span>ṛtucaryā</span></li>
+    </ul>
+  </div>
+  <div class="kcard">
+    <h4>Mind &amp; Body → Yoga / Jap</h4>
+    <ul>
+      <li><b>Eight limbs of yoga</b> <span>Yoga Sūtras 2.29</span></li>
+      <li><b>Meditation states</b> <span>Māṇḍūkya Up.</span></li>
+      <li><b>Breath practices</b> <span>Vijñāna Bhairava</span></li>
+      <li><b>Mantra tradition</b> <span>108 mālā</span></li>
+    </ul>
+  </div>
+  <div class="kcard">
+    <h4>Sky → Daily Connection</h4>
+    <ul>
+      <li><b>Calendar science</b> <span>Vedāṅga Jyotiṣa</span></li>
+      <li><b>Real pañcāṅga</b> <span>live ephemeris</span></li>
+      <li><b>Festival logic</b> <span>lunisolar calendar</span></li>
+      <li><b>Reformed calendar</b> <span>Saha Committee 1952</span></li>
+    </ul>
+  </div>
+  <div class="kcard">
+    <h4>Heritage → Locator &amp; Aarti</h4>
+    <ul>
+      <li><b>Temple lore</b> <span>Sthala-purāṇas</span></li>
+      <li><b>Pilgrimage atlas</b> <span>Skanda Purāṇa</span></li>
+      <li><b>Sacred geography</b> <span>tīrtha tradition</span></li>
+      <li><b>Arts &amp; architecture</b> <span>Vāstu · Nāṭyaśāstra</span></li>
+    </ul>
+  </div>
+  <div class="kcard">
+    <h4>Wisdom → Daily Quote</h4>
+    <ul>
+      <li><b>Action &amp; focus</b> <span>Bhagavad Gītā</span></li>
+      <li><b>Self-knowledge</b> <span>Upaniṣads</span></li>
+      <li><b>Ethics (secular)</b> <span>Tirukkuṟaḷ</span></li>
+      <li><b>Devotional poetry</b> <span>sant &amp; bhakti canons</span></li>
+    </ul>
+  </div>
+</div>
+
+</div>
+
+<footer class="coda">
+  <div class="om2">॥</div>
+  <p style="font-family:var(--disp);font-weight:600;color:var(--ink);font-size:1.05rem">PRARTHANA — science with spirituality, first of its kind.</p>
+  <p>One promise runs through every branch: the tradition is presented as verifiable knowledge, with a factual or scientific reference behind it. That is what makes it shareable with the whole world — and impossible to copy without doing the same rigorous work.</p>
+</footer>
+
+</body>
+</html>

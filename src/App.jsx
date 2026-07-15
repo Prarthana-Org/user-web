@@ -5,8 +5,10 @@ import AppShowcase from './components/AppShowcase';
 import Footer from './components/Footer';
 import Features from './components/Features';
 import Chatbot from './components/Chatbot';
-
-export const ThemeContext = React.createContext();
+import EternalOrigins from './components/EternalOrigins';
+import Flowchart from './components/Flowchart';
+import WhyPrarthana from './components/WhyPrarthana';
+import { ThemeContext } from './ThemeContext';
 
 function App() {
   const [theme, setTheme] = useState('light');
@@ -29,6 +31,22 @@ function App() {
     document.documentElement.setAttribute('data-theme', newTheme);
   };
 
+  const path = window.location.pathname;
+
+  if (path === '/eternal-origins' || path === '/flowchart' || path === '/why-prarthana') {
+    return (
+      <ThemeContext.Provider value={{ theme, toggleTheme }}>
+        <div className="min-h-screen bg-[var(--background-color)] text-[var(--text-primary)] transition-colors duration-300 selection:bg-orange-200 selection:text-orange-900">
+          <Navbar />
+          {path === '/eternal-origins' && <EternalOrigins />}
+          {path === '/flowchart' && <Flowchart />}
+          {path === '/why-prarthana' && <WhyPrarthana />}
+          <Footer />
+        </div>
+      </ThemeContext.Provider>
+    );
+  }
+
   return (
     <ThemeContext.Provider value={{ theme, toggleTheme }}>
       <div className="min-h-screen bg-[var(--background-color)] text-[var(--text-primary)] transition-colors duration-300 selection:bg-orange-200 selection:text-orange-900">
@@ -42,7 +60,7 @@ function App() {
             <AppShowcase />
           </div>
 
-          <div className="py-16 md:py-32">
+          <div className="py-16 md:py-32" id="features">
             <Features />
           </div>
         </main>

@@ -24,19 +24,6 @@ const Hero = () => {
 
             <div className="hero-content">
                 <div className="hero-inner">
-                    {/* Badge */}
-                    <motion.div
-                        initial={{ opacity: 0, y: 30 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-                        className="hero-badge"
-                    >
-                        <span className="hero-badge-dot">
-                            <span className="hero-badge-dot-ping" />
-                            <span className="hero-badge-dot-solid" />
-                        </span>
-                        <span className="hero-badge-text">#1 Spiritual App in 2026</span>
-                    </motion.div>
 
                     {/* Heading */}
                     <motion.h1
@@ -57,6 +44,20 @@ const Hero = () => {
                     >
                         Your personal temple for daily darshans, soothing chants, and ancient wisdom. Experience devotion like never before.
                     </motion.p>
+
+                    {/* Badge */}
+                    <motion.div
+                        initial={{ opacity: 0, y: 30 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.4, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                        className="hero-badge"
+                    >
+                        <span className="hero-badge-dot">
+                            <span className="hero-badge-dot-ping" />
+                            <span className="hero-badge-dot-solid" />
+                        </span>
+                        <span className="hero-badge-text">#1 Spiritual App in 2026</span>
+                    </motion.div>
 
                     {/* Buttons */}
                     <motion.div
@@ -106,6 +107,16 @@ const Hero = () => {
                         <div className="hero-verification-divider" />
                         <span className="hero-verification-downloads">10k+ Downloads</span>
                     </motion.div>
+                </div>
+                <div className="hero-model" style={{ flex: 1, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                    <iframe
+                        src="/3d-model.html"
+                        title="Interactive 3D Model"
+                        frameBorder="0"
+                        scrolling="no"
+                        allowTransparency="true"
+                        style={{ width: '600px', height: '450px', border: 'none', outline: 'none', background: 'transparent', transform: 'scale(1.3)', transformOrigin: 'center center' }}
+                    />
                 </div>
             </div>
         </section>

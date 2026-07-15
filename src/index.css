@@ -15,8 +15,8 @@
   --card-background: #FFFFFF;
 
   --text-primary: #1F1F1F;
-  --text-secondary: #555555;
-  --text-hint: #9E9E9E;
+  --text-secondary: #374151; /* Darker gray for better visibility */
+  --text-hint: #6B7280;      /* Darker gray for better visibility */
 
   --shadow-sm: 0 4px 6px -1px rgb(0 0 0 / 0.05);
   --shadow-md: 0 10px 15px -3px rgb(0 0 0 / 0.08);

@@ -708,17 +708,17 @@ const AppShowcase = () => {
 
     return (
         <section id="showcase" className="overflow-hidden relative py-20" data-theme={theme}>
-            <div className="container mx-auto px-4 md:px-8 lg:px-12 text-center mb-12">
+            <div className="container mx-auto px-4 md:px-8 lg:px-12 text-center mb-12 flex flex-col items-center justify-center">
                 <p style={{
                     fontSize: 13, fontWeight: 600, textTransform: 'uppercase',
-                    letterSpacing: '0.12em', color: '#FF6B35', marginBottom: 12,
+                    letterSpacing: '0.12em', color: '#FF6B35', marginBottom: 12, textAlign: 'center'
                 }}>
                     App Preview
                 </p>
-                <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-[var(--text-primary)] leading-tight tracking-tight">
+                <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-[var(--text-primary)] leading-tight tracking-tight text-center">
                     Showcase
                 </h2>
-                <p className="text-lg sm:text-xl text-[var(--text-secondary)] max-w-2xl mx-auto leading-relaxed mt-5">
+                <p className="text-lg sm:text-xl text-[var(--text-secondary)] max-w-2xl mx-auto text-center leading-relaxed mt-5" style={{ textAlign: 'center' }}>
                     Explore all screens of the Prarthana App. Scroll horizontally to see the entire gallery.
                 </p>
             </div>

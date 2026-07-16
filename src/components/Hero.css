@@ -301,3 +301,130 @@
   font-size: 0.875rem;
   font-weight: 600;
 }
+
+/* ============ INTERACTIVE CHAKRA HERO ============ */
+.chakra-hero-main {
+  position: relative;
+  width: 460px;
+  height: 460px;
+  margin: 0 auto;
+  cursor: pointer;
+  outline: none;
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  transform-origin: center center;
+}
+
+.chakra-hero-main:hover,
+.chakra-hero-main:focus {
+  transform: scale(1.06);
+}
+
+.chakra-glow-main {
+  position: absolute;
+  inset: 20px;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--chakra-hover, rgba(249, 115, 22, 0.35)), transparent 65%);
+  filter: blur(24px);
+  transition: opacity 0.5s, background 0.5s;
+  opacity: 0.6;
+}
+
+.chakra-hero-main:hover .chakra-glow-main {
+  opacity: 1;
+}
+
+.chakra-svg-main {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.chakra-svg-main.outer {
+  animation: spinSlow 40s linear infinite;
+}
+
+.chakra-svg-main.spokes {
+  animation: spinSlow 32s linear infinite reverse;
+}
+
+.chakra-hero-main:hover .chakra-svg-main.outer {
+  animation-duration: 10s;
+}
+
+.chakra-hero-main:hover .chakra-svg-main.spokes {
+  animation-duration: 8s;
+}
+
+.chakra-svg-main.outer,
+.chakra-svg-main.spokes {
+  transition: none;
+}
+
+.meditator-main {
+  position: absolute;
+  inset: 128px;
+  width: calc(100% - 256px);
+  height: calc(100% - 256px);
+  filter: drop-shadow(0 10px 22px var(--chakra-hover, rgba(249, 115, 22, 0.5)));
+  animation: bob 4s ease-in-out infinite;
+  z-index: 4;
+}
+
+.chakra-hero-main:hover .meditator-main {
+  animation: bob 2.2s ease-in-out infinite;
+}
+
+.chakra-ping-main {
+  position: absolute;
+  inset: 112px;
+  border-radius: 50%;
+  border: 2px solid var(--chakra-hover-stroke, var(--saffron));
+  opacity: 0;
+  pointer-events: none;
+}
+
+.chakra-hero-main:hover .chakra-ping-main {
+  animation: ring 1.8s ease-out infinite;
+}
+
+.chakra-hero-main:hover .chakra-ping-main.d2 {
+  animation: ring 1.8s ease-out infinite 0.9s;
+}
+
+@keyframes spinSlow {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes ring {
+  0% { transform: scale(0.7); opacity: 0.9; }
+  100% { transform: scale(1.6); opacity: 0; }
+}
+
+@keyframes bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+/* Let's define the color variables for the Chakra */
+:root {
+  --chakra-stroke: var(--saffron);
+  --meditator-top: #FFB068;
+  --meditator-bottom: #F1690F;
+}
+
+[data-theme="light"] {
+  /* In light mode, the user wants a different hover color! 
+     Let's use the teal accent for the hover glow and ping to look beautiful on light background */
+  --chakra-hover: rgba(13, 148, 148, 0.4);
+  --chakra-hover-stroke: var(--teal);
+  
+  /* Also slightly darken the strokes so they're visible on light backgrounds */
+  --chakra-stroke: var(--amber); 
+}
+
+[data-theme="dark"] {
+  --chakra-hover: rgba(249, 115, 22, 0.35);
+  --chakra-hover-stroke: var(--saffron);
+  --chakra-stroke: var(--saffron);
+}

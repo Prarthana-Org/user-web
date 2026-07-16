@@ -12,6 +12,7 @@ import { ThemeContext } from './ThemeContext';
 
 function App() {
   const [theme, setTheme] = useState('light');
+  const [currentHash, setCurrentHash] = useState(window.location.hash);
 
   useEffect(() => {
     const savedTheme = localStorage.getItem('theme');
@@ -22,6 +23,10 @@ function App() {
       setTheme('dark');
       document.documentElement.setAttribute('data-theme', 'dark');
     }
+
+    const handleHashChange = () => setCurrentHash(window.location.hash);
+    window.addEventListener('hashchange', handleHashChange);
+    return () => window.removeEventListener('hashchange', handleHashChange);
   }, []);
 
   const toggleTheme = () => {
@@ -31,16 +36,15 @@ function App() {
     document.documentElement.setAttribute('data-theme', newTheme);
   };
 
-  const path = window.location.pathname;
+  const isSeparatePage = currentHash === '#flowchart' || currentHash === '#eternal-origins';
 
-  if (path === '/eternal-origins' || path === '/flowchart' || path === '/why-prarthana') {
+  if (isSeparatePage) {
     return (
       <ThemeContext.Provider value={{ theme, toggleTheme }}>
         <div className="min-h-screen bg-[var(--background-color)] text-[var(--text-primary)] transition-colors duration-300 selection:bg-orange-200 selection:text-orange-900">
           <Navbar />
-          {path === '/eternal-origins' && <EternalOrigins />}
-          {path === '/flowchart' && <Flowchart />}
-          {path === '/why-prarthana' && <WhyPrarthana />}
+          {currentHash === '#eternal-origins' && <EternalOrigins />}
+          {currentHash === '#flowchart' && <Flowchart />}
           <Footer />
         </div>
       </ThemeContext.Provider>
@@ -62,6 +66,10 @@ function App() {
 
           <div className="py-16 md:py-32" id="features">
             <Features />
+          </div>
+
+          <div id="why-prarthana">
+            <WhyPrarthana />
           </div>
         </main>
         <Chatbot />

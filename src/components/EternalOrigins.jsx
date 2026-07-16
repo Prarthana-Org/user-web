@@ -4,8 +4,18 @@ const EternalOrigins = () => {
     return (
         <div className="pt-24 pb-16 min-h-screen content-center">
             <style dangerouslySetInnerHTML={{__html: `
-                .trunk { position: relative; padding: 52px 0 8px; text-align: left; max-width: 1120px; margin: 0 auto; padding-left: 24px; padding-right: 24px; }
-                .trunk .eyebrow { font-weight: 600; font-size: .66rem; letter-spacing: .32em; text-transform: uppercase; color: #C24A26; margin-bottom: 10px; }
+                .trunk { 
+                  --gold: #A9791E;
+                  --sindoor: #C24A26;
+                  --green: #2E7D53;
+                  position: relative; padding: 52px 0 8px; text-align: left; max-width: 1120px; margin: 0 auto; padding-left: 24px; padding-right: 24px; 
+                }
+                [data-theme="dark"] .trunk {
+                  --gold: #D4A342;
+                  --sindoor: #E06D4A;
+                  --green: #4ADE80;
+                }
+                .trunk .eyebrow { font-weight: 600; font-size: .66rem; letter-spacing: .32em; text-transform: uppercase; color: var(--sindoor); margin-bottom: 10px; }
                 .trunk h2 { font-weight: 700; color: var(--text-primary); font-size: clamp(1.8rem, 4vw, 2.6rem); line-height: 1.05; letter-spacing: -.01em; margin-bottom: 14px; }
                 .trunk p.lead { max-width: 800px; margin: 14px 0 8px; font-size: 1rem; color: var(--text-secondary); }
                 .trunk p.lead strong { color: var(--text-primary); font-weight: 600; }
@@ -15,7 +25,7 @@ const EternalOrigins = () => {
                 .tree details::before { content: ""; position: absolute; left: -22px; top: 21px; width: 16px; height: 2px; background: var(--text-hint); }
                 .tree summary { list-style: none; cursor: pointer; display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; background: var(--card-background); border: 1px solid var(--text-hint); border-radius: 10px; padding: 13px 18px; transition: box-shadow .2s; }
                 .tree summary::-webkit-details-marker { display: none; }
-                .tree summary .tw { color: #A9791E; font-size: .72rem; transition: transform .25s; font-weight: 700; }
+                .tree summary .tw { color: var(--gold); font-size: .72rem; transition: transform .25s; font-weight: 700; }
                 .tree details[open] > summary .tw { transform: rotate(90deg); }
                 .tree summary .name { font-size: 1.12rem; font-weight: 700; color: var(--text-primary); }
                 .tree summary .skt { font-style: italic; color: var(--text-secondary); font-size: .88rem; }
@@ -23,14 +33,14 @@ const EternalOrigins = () => {
                 .tree .body { padding: 14px 8px 4px 18px; border-left: 2px dashed var(--text-hint); margin: 10px 0 0 10px; }
                 .k { display: grid; grid-template-columns: 96px 1fr; gap: 6px 14px; margin: 10px 0 4px; font-size: .92rem; text-align: left; }
                 .k b { font-weight: 700; font-size: .6rem; letter-spacing: .18em; padding-top: 5px; text-transform: uppercase; }
-                .k b.d { color: #A9791E; }
-                .k b.s { color: #C24A26; }
-                .k b.w { color: #2E7D53; }
+                .k b.d { color: var(--gold); }
+                .k b.s { color: var(--sindoor); }
+                .k b.w { color: var(--green); }
                 .k span { color: var(--text-secondary); }
                 .k span strong { color: var(--text-primary); font-weight: 600; }
                 
                 .branchlbl { font-weight: 700; font-size: .64rem; letter-spacing: .26em; text-transform: uppercase; color: var(--text-secondary); margin: 26px 0 12px 6px; text-align: left; }
-                .branchlbl::before { content: "— "; color: #A9791E; }
+                .branchlbl::before { content: "— "; color: var(--gold); }
             `}} />
 
             <section className="trunk">

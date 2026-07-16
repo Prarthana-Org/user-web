@@ -4,26 +4,40 @@ const Flowchart = () => {
     return (
         <div className="pt-24 pb-16 min-h-screen content-center flowchart-container">
             <style dangerouslySetInnerHTML={{__html: `
-:root{
-  --bg:#F7F5F0;            /* warm paper */
-  --panel:#FFFFFF;
-  --panel2:#FCFBF8;
-  --ink:#20242E;           /* near-black text */
-  --body:#4C5566;
-  --faint:#8A91A0;
-  --gold:#A9791E;          /* muted amber accent */
-  --gold-dim:rgba(169,121,30,.35);
-  --gold-bg:rgba(169,121,30,.07);
-  --sindoor:#C24A26;       /* muted vermillion */
-  --green:#2E7D53;
-  --line:#E6E2D8;
-  --shadow:0 1px 3px rgba(32,36,46,.06),0 4px 14px rgba(32,36,46,.05);
-  --disp:'League Spartan',ui-sans-serif,sans-serif;
-  --sans:'Josefin Sans',ui-sans-serif,sans-serif;
+.flowchart-container {
+  --bg: var(--background-color);
+  --panel: var(--card-background);
+  --panel2: var(--surface-color);
+  --ink: var(--text-primary);
+  --body: var(--text-secondary);
+  --faint: var(--text-hint);
+  
+  --gold: #A9791E;
+  --gold-dim: rgba(169,121,30,.35);
+  --gold-bg: rgba(169,121,30,.07);
+  --sindoor: #C24A26;
+  --green: #2E7D53;
+  --line: rgba(0, 0, 0, 0.1);
+  --shadow: var(--shadow-sm);
+  
+  --disp: 'League Spartan', ui-sans-serif, sans-serif;
+  --sans: 'Josefin Sans', ui-sans-serif, sans-serif;
+
+  background: var(--bg);
+  color: var(--body);
+  font-family: var(--sans);
+  font-weight: 400;
+  line-height: 1.65;
 }
-*{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth}
-.flowchart-container{background:var(--bg);color:var(--body);font-family:var(--sans);font-weight:400;line-height:1.65}
+
+[data-theme="dark"] .flowchart-container {
+  --gold: #D4A342;
+  --gold-dim: rgba(212,163,66,.35);
+  --gold-bg: rgba(212,163,66,.15);
+  --sindoor: #E06D4A;
+  --green: #4ADE80;
+  --line: rgba(255, 255, 255, 0.1);
+}
 ::selection{background:var(--sindoor);color:#fff}
 .wrap{max-width:1120px;margin:0 auto;padding:0 24px;position:relative}
 

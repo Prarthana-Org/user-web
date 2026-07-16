@@ -15,13 +15,13 @@ const Navbar = () => {
     }, []);
 
     const navLinks = [
-        { name: 'Home', href: '/#home' },
-        { name: 'Flowchart', href: '/flowchart' },
-        { name: 'Eternal Origins', href: '/eternal-origins' },
-        { name: 'Why Prarthana', href: '/why-prarthana' },
-        { name: 'Showcase', href: '/#showcase' },
-        { name: 'Features', href: '/#features' },
-        { name: 'Contact', href: '/#footer' },
+        { name: 'Home', href: '#home' },
+        { name: 'Flowchart', href: '#flowchart' },
+        { name: 'Eternal Origins', href: '#eternal-origins' },
+        { name: 'Showcase', href: '#showcase' },
+        { name: 'Features', href: '#features' },
+        { name: 'Why Prarthana', href: '#why-prarthana' },
+        { name: 'Contact', href: '#footer' },
     ];
 
     return (

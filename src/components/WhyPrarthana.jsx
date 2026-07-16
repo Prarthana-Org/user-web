@@ -4,7 +4,29 @@ const WhyPrarthana = () => {
     return (
         <div className="pt-24 pb-16 min-h-screen content-center flowchart-container">
             <style dangerouslySetInnerHTML={{__html: `
-                .flowchart-container { background: var(--midnight); color: var(--body); font-family: var(--text); font-weight: 300; line-height: 1.65; overflow-x: hidden; }
+                .flowchart-container { 
+                  --midnight: var(--background-color);
+                  --body: var(--text-secondary);
+                  --text: var(--font-sans);
+                  --thread: #A9791E;
+                  --thread-dim: rgba(169,121,30,.35);
+                  --sindoor: #C24A26;
+                  --ink: var(--text-primary);
+                  --faint: var(--text-hint);
+                  --disp: var(--font-sans);
+                  --mono: ui-monospace, monospace;
+                  --line: rgba(0, 0, 0, 0.1);
+                  --panel: var(--card-background);
+                  --panel-2: var(--surface-color);
+                  
+                  background: var(--midnight); color: var(--body); font-family: var(--text); font-weight: 300; line-height: 1.65; overflow-x: hidden; 
+                }
+                [data-theme="dark"] .flowchart-container {
+                  --thread: #D4A342;
+                  --thread-dim: rgba(212,163,66,.35);
+                  --sindoor: #E06D4A;
+                  --line: rgba(255, 255, 255, 0.1);
+                }
                 .sim { position: relative; max-width: 1060px; margin: 0 auto; padding: 70px 24px 40px 84px; z-index: 1; min-height: 100vh; }
                 .sim::before { content: ""; position: absolute; left: 44px; top: 0; bottom: 0; width: 2px; background: linear-gradient(180deg,transparent,var(--thread) 4%,var(--thread) 96%,transparent); box-shadow: 0 0 14px rgba(232,180,74,.35); }
                 .phase { position: relative; margin-bottom: 84px; opacity: 1; transform: none; margin-top: 50px; }
@@ -41,9 +63,9 @@ const WhyPrarthana = () => {
             <main className="sim">
                 <section className="phase" data-n="1">
                     <div className="eyebrow">The Present · The Purpose</div>
-                    <h2>Why PRarthana</h2>
+                    <h2>Why Prarthana</h2>
                     <div className="dates"><b>Present Day</b></div>
-                    <p className="lead">PRarthana exists to trace this unbroken thread, presenting the vast ecosystem of Indian knowledge with precision, aesthetic clarity, and uncompromising verified sourcing.</p>
+                    <p className="lead">Prarthana exists to trace this unbroken thread, presenting the vast ecosystem of Indian knowledge with precision, aesthetic clarity, and uncompromising verified sourcing.</p>
                     <div className="tree">
                         <details open>
                             <summary><span className="tw">▸</span><span className="name">Our Mission</span><span className="skt">preserve and transmit</span></summary>

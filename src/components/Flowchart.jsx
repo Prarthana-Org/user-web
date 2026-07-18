@@ -1,6 +1,15 @@
 import React from 'react';
 
 const Flowchart = () => {
+    const scrollTo = (id) => {
+        const el = document.getElementById(id);
+        if (el) {
+            el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            // If there's a details element inside or nearby, open it
+            const details = el.closest('.tree')?.querySelector('details') || el.nextElementSibling?.querySelector('details');
+            if (details) details.open = true;
+        }
+    };
     return (
         <div className="pt-24 pb-16 min-h-screen content-center flowchart-container">
             <style dangerouslySetInnerHTML={{__html: `
@@ -64,6 +73,9 @@ svg text{font-family:'Josefin Sans',sans-serif}
 .fc-s{fill:var(--faint);font-size:9.8px;font-weight:500;text-anchor:middle;letter-spacing:.09em}
 .fc-tr{fill:var(--gold);font-size:16px;font-weight:700;text-anchor:middle;letter-spacing:.16em}
 .fc-note{fill:var(--faint);font-size:10px;font-weight:500;text-anchor:middle;letter-spacing:.08em}
+.fc-node { cursor: pointer; transition: all 0.2s; }
+.fc-node:hover { opacity: 0.85; }
+.fc-node:hover rect { stroke: var(--gold); stroke-width: 2; }
 
 /* section headers */
 .trunk{position:relative;padding:52px 0 8px}
@@ -150,47 +162,63 @@ td i{color:var(--faint)}
   <path className="fc-arrow" d="M550 110 L770 110 L770 136"/>
 
   {/* trunk I */}
+  <g className="fc-node" onClick={() => scrollTo('sruti')}>
   <rect className="fc-box fc-trunk" x="120" y="138" width="220" height="62" rx="12"/>
   <text className="fc-t" x="230" y="165">ŚRUTI</text>
   <text className="fc-s" x="230" y="186">HEARD · REVEALED · APAURUṢEYA</text>
+  </g>
 
   {/* trunk II */}
+  <g className="fc-node" onClick={() => scrollTo('smrti')}>
   <rect className="fc-box fc-trunk" x="660" y="138" width="220" height="62" rx="12"/>
   <text className="fc-t" x="770" y="165">SMṚTI</text>
   <text className="fc-s" x="770" y="186">REMEMBERED · COMPOSED · APPLIED</text>
+  </g>
 
   {/* sruti children */}
   <path className="fc-arrow" d="M230 200 L230 218 L160 218 L160 238"/>
   <path className="fc-arrow" d="M230 218 L390 218 L390 238"/>
 
+  <g className="fc-node" onClick={() => scrollTo('four-vedas')}>
   <rect className="fc-box" x="60" y="240" width="200" height="56" rx="10"/>
   <text className="fc-t" x="160" y="264">THE 4 VEDAS</text>
   <text className="fc-s" x="160" y="284">ṚG · SĀMA · YAJUR · ATHARVA</text>
+  </g>
 
+  <g className="fc-node" onClick={() => scrollTo('upanisads')}>
   <rect className="fc-box" x="300" y="240" width="180" height="56" rx="10"/>
   <text className="fc-t" x="390" y="264">UPANIṢADS</text>
   <text className="fc-s" x="390" y="284">108 · MUKHYA 10–13</text>
+  </g>
 
   {/* 4-layer chain */}
   <path className="fc-arrow" d="M160 296 L160 340"/>
+  <g className="fc-node" onClick={() => scrollTo('four-layers')}>
   <rect className="fc-box" x="60" y="342" width="200" height="52" rx="10"/>
   <text className="fc-t" x="160" y="364" font-size="13">1 · SAṂHITĀ</text>
   <text className="fc-s" x="160" y="382">MANTRA COLLECTION</text>
+  </g>
 
   <path className="fc-arrow" d="M160 394 L160 416"/>
+  <g className="fc-node" onClick={() => scrollTo('four-layers')}>
   <rect className="fc-box" x="60" y="418" width="200" height="52" rx="10"/>
   <text className="fc-t" x="160" y="440" font-size="13">2 · BRĀHMAṆA</text>
   <text className="fc-s" x="160" y="458">RITUAL EXEGESIS</text>
+  </g>
 
   <path className="fc-arrow" d="M160 470 L160 492"/>
+  <g className="fc-node" onClick={() => scrollTo('four-layers')}>
   <rect className="fc-box" x="60" y="494" width="200" height="52" rx="10"/>
   <text className="fc-t" x="160" y="516" font-size="13">3 · ĀRAṆYAKA</text>
   <text className="fc-s" x="160" y="534">INTERNALIZATION</text>
+  </g>
 
   <path className="fc-arrow" d="M160 546 L160 568"/>
+  <g className="fc-node" onClick={() => scrollTo('four-layers')}>
   <rect className="fc-box" x="60" y="570" width="200" height="52" rx="10"/>
   <text className="fc-t" x="160" y="592" font-size="13">4 · UPANIṢAD</text>
   <text className="fc-s" x="160" y="610">JÑĀNA · VEDĀNTA</text>
+  </g>
 
   <path className="fc-dash" d="M260 596 L390 596 L390 296"/>
   <text className="fc-note" x="325" y="586">culminates in</text>
@@ -203,55 +231,71 @@ td i{color:var(--faint)}
 
   {/* row 1 */}
   <path className="fc-arrow" d="M770 268 L742 268"/>
+  <g className="fc-node" onClick={() => scrollTo('vedanga')}>
   <rect className="fc-box" x="520" y="238" width="220" height="60" rx="10"/>
   <text className="fc-t" x="630" y="260" font-size="13">VEDĀṄGA · 6 LIMBS</text>
   <text className="fc-s" x="630" y="277">ŚIKṢĀ · VYĀKARAṆA · CHANDAS</text>
   <text className="fc-s" x="630" y="290">NIRUKTA · KALPA · JYOTIṢA</text>
+  </g>
 
   <path className="fc-arrow" d="M770 315 L798 315"/>
+  <g className="fc-node" onClick={() => scrollTo('upaveda')}>
   <rect className="fc-box" x="800" y="285" width="220" height="60" rx="10"/>
   <text className="fc-t" x="910" y="307" font-size="13">UPAVEDA · 4</text>
   <text className="fc-s" x="910" y="324">ĀYURVEDA · DHANURVEDA</text>
   <text className="fc-s" x="910" y="337">GĀNDHARVA · STHĀPATYA</text>
+  </g>
 
   {/* row 2 */}
   <path className="fc-arrow" d="M770 363 L742 363"/>
+  <g className="fc-node" onClick={() => scrollTo('itihasa')}>
   <rect className="fc-box" x="520" y="333" width="220" height="60" rx="10"/>
   <text className="fc-t" x="630" y="355" font-size="13">ITIHĀSA · 2 EPICS</text>
   <text className="fc-s" x="630" y="372">RĀMĀYAṆA · MAHĀBHĀRATA</text>
   <text className="fc-s" x="630" y="385">⊃ BHAGAVAD GĪTĀ</text>
+  </g>
 
   <path className="fc-arrow" d="M770 410 L798 410"/>
+  <g className="fc-node" onClick={() => scrollTo('purana')}>
   <rect className="fc-box" x="800" y="380" width="220" height="60" rx="10"/>
   <text className="fc-t" x="910" y="402" font-size="13">PURĀṆA · 18 + 18</text>
   <text className="fc-s" x="910" y="419">SĀTTVIKA · RĀJASIKA · TĀMASIKA</text>
   <text className="fc-s" x="910" y="432">+ STHALA-PURĀṆAS</text>
+  </g>
 
   {/* row 3 */}
   <path className="fc-arrow" d="M770 458 L742 458"/>
+  <g className="fc-node" onClick={() => scrollTo('dharmasastra')}>
   <rect className="fc-box" x="520" y="428" width="220" height="60" rx="10"/>
   <text className="fc-t" x="630" y="450" font-size="13">DHARMAŚĀSTRA</text>
   <text className="fc-s" x="630" y="467">SŪTRA → SMṚTI → NIBANDHA</text>
   <text className="fc-s" x="630" y="480">LAW · ETHICS · CONDUCT</text>
+  </g>
 
   <path className="fc-arrow" d="M770 505 L798 505"/>
+  <g className="fc-node" onClick={() => scrollTo('agama')}>
   <rect className="fc-box" x="800" y="475" width="220" height="60" rx="10"/>
   <text className="fc-t" x="910" y="497" font-size="13">ĀGAMA · TANTRA</text>
   <text className="fc-s" x="910" y="514">ŚAIVA 28 · PĀÑCARĀTRA</text>
   <text className="fc-s" x="910" y="527">VAIKHĀNASA · ŚĀKTA 64</text>
+  </g>
 
   {/* row 4 */}
   <path className="fc-arrow" d="M770 553 L742 553"/>
+  <g className="fc-node" onClick={() => scrollTo('darsana')}>
   <rect className="fc-box" x="520" y="523" width="220" height="60" rx="10"/>
   <text className="fc-t" x="630" y="545" font-size="13">DARŚANA · 6 SYSTEMS</text>
   <text className="fc-s" x="630" y="562">SŪTRA → BHĀṢYA → ṬĪKĀ</text>
   <text className="fc-s" x="630" y="575">COMMENTARY CASCADES</text>
+  </g>
 
   <path className="fc-arrow" d="M770 600 L798 600"/>
+  <g className="fc-node" onClick={() => scrollTo('stotra')}>
   <rect className="fc-box" x="800" y="570" width="220" height="60" rx="10"/>
   <text className="fc-t" x="910" y="592" font-size="13">STOTRA · BHAKTI</text>
   <text className="fc-s" x="910" y="609">SAHASRANĀMA · PRAKARAṆA</text>
   <text className="fc-s" x="910" y="622">VERNACULAR CANONS</text>
+  </g>
 
   {/* rule of hierarchy */}
   <path className="fc-arrow" d="M770 646 L770 666"/>
@@ -263,10 +307,10 @@ td i{color:var(--faint)}
 {/* ==================== TRUNK I : SRUTI ==================== */}
 <section className="trunk">
   <div className="eyebrow">Trunk I</div>
-  <h2>Śruti — Revelation</h2>
+  <h2 id="sruti">Śruti — Revelation</h2>
   <p className="lead"><strong>Apauruṣeya</strong> — authorless. The ṛṣi is a <strong>mantra-draṣṭā</strong>, a “seer of the mantra,” never its writer. Bṛhadāraṇyaka 2.4.10 calls the Vedas the very <strong>breath of Brahman</strong>. This trunk is the supreme epistemic authority (śabda-pramāṇa) of the whole tradition.</p>
 
-  <div className="branchlbl">The Four Vedas</div>
+  <div className="branchlbl" id="four-vedas">The Four Vedas</div>
   <div className="tree">
 
     <details>
@@ -318,7 +362,7 @@ td i{color:var(--faint)}
     </details>
   </div>
 
-  <div className="branchlbl">The Four Layers inside every Veda — the master key</div>
+  <div className="branchlbl" id="four-layers">The Four Layers inside every Veda — the master key</div>
   <div className="tree">
     <details open>
       <summary><span className="tw">▸</span><span className="name">Saṃhitā → Brāhmaṇa → Āraṇyaka → Upaniṣad</span><span className="skt">text-structure = life-structure</span></summary>
@@ -338,7 +382,7 @@ td i{color:var(--faint)}
     </details>
   </div>
 
-  <div className="branchlbl">The Upaniṣads — full classification</div>
+  <div className="branchlbl" id="upanisads">The Upaniṣads — full classification</div>
   <div className="tree">
     <details>
       <summary><span className="tw">▸</span><span className="name">The 108 (Muktikā canon)</span><span className="skt">upa-ni-ṣad — “sitting down near” the teacher</span><span className="meta">BY VEDA &amp; BY SUBJECT</span></summary>
@@ -380,10 +424,10 @@ td i{color:var(--faint)}
 {/* ==================== TRUNK II : SMRTI ==================== */}
 <section className="trunk">
   <div className="eyebrow">Trunk II</div>
-  <h2>Smṛti — Tradition</h2>
+  <h2 id="smrti">Smṛti — Tradition</h2>
   <p className="lead"><strong>“That which is remembered”</strong> — human-authored texts that expound, apply, and popularize Śruti; authoritative but always corrigible against it <span className="ref">Manusmṛti 2.10</span>. Symbol: if Śruti is the eternal flame, Smṛti is the series of lamps lit from it for each age — a built-in version-control philosophy.</p>
 
-  <div className="branchlbl">Branch 1 · Vedāṅga — the six limbs of the Veda-puruṣa</div>
+  <div className="branchlbl" id="vedanga">Branch 1 · Vedāṅga — the six limbs of the Veda-puruṣa</div>
   <div className="tree">
     <details>
       <summary><span className="tw">▸</span><span className="name">The Six Limbs</span><span className="skt">the Veda imagined as a person — Pāṇinīya Śikṣā 41–42</span></summary>
@@ -402,7 +446,7 @@ td i{color:var(--faint)}
     </details>
   </div>
 
-  <div className="branchlbl">Branch 2 · Upaveda — the four applied knowledges</div>
+  <div className="branchlbl" id="upaveda">Branch 2 · Upaveda — the four applied knowledges</div>
   <div className="tree">
     <details>
       <summary><span className="tw">▸</span><span className="name">The Four Upavedas</span><span className="skt">applied sciences, each attached to a Veda</span></summary>
@@ -415,7 +459,7 @@ td i{color:var(--faint)}
     </details>
   </div>
 
-  <div className="branchlbl">Branch 3 · Itihāsa — the two epics (“the fifth Veda,” Chāndogya 7.1.2)</div>
+  <div className="branchlbl" id="itihasa">Branch 3 · Itihāsa — the two epics (“the fifth Veda,” Chāndogya 7.1.2)</div>
   <div className="tree">
     <details>
       <summary><span className="tw">▸</span><span className="name">Rāmāyaṇa</span><span className="skt">Vālmīki — the ādikāvya, first poem</span><span className="meta">~24,000 ŚLOKAS · 7 KĀṆḌAS</span></summary>
@@ -440,7 +484,7 @@ td i{color:var(--faint)}
     </details>
   </div>
 
-  <div className="branchlbl">Branch 4 · Purāṇa — “ancient, yet ever new”</div>
+  <div className="branchlbl" id="purana">Branch 4 · Purāṇa — “ancient, yet ever new”</div>
   <div className="tree">
     <details>
       <summary><span className="tw">▸</span><span className="name">18 Mahāpurāṇas · 18 Upapurāṇas · Sthala-purāṇas</span><span className="skt">the Veda democratized</span></summary>
@@ -464,7 +508,7 @@ td i{color:var(--faint)}
     </details>
   </div>
 
-  <div className="branchlbl">Branch 5 · Dharmaśāstra — law &amp; conduct</div>
+  <div className="branchlbl" id="dharmasastra">Branch 5 · Dharmaśāstra — law &amp; conduct</div>
   <div className="tree">
     <details>
       <summary><span className="tw">▸</span><span className="name">Sūtra → Smṛti → Nibandha</span><span className="skt">the three historical strata</span></summary>
@@ -477,7 +521,7 @@ td i{color:var(--faint)}
     </details>
   </div>
 
-  <div className="branchlbl">Branch 6 · Āgama &amp; Tantra — the worship canon</div>
+  <div className="branchlbl" id="agama">Branch 6 · Āgama &amp; Tantra — the worship canon</div>
   <div className="tree">
     <details>
       <summary><span className="tw">▸</span><span className="name">Śaiva 28 · Pāñcarātra &amp; Vaikhānasa · Śākta 64</span><span className="skt">the operating system of temple Hinduism</span></summary>
@@ -494,7 +538,7 @@ td i{color:var(--faint)}
     </details>
   </div>
 
-  <div className="branchlbl">Branch 7 · Darśana literature — six sūtra-traditions</div>
+  <div className="branchlbl" id="darsana">Branch 7 · Darśana literature — six sūtra-traditions</div>
   <div className="tree">
     <details>
       <summary><span className="tw">▸</span><span className="name">Sūtra → Bhāṣya → Vārttika → Ṭīkā → Prakaraṇa</span><span className="skt">the commentary ladder as canonical form</span></summary>
@@ -513,7 +557,7 @@ td i{color:var(--faint)}
     </details>
   </div>
 
-  <div className="branchlbl">Branch 8 · Stotra, Prakaraṇa &amp; Bhakti — the living edge</div>
+  <div className="branchlbl" id="stotra">Branch 8 · Stotra, Prakaraṇa &amp; Bhakti — the living edge</div>
   <div className="tree">
     <details>
       <summary><span className="tw">▸</span><span className="name">Hymns · Primers · Vernacular canons</span><span className="skt">where the canon breathes today</span></summary>

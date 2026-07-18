@@ -5,7 +5,7 @@ import AppShowcase from './components/AppShowcase';
 import Footer from './components/Footer';
 import Features from './components/Features';
 import Chatbot from './components/Chatbot';
-import EternalOrigins from './components/EternalOrigins';
+
 import Flowchart from './components/Flowchart';
 import WhyPrarthana from './components/WhyPrarthana';
 import { ThemeContext } from './ThemeContext';
@@ -36,14 +36,13 @@ function App() {
     document.documentElement.setAttribute('data-theme', newTheme);
   };
 
-  const isSeparatePage = currentHash === '#flowchart' || currentHash === '#eternal-origins';
+  const isSeparatePage = currentHash === '#flowchart';
 
   if (isSeparatePage) {
     return (
       <ThemeContext.Provider value={{ theme, toggleTheme }}>
         <div className="min-h-screen bg-[var(--background-color)] text-[var(--text-primary)] transition-colors duration-300 selection:bg-orange-200 selection:text-orange-900">
           <Navbar />
-          {currentHash === '#eternal-origins' && <EternalOrigins />}
           {currentHash === '#flowchart' && <Flowchart />}
           <Footer />
         </div>
@@ -60,7 +59,7 @@ function App() {
             <Hero />
           </div>
 
-          <div className="py-16 md:py-32 bg-[var(--surface-color)] shadow-sm" id="showcase">
+          <div className="py-16 md:py-32" id="showcase">
             <AppShowcase />
           </div>
 

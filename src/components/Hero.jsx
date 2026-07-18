@@ -87,6 +87,18 @@ const Hero = () => {
             <div className="hero-content">
                 <div className="hero-inner">
 
+                    {/* Eyebrow */}
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.1, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                        className="hero-eyebrow"
+                        style={{ color: '#d4a373', fontSize: '0.75rem', letterSpacing: '0.15em', textTransform: 'uppercase', marginBottom: '1.5rem', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '12px' }}
+                    >
+                        <span style={{ width: '24px', height: '1px', backgroundColor: '#d4a373', display: 'inline-block' }}></span>
+                        SCIENCE WITH SPIRITUALITY
+                    </motion.div>
+
                     {/* Heading */}
                     <motion.h1
                         initial={{ opacity: 0, y: 40 }}
@@ -94,7 +106,7 @@ const Hero = () => {
                         transition={{ delay: 0.15, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
                         className="hero-title"
                     >
-                        Start your <span className="gradient-text">spiritual journey</span> today
+                        Ancient wisdom of Bhārat, decoded by <span className="gradient-text">science.</span>
                     </motion.h1>
 
                     {/* Subtitle */}
@@ -104,22 +116,8 @@ const Hero = () => {
                         transition={{ delay: 0.3, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
                         className="hero-subtitle"
                     >
-                        Your personal temple for daily darshans, soothing chants, and ancient wisdom. Experience devotion like never before.
+                        Reviving and modernising the timeless culture of Bhārat — traditional practices grounded in scientific fact, and the great literature of the scriptures, presented to the world.
                     </motion.p>
-
-                    {/* Badge */}
-                    <motion.div
-                        initial={{ opacity: 0, y: 30 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.4, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-                        className="hero-badge"
-                    >
-                        <span className="hero-badge-dot">
-                            <span className="hero-badge-dot-ping" />
-                            <span className="hero-badge-dot-solid" />
-                        </span>
-                        <span className="hero-badge-text">#1 Spiritual App in 2026</span>
-                    </motion.div>
 
                     {/* Buttons */}
                     <motion.div
@@ -127,18 +125,16 @@ const Hero = () => {
                         animate={{ opacity: 1, y: 0, scale: 1 }}
                         transition={{ delay: 0.45, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
                         className="hero-buttons"
+                        style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}
                     >
                         <motion.button
                             type="button"
                             initial={{ opacity: 0, x: -20 }}
                             animate={{ opacity: 1, x: 0 }}
                             transition={{ delay: 0.55, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-                            className="hero-button"
+                            style={{ backgroundColor: '#eeb868', color: '#1a1a1a', padding: '0.8rem 1.8rem', borderRadius: '9999px', fontWeight: 600, border: 'none', cursor: 'pointer', fontSize: '0.95rem' }}
                         >
-                            <div className="hero-button-inner">
-                                <span className="hero-button-label">Download on the</span>
-                                <span className="hero-button-store">App Store</span>
-                            </div>
+                            Begin your journey
                         </motion.button>
 
                         <motion.button
@@ -146,28 +142,10 @@ const Hero = () => {
                             initial={{ opacity: 0, x: 20 }}
                             animate={{ opacity: 1, x: 0 }}
                             transition={{ delay: 0.65, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-                            className="hero-button"
+                            style={{ backgroundColor: 'transparent', color: '#fff', padding: '0.8rem 1.8rem', borderRadius: '9999px', fontWeight: 600, border: '1px solid rgba(255,255,255,0.15)', cursor: 'pointer', fontSize: '0.95rem' }}
                         >
-                            <div className="hero-button-inner">
-                                <span className="hero-button-label">GET IT ON</span>
-                                <span className="hero-button-store">Google Play</span>
-                            </div>
+                            Explore features
                         </motion.button>
-                    </motion.div>
-
-                    {/* Verification Strip */}
-                    <motion.div
-                        initial={{ opacity: 0, y: 15 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.55, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-                        className="hero-verification"
-                    >
-                        <div className="hero-verification-rating">
-                            <Star size={16} fill="currentColor" className="text-yellow-500" />
-                            <span className="hero-verification-rating-text">4.9/5 Rating</span>
-                        </div>
-                        <div className="hero-verification-divider" />
-                        <span className="hero-verification-downloads">10k+ Downloads</span>
                     </motion.div>
                 </div>
                 <div className="hero-model" style={{ flex: 1, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>

@@ -27,7 +27,7 @@ const WhyPrarthana = () => {
         <div className="pt-24 pb-16 min-h-screen content-center flowchart-container">
             <style dangerouslySetInnerHTML={{__html: `
                 .flowchart-container { 
-                  --midnight: var(--background-color);
+                  --midnight: transparent;
                   --body: var(--text-secondary);
                   --text: var(--font-sans);
                   --thread: #A9791E;
@@ -41,7 +41,7 @@ const WhyPrarthana = () => {
                   --panel: var(--card-background);
                   --panel-2: var(--surface-color);
                   
-                  background: var(--midnight); color: var(--body); font-family: var(--text); font-weight: 300; line-height: 1.65; overflow-x: hidden; 
+                  background: transparent; color: var(--body); font-family: var(--text); font-weight: 300; line-height: 1.65; overflow-x: hidden; 
                 }
                 [data-theme="dark"] .flowchart-container {
                   --thread: #D4A342;

@@ -16,7 +16,8 @@ const Navbar = () => {
 
     const navLinks = [
         { name: 'Home', href: '#home' },
-        { name: 'Flowchart', href: '#flowchart' },
+        { name: 'About Us', href: '#about-us' },
+        { name: 'Knowledge Tree', href: '#knowledge-tree' },
 
         { name: 'Explore Prarthana', href: '#showcase' },
         { name: 'Features', href: '#features' },
@@ -29,9 +30,9 @@ const Navbar = () => {
             <motion.nav
                 initial={{ y: -100 }}
                 animate={{ y: 0 }}
-                className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'py-4' : 'py-6'
-                    }`}
-                style={{ backgroundColor: '#0a192f' }}
+                className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+                    scrolled ? 'py-4 bg-[var(--surface-color)]/80 shadow-sm backdrop-blur-md' : 'py-6 bg-transparent'
+                }`}
             >
                 <div className="w-full px-6 md:px-12">
                     <div className={`flex items-center justify-between transition-all duration-300`}>
@@ -42,7 +43,7 @@ const Navbar = () => {
                                 alt="Prarthana"
                                 className="h-10 w-auto object-contain group-hover:scale-105 transition-transform duration-300"
                             />
-                            <span className="text-xl font-bold text-white tracking-tight group-hover:text-orange-600 transition-colors">
+                            <span className="text-xl font-bold text-[var(--text-primary)] tracking-tight group-hover:text-orange-600 transition-colors">
                                 Prarthana
                             </span>
                         </a>
@@ -55,7 +56,17 @@ const Navbar = () => {
                                     href={link.href}
                                     target={link.target || '_self'}
                                     rel={link.target === '_blank' ? 'noopener noreferrer' : undefined}
-                                    className="relative text-gray-200 font-medium hover:text-orange-600 transition-colors px-2 py-1 group"
+                                    className="relative text-[var(--text-secondary)] font-medium hover:text-orange-600 transition-colors px-2 py-1 group"
+                                    onClick={(e) => {
+                                        if (link.href.startsWith('#') && link.target !== '_blank') {
+                                            e.preventDefault();
+                                            window.location.hash = link.href;
+                                            setTimeout(() => {
+                                                const el = document.querySelector(link.href);
+                                                if (el) el.scrollIntoView({ behavior: 'smooth' });
+                                            }, 100);
+                                        }
+                                    }}
                                 >
                                     {link.name}
                                     <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-orange-500 transition-all duration-300 group-hover:w-full opacity-80" />
@@ -67,7 +78,7 @@ const Navbar = () => {
                         <div className="hidden md:flex items-center gap-4">
                             <button
                                 onClick={toggleTheme}
-                                className="p-2 text-gray-200 hover:bg-white/10 rounded-full transition-colors"
+                                className="p-2 text-[var(--text-secondary)] hover:bg-white/10 rounded-full transition-colors"
                                 aria-label="Toggle theme"
                             >
                                 {theme === 'light' ? <Moon size={20} /> : <Sun size={20} />}
@@ -86,12 +97,12 @@ const Navbar = () => {
                         <div className="flex md:hidden items-center gap-2">
                             <button
                                 onClick={toggleTheme}
-                                className="p-2 text-gray-200 hover:bg-white/10 rounded-full transition-colors"
+                                className="p-2 text-[var(--text-secondary)] hover:bg-white/10 rounded-full transition-colors"
                             >
                                 {theme === 'light' ? <Moon size={20} /> : <Sun size={20} />}
                             </button>
                             <button
-                                className="p-2 text-gray-200 hover:bg-white/10 rounded-full transition-colors"
+                                className="p-2 text-[var(--text-secondary)] hover:bg-white/10 rounded-full transition-colors"
                                 onClick={() => setMobileMenuOpen(true)}
                             >
                                 <Menu size={24} />
@@ -136,7 +147,19 @@ const Navbar = () => {
                                         href={link.href}
                                         target={link.target || '_self'}
                                         rel={link.target === '_blank' ? 'noopener noreferrer' : undefined}
-                                        onClick={() => link.target !== '_blank' && setMobileMenuOpen(false)}
+                                        onClick={(e) => {
+                                            if (link.target !== '_blank') {
+                                                setMobileMenuOpen(false);
+                                                if (link.href.startsWith('#')) {
+                                                    e.preventDefault();
+                                                    window.location.hash = link.href;
+                                                    setTimeout(() => {
+                                                        const el = document.querySelector(link.href);
+                                                        if (el) el.scrollIntoView({ behavior: 'smooth' });
+                                                    }, 100);
+                                                }
+                                            }
+                                        }}
                                         className="text-lg font-medium text-[var(--text-secondary)] p-3 hover:bg-[var(--text-hint)]/10 hover:text-orange-600 rounded-xl transition-colors"
                                     >
                                         {link.name}

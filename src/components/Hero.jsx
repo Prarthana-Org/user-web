@@ -1,71 +1,15 @@
 import React from 'react';
+import { useContext } from 'react';
+import { ThemeContext } from '../ThemeContext';
+// eslint-disable-next-line no-unused-vars
 import { motion } from 'framer-motion';
-import { Star } from 'lucide-react';
+import { Star, ChevronDown } from 'lucide-react';
 import './Hero.css';
 
-const ChakraModel = () => {
-    return (
-        <div className="chakra-hero-main" tabIndex="0" aria-label="Prarthana logo — hover to spin">
-            <div className="chakra-glow-main"></div>
-            <svg className="chakra-svg-main outer" viewBox="0 0 200 200">
-                <g className="petals">
-                    {[0, 30, 60, 90, 120, 150, 180, 210, 240, 270, 300, 330].map(angle => (
-                        <ellipse key={angle} cx="100" cy="26" rx="7" ry="15" fill="var(--amber)" opacity=".85" transform={`rotate(${angle} 100 100)`} />
-                    ))}
-                </g>
-            </svg>
-            <svg className="chakra-svg-main spokes" viewBox="0 0 200 200">
-                <circle cx="100" cy="100" r="74" fill="none" stroke="var(--chakra-stroke)" strokeWidth="2" opacity=".5" />
-                <g className="spoke-lines">
-                    <path d="M154.0 100.0L172.0 100.0" stroke="var(--chakra-stroke)" strokeWidth="1.6" opacity=".6" />
-                    <path d="M152.2 114.0L169.5 118.6" stroke="var(--chakra-stroke)" strokeWidth="1.6" opacity=".6" />
-                    <path d="M146.8 127.0L162.4 136.0" stroke="var(--chakra-stroke)" strokeWidth="1.6" opacity=".6" />
-                    <path d="M138.2 138.2L150.9 150.9" stroke="var(--chakra-stroke)" strokeWidth="1.6" opacity=".6" />
-                    <path d="M127.0 146.8L136.0 162.4" stroke="var(--chakra-stroke)" strokeWidth="1.6" opacity=".6" />
-                    <path d="M114.0 152.2L118.6 169.5" stroke="var(--chakra-stroke)" strokeWidth="1.6" opacity=".6" />
-                    <path d="M100.0 154.0L100.0 172.0" stroke="var(--chakra-stroke)" strokeWidth="1.6" opacity=".6" />
-                    <path d="M86.0 152.2L81.4 169.5" stroke="var(--chakra-stroke)" strokeWidth="1.6" opacity=".6" />
-                    <path d="M73.0 146.8L64.0 162.4" stroke="var(--chakra-stroke)" strokeWidth="1.6" opacity=".6" />
-                    <path d="M61.8 138.2L49.1 150.9" stroke="var(--chakra-stroke)" strokeWidth="1.6" opacity=".6" />
-                    <path d="M53.2 127.0L37.6 136.0" stroke="var(--chakra-stroke)" strokeWidth="1.6" opacity=".6" />
-                    <path d="M47.8 114.0L30.5 118.6" stroke="var(--chakra-stroke)" strokeWidth="1.6" opacity=".6" />
-                    <path d="M46.0 100.0L28.0 100.0" stroke="var(--chakra-stroke)" strokeWidth="1.6" opacity=".6" />
-                    <path d="M47.8 86.0L30.5 81.4" stroke="var(--chakra-stroke)" strokeWidth="1.6" opacity=".6" />
-                    <path d="M53.2 73.0L37.6 64.0" stroke="var(--chakra-stroke)" strokeWidth="1.6" opacity=".6" />
-                    <path d="M61.8 61.8L49.1 49.1" stroke="var(--chakra-stroke)" strokeWidth="1.6" opacity=".6" />
-                    <path d="M73.0 53.2L64.0 37.6" stroke="var(--chakra-stroke)" strokeWidth="1.6" opacity=".6" />
-                    <path d="M86.0 47.8L81.4 30.5" stroke="var(--chakra-stroke)" strokeWidth="1.6" opacity=".6" />
-                    <path d="M100.0 46.0L100.0 28.0" stroke="var(--chakra-stroke)" strokeWidth="1.6" opacity=".6" />
-                    <path d="M114.0 47.8L118.6 30.5" stroke="var(--chakra-stroke)" strokeWidth="1.6" opacity=".6" />
-                    <path d="M127.0 53.2L136.0 37.6" stroke="var(--chakra-stroke)" strokeWidth="1.6" opacity=".6" />
-                    <path d="M138.2 61.8L150.9 49.1" stroke="var(--chakra-stroke)" strokeWidth="1.6" opacity=".6" />
-                    <path d="M146.8 73.0L162.4 64.0" stroke="var(--chakra-stroke)" strokeWidth="1.6" opacity=".6" />
-                    <path d="M152.2 86.0L169.5 81.4" stroke="var(--chakra-stroke)" strokeWidth="1.6" opacity=".6" />
-                </g>
-                <circle cx="100" cy="100" r="52" fill="none" stroke="var(--chakra-stroke)" strokeWidth="2.5" />
-            </svg>
-            <div className="chakra-ping-main"></div>
-            <div className="chakra-ping-main d2"></div>
-            <svg className="meditator-main" viewBox="0 0 100 100">
-                <defs>
-                    <radialGradient id="medg2" cx="50%" cy="35%" r="70%">
-                        <stop offset="0" stopColor="var(--meditator-top)" />
-                        <stop offset="1" stopColor="var(--meditator-bottom)" />
-                    </radialGradient>
-                </defs>
-                <circle cx="50" cy="50" r="46" fill="url(#medg2)" />
-                <g fill="#fff" opacity=".95">
-                    <circle cx="50" cy="34" r="8.5" />
-                    <path d="M50 44c-9 0-16 6.4-16 15 0 5.2 3 8.8 5.6 10.8-4 1.8-9.6 3.4-13.8 7.6-.8.8-.3 2 .8 2h46.8c1.1 0 1.6-1.2.8-2-4.2-4.2-9.8-5.8-13.8-7.6 2.6-2 5.6-5.6 5.6-10.8 0-8.6-7-15-16-15z" />
-                </g>
-                <circle cx="33" cy="64" r="2.4" fill="#fff" />
-                <circle cx="67" cy="64" r="2.4" fill="#fff" />
-            </svg>
-        </div>
-    );
-};
+import ChakraModel3D from './ChakraModel3D';
 
 const Hero = () => {
+    const { theme } = useContext(ThemeContext);
     return (
         <section className="hero-section">
             {/* Dynamic Background Elements */}
@@ -129,28 +73,65 @@ const Hero = () => {
                     >
                         <motion.button
                             type="button"
+                            onClick={() => {
+                                window.location.hash = '#showcase';
+                                setTimeout(() => {
+                                    const el = document.querySelector('#showcase');
+                                    if (el) el.scrollIntoView({ behavior: 'smooth' });
+                                }, 50);
+                            }}
                             initial={{ opacity: 0, x: -20 }}
                             animate={{ opacity: 1, x: 0 }}
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.95 }}
                             transition={{ delay: 0.55, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-                            style={{ backgroundColor: '#eeb868', color: '#1a1a1a', padding: '0.8rem 1.8rem', borderRadius: '9999px', fontWeight: 600, border: 'none', cursor: 'pointer', fontSize: '0.95rem' }}
+                            className="btn-primary shadow-lg shadow-orange-500/30"
+                            style={{ padding: '16px 32px', margin: '8px', cursor: 'pointer' }}
                         >
                             Begin your journey
                         </motion.button>
 
                         <motion.button
                             type="button"
+                            onClick={() => {
+                                window.location.hash = '#features';
+                                setTimeout(() => {
+                                    const el = document.querySelector('#features');
+                                    if (el) el.scrollIntoView({ behavior: 'smooth' });
+                                }, 50);
+                            }}
                             initial={{ opacity: 0, x: 20 }}
                             animate={{ opacity: 1, x: 0 }}
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.95 }}
                             transition={{ delay: 0.65, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-                            style={{ backgroundColor: 'transparent', color: '#fff', padding: '0.8rem 1.8rem', borderRadius: '9999px', fontWeight: 600, border: '1px solid rgba(255,255,255,0.15)', cursor: 'pointer', fontSize: '0.95rem' }}
+                            className="btn-glass border-2 border-orange-500/50 hover:border-orange-500 hover:bg-orange-500/10 text-[var(--text-primary)]"
+                            style={{ padding: '16px 32px', margin: '8px', cursor: 'pointer', border: '2px solid rgba(255, 107, 53, 0.5)' }}
                         >
                             Explore features
                         </motion.button>
                     </motion.div>
                 </div>
-                <div className="hero-model" style={{ flex: 1, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                    <ChakraModel />
+                <div className="hero-model w-full md:w-1/2 flex justify-center items-center h-[400px] md:h-[600px]">
+                    <ChakraModel3D theme={theme} />
                 </div>
+            </div>
+
+            {/* Mobile Scroll Indicator */}
+            <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 md:hidden">
+                <button
+                    onClick={() => {
+                        window.location.hash = '#showcase';
+                        setTimeout(() => {
+                            const el = document.querySelector('#showcase');
+                            if (el) el.scrollIntoView({ behavior: 'smooth' });
+                        }, 50);
+                    }}
+                    className="flex items-center justify-center w-12 h-12 rounded-full bg-orange-500/10 text-orange-500 hover:bg-orange-500/20 transition-colors animate-bounce"
+                    aria-label="Scroll to next section"
+                >
+                    <ChevronDown size={24} strokeWidth={2.5} />
+                </button>
             </div>
         </section>
     );

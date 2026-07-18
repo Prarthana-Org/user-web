@@ -3,18 +3,18 @@ import { Facebook, Twitter, Instagram, Youtube, Heart } from 'lucide-react';
 
 const Footer = () => {
     return (
-        <footer id="footer" className="bg-gray-900 text-white pt-20 md:pt-24 pb-12">
+        <footer id="footer" className="bg-[var(--surface-color)]/60 backdrop-blur-md border-t border-white/10 text-[var(--text-primary)] pt-20 md:pt-24 pb-12">
             <div className="container mx-auto px-8 md:px-12 lg:px-16 max-w-6xl">
                 <div className="grid md:grid-cols-4 gap-16 md:gap-20 mb-16 text-center md:text-left max-w-5xl mx-auto">
                     <div className="col-span-1 md:col-span-2">
                         <div className="text-2xl font-bold text-orange-500 mb-6">Prarthana</div>
-                        <p className="text-gray-400 max-w-sm leading-relaxed mx-auto md:mx-0">
+                        <p className="text-[var(--text-secondary)] max-w-sm leading-relaxed mx-auto md:mx-0">
                             Your daily companion for spiritual growth, meditation, and devotion. Join our community of devotees today.
                         </p>
                     </div>
                     <div>
                         <h4 className="font-bold mb-6">Quick Links</h4>
-                        <ul className="space-y-3 text-gray-400">
+                        <ul className="space-y-3 text-[var(--text-secondary)]">
                             <li><a href="#home" className="hover:text-orange-500 transition-colors">Home</a></li>
                             <li><a href="#showcase" className="hover:text-orange-500 transition-colors">Explore Prarthana</a></li>
                             <li><a href="#features" className="hover:text-orange-500 transition-colors">Features</a></li>
@@ -23,7 +23,7 @@ const Footer = () => {
                     </div>
                     <div>
                         <h4 className="font-bold mb-6">Legal</h4>
-                        <ul className="space-y-3 text-gray-400">
+                        <ul className="space-y-3 text-[var(--text-secondary)]">
                             <li><a href="#" className="hover:text-orange-500 transition-colors">Privacy Policy</a></li>
                             <li><a href="#" className="hover:text-orange-500 transition-colors">Terms of Service</a></li>
                         </ul>
@@ -31,14 +31,14 @@ const Footer = () => {
                 </div>
 
                 <div className="border-t border-gray-800 pt-10 flex flex-col md:flex-row items-center justify-center md:justify-between gap-6 text-center">
-                    <div className="text-gray-500 text-sm">
+                    <div className="text-[var(--text-hint)] text-sm">
                         © 2026 Prarthana App. All rights reserved.
                     </div>
                     <div className="flex items-center gap-6">
-                        <Facebook size={20} className="text-gray-400 hover:text-white transition-colors cursor-pointer" />
-                        <Twitter size={20} className="text-gray-400 hover:text-white transition-colors cursor-pointer" />
-                        <Instagram size={20} className="text-gray-400 hover:text-white transition-colors cursor-pointer" />
-                        <Youtube size={20} className="text-gray-400 hover:text-white transition-colors cursor-pointer" />
+                        <Facebook size={20} className="text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors cursor-pointer" />
+                        <Twitter size={20} className="text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors cursor-pointer" />
+                        <Instagram size={20} className="text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors cursor-pointer" />
+                        <Youtube size={20} className="text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors cursor-pointer" />
                     </div>
                 </div>
             </div>

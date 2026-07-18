@@ -3,7 +3,7 @@
    ============================================ */
 
 .features-section {
-  background: var(--surface-color);
+  background: transparent;
   backdrop-filter: blur(4px);
   padding: 4rem 0;
 }
@@ -98,8 +98,7 @@
 
 /* Feature cards horizontal scroll */
 .features-grid {
-  width: 100%;
-  max-width: 100vw;
+  width: auto;
   display: flex;
   gap: 2rem;
   overflow-x: auto;
@@ -107,44 +106,25 @@
   margin-left: -1.5rem;
   margin-right: -1.5rem;
   scroll-snap-type: x mandatory;
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none; /* IE/Edge */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
-
 @media (min-width: 768px) {
   .features-grid {
-    padding-left: 2.5rem;
-    padding-right: 2.5rem;
-    margin-left: -2.5rem;
-    margin-right: -2.5rem;
+    padding-left: 2.5rem; padding-right: 2.5rem; margin-left: -2.5rem; margin-right: -2.5rem;
   }
 }
-
 @media (min-width: 1024px) {
   .features-grid {
-    padding-left: 3rem;
-    padding-right: 3rem;
-    margin-left: -3rem;
-    margin-right: -3rem;
+    padding-left: 3rem; padding-right: 3rem; margin-left: -3rem; margin-right: -3rem;
   }
 }
 
-@media (min-width: 1280px) {
-  .features-grid {
-    padding-left: 4rem;
-    padding-right: 4rem;
-    margin-left: -4rem;
-    margin-right: -4rem;
-  }
-}
-
-.features-grid::-webkit-scrollbar {
-  display: none; /* Chrome/Safari */
-}
+.features-grid::-webkit-scrollbar { display: none; }
 
 /* Individual feature card */
 .feature-card {
-  flex: 0 0 320px;
+  flex: 0 0 calc(100% - 3rem);
   scroll-snap-align: center;
   padding: 2rem;
   border-radius: 1rem;
@@ -155,19 +135,25 @@
   align-items: center;
   position: relative;
   overflow: hidden;
-  cursor: default;
   transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+@media (min-width: 640px) {
+  .feature-card {
+    flex: 0 0 calc(50% - 1rem);
+    padding: 2.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .feature-card {
+    flex: 0 0 calc(25% - 1.5rem);
+  }
 }
 
 .feature-card:hover {
   box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1);
   transform: translateY(-0.5rem) scale(1.02);
-}
-
-@media (min-width: 768px) {
-  .feature-card {
-    padding: 2.5rem;
-  }
 }
 
 .feature-card-icon-accent {
@@ -204,25 +190,25 @@
 }
 
 /* Color variants for feature cards */
-.feature-card--pink { background: #fdf2f8; border-color: #fbcfe8; }
-.feature-card--cyan { background: #ecfeff; border-color: #a5f3fc; }
-.feature-card--blue { background: #eff6ff; border-color: #bfdbfe; }
-.feature-card--emerald { background: #ecfdf5; border-color: #a7f3d0; }
-.feature-card--orange { background: #fff7ed; border-color: #fed7aa; }
-.feature-card--teal { background: #f0fdfa; border-color: #99f6e4; }
-.feature-card--violet { background: #f5f3ff; border-color: #ddd6fe; }
-.feature-card--indigo { background: #eef2ff; border-color: #c7d2fe; }
-.feature-card--rose { background: #fff1f2; border-color: #fecdd3; }
+.feature-card--pink { background: transparent; }
+.feature-card--cyan { background: transparent; }
+.feature-card--blue { background: transparent; }
+.feature-card--emerald { background: transparent; }
+.feature-card--orange { background: transparent; }
+.feature-card--teal { background: transparent; }
+.feature-card--violet { background: transparent; }
+.feature-card--indigo { background: transparent; }
+.feature-card--rose { background: transparent; }
 
-[data-theme="dark"] .feature-card--pink { background: rgba(219, 39, 119, 0.1); border-color: rgba(219, 39, 119, 0.2); }
-[data-theme="dark"] .feature-card--cyan { background: rgba(8, 145, 178, 0.1); border-color: rgba(8, 145, 178, 0.2); }
-[data-theme="dark"] .feature-card--blue { background: rgba(37, 99, 235, 0.1); border-color: rgba(37, 99, 235, 0.2); }
-[data-theme="dark"] .feature-card--emerald { background: rgba(5, 150, 105, 0.1); border-color: rgba(5, 150, 105, 0.2); }
-[data-theme="dark"] .feature-card--orange { background: rgba(234, 88, 12, 0.1); border-color: rgba(234, 88, 12, 0.2); }
-[data-theme="dark"] .feature-card--teal { background: rgba(13, 148, 136, 0.1); border-color: rgba(13, 148, 136, 0.2); }
-[data-theme="dark"] .feature-card--violet { background: rgba(124, 58, 237, 0.1); border-color: rgba(124, 58, 237, 0.2); }
-[data-theme="dark"] .feature-card--indigo { background: rgba(79, 70, 229, 0.1); border-color: rgba(79, 70, 229, 0.2); }
-[data-theme="dark"] .feature-card--rose { background: rgba(225, 29, 72, 0.1); border-color: rgba(225, 29, 72, 0.2); }
+[data-theme="dark"] .feature-card--pink { background: transparent; }
+[data-theme="dark"] .feature-card--cyan { background: transparent; }
+[data-theme="dark"] .feature-card--blue { background: transparent; }
+[data-theme="dark"] .feature-card--emerald { background: transparent; }
+[data-theme="dark"] .feature-card--orange { background: transparent; }
+[data-theme="dark"] .feature-card--teal { background: transparent; }
+[data-theme="dark"] .feature-card--violet { background: transparent; }
+[data-theme="dark"] .feature-card--indigo { background: transparent; }
+[data-theme="dark"] .feature-card--rose { background: transparent; }
 
 /* Spacer between grid and Pro banner - prevents margin collapse */
 .features-spacer {
@@ -261,7 +247,7 @@
   max-width: 56rem;
   padding: 3rem;
   border-radius: 2rem;
-  background: #111827;
+  background: transparent;
   color: white;
   position: relative;
   overflow: hidden;

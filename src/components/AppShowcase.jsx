@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import './AppShowcase.css';
 
 const AppShowcase = () => {
@@ -22,11 +22,51 @@ const AppShowcase = () => {
     }, []);
 
     // Provide the extracted raw HTML from the prototype
+        const galleryRef = useRef(null);
+
+    const scrollGallery = (direction) => {
+        if (!galleryRef.current) return;
+        
+        const wrapper = galleryRef.current;
+        const items = Array.from(wrapper.querySelectorAll('.phone-wrap'));
+        if (items.length === 0) return;
+        
+        const wrapperCenter = wrapper.getBoundingClientRect().left + wrapper.clientWidth / 2;
+        
+        // Find the item currently closest to the center
+        let closestIndex = 0;
+        let minDistance = Infinity;
+        
+        items.forEach((item, index) => {
+            const rect = item.getBoundingClientRect();
+            const itemCenter = rect.left + rect.width / 2;
+            const distance = Math.abs(itemCenter - wrapperCenter);
+            
+            if (distance < minDistance) {
+                minDistance = distance;
+                closestIndex = index;
+            }
+        });
+        
+        let targetIndex = closestIndex;
+        if (direction === 'forward') {
+            targetIndex = Math.min(items.length - 1, closestIndex + 1);
+        } else {
+            targetIndex = Math.max(0, closestIndex - 1);
+        }
+        
+        const targetItem = items[targetIndex];
+        
+        // Scroll target into view, centering it
+        const scrollLeft = targetItem.offsetLeft - (wrapper.clientWidth / 2) + (targetItem.clientWidth / 2);
+        wrapper.scrollTo({ left: scrollLeft, behavior: 'smooth' });
+    };
+
     const rawHTML = `
 
 <!-- ══════════════════ SCREEN 00 · INTERACTIVE LANDING ══════════════════ -->
 <div class="phone-wrap">
-  <div class="phone"><div class="screen landing-screen" style="background:var(--hero)">
+  <div class="phone"><div class="screen landing-screen" style="background:transparent">
     <div class="status"><span>23:19</span><span class="r">📶 <span class="bat">92</span></span></div>
 
     <!-- ambient blobs -->
@@ -90,7 +130,7 @@ const AppShowcase = () => {
 </div>
 <!-- ══════════════════ SCREEN 1 · SPLASH / LOGIN ══════════════════ -->
 <div class="phone-wrap">
-  <div class="phone"><div class="screen" style="background:var(--grad-hero)">
+  <div class="phone"><div class="screen" style="background:transparent">
     <!-- animated aurora bg -->
     <div style="position:absolute;inset:0;overflow:hidden">
       <div style="position:absolute;top:-60px;left:-40px;width:260px;height:260px;border-radius:50%;background:radial-gradient(circle,rgba(255,138,61,.35),transparent 70%);filter:blur(20px);animation:bob 6s ease-in-out infinite"></div>
@@ -247,7 +287,7 @@ const AppShowcase = () => {
 
 <!-- ══════════════════ SCREEN 3 · CHANT (jap counter, animated) ══════════════════ -->
 <div class="phone-wrap">
-  <div class="phone"><div class="screen" style="background:var(--hero)">
+  <div class="phone"><div class="screen" style="background:transparent">
     <div class="scroll">
       <div class="status"><span>23:19</span><span class="r">📶 <span class="bat">92</span></span></div>
       <div style="display:flex;align-items:center;gap:14px;padding:8px 20px 0">
@@ -393,7 +433,7 @@ const AppShowcase = () => {
 
 <!-- ══════════════════ SCREEN 5 · SKY TODAY (scientific horoscope) ══════════════════ -->
 <div class="phone-wrap">
-  <div class="phone"><div class="screen" style="background:var(--hero)">
+  <div class="phone"><div class="screen" style="background:transparent">
     <div class="scroll">
       <!-- animated stars -->
       <div style="position:absolute;inset:0;overflow:hidden;pointer-events:none">
@@ -453,7 +493,7 @@ const AppShowcase = () => {
 
 <!-- ══════════════════ SCREEN 6 · SHORTS (vertical feed) ══════════════════ -->
 <div class="phone-wrap">
-  <div class="phone"><div class="screen" style="background:var(--ink)">
+  <div class="phone"><div class="screen" style="background:transparent">
     <!-- full-bleed short -->
     <div style="position:absolute;inset:0;background:linear-gradient(160deg,#243352,#0c1122)">
       <div style="position:absolute;inset:0;background:radial-gradient(circle at 50% 40%,rgba(255,138,61,.15),transparent 60%)"></div>
@@ -583,7 +623,7 @@ const AppShowcase = () => {
 
 <!-- ══════════════════ SCREEN 8 · VIDEO CALL + reader ══════════════════ -->
 <div class="phone-wrap">
-  <div class="phone"><div class="screen" style="background:var(--ink)">
+  <div class="phone"><div class="screen" style="background:transparent">
     <div class="status"><span>23:19</span><span class="r">📶 <span class="bat">92</span></span></div>
     <div style="display:flex;align-items:center;gap:14px;padding:8px 20px 12px">
       <div class="iconbtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m15 18-6-6 6-6"/></svg></div>
@@ -707,31 +747,43 @@ const AppShowcase = () => {
 </div>`;
 
     return (
-        <section id="showcase" className="overflow-hidden relative py-20" data-theme={theme}>
-            <div className="container mx-auto px-4 md:px-8 lg:px-12 text-left mb-12 flex flex-col items-start justify-center">
-                <p style={{
-                    fontSize: 13, fontWeight: 600, textTransform: 'uppercase',
-                    letterSpacing: '0.12em', color: '#FF6B35', marginBottom: 12, textAlign: 'left'
-                }}>
-                    App Preview
-                </p>
-                <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-[var(--text-primary)] leading-tight tracking-tight text-left">
+        <section id="showcase" className="overflow-hidden relative py-20 mt-12" data-theme={theme} style={{ background: "transparent" }}>
+            <div className="container mx-auto px-4 md:px-8 lg:px-12 mb-8 flex flex-col items-start justify-center" style={{ paddingLeft: '1rem' }}>
+                <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-[var(--text-primary)] leading-tight tracking-tight text-left" style={{ marginLeft: '-0.5rem' }}>
                     Explore Prarthana
                 </h2>
-                <p className="text-lg sm:text-xl text-[var(--text-secondary)] max-w-2xl text-left leading-relaxed mt-5" style={{ textAlign: 'left' }}>
+                <p className="text-lg sm:text-xl text-[var(--text-secondary)] max-w-2xl text-left leading-relaxed mt-4" style={{ marginLeft: '-0.5rem' }}>
                     Explore all screens of the Prarthana App. Scroll horizontally to see the entire gallery.
                 </p>
             </div>
+
+            <div className="w-full flex justify-center mb-6">
+                <p style={{
+                    fontSize: 14, fontWeight: 700, textTransform: 'uppercase',
+                    letterSpacing: '0.15em', color: '#FF6B35', textAlign: 'center',
+                    background: 'rgba(255, 107, 53, 0.1)', padding: '6px 16px', borderRadius: '20px'
+                }}>
+                    App Preview
+                </p>
+            </div>
             
-            <div className="gallery-wrapper" style={{
-                padding: '20px 16px', overflowX: 'auto', WebkitOverflowScrolling: 'touch', width: '100%'
-            }}>
+            <div className="gallery-wrapper" ref={galleryRef} style={{ padding: '20px 16px', overflowX: 'auto', WebkitOverflowScrolling: 'touch', width: '100%', scrollBehavior: 'smooth' }}>
                 <div 
                     className="gallery" 
                     style={{ display: 'flex', gap: '34px', flexWrap: 'nowrap', alignItems: 'flex-start', minWidth: 'max-content' }}
                     dangerouslySetInnerHTML={{ __html: rawHTML }} 
                 />
             </div>
+            
+            <div className="mobile-nav-buttons">
+                <button onClick={() => scrollGallery('backward')} className="orange-nav-btn">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M15 18l-6-6 6-6"/></svg>
+                </button>
+                <button onClick={() => scrollGallery('forward')} className="orange-nav-btn">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M9 18l6-6-6-6"/></svg>
+                </button>
+            </div>
+
         </section>
     );
 };

@@ -65,7 +65,7 @@ const Features = () => {
         <section id="features" className="features-section">
             <div className="features-content">
                 <header className="features-header">
-                    <h2 className="features-title">
+                    <h2 className="features-title" style={{ maxWidth: "16ch", margin: "0 auto", marginBottom: "1.5rem" }}>
                         Everything you need for your <span className="gradient-text">Spiritual Path</span>
                     </h2>
                     <p className="features-subtitle">

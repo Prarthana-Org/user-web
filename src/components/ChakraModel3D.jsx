@@ -113,7 +113,7 @@ function hexToRgb(h) {
 }
 
 // Builds the full three.js scene inside `el`. Returns a cleanup fn.
-function buildScene(el, THREE, L) {
+function buildScene(el, THREE, L, wordWrap) {
   const BL = L ? THREE.NormalBlending : THREE.AdditiveBlending;
   const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
   renderer.setPixelRatio(Math.min(2, window.devicePixelRatio || 1));
@@ -247,7 +247,7 @@ function buildScene(el, THREE, L) {
 
   // interaction
   let hover = 0, hoverTarget = 0, dragging = false, px = 0, py = 0, vx = 0, rx = 0, ry = 0;
-  let hoverStart = 0;
+  let wordShown = false, hoverStart = 0;
   const canvas = renderer.domElement;
   const onEnter = () => { hoverTarget = 1; hoverStart = performance.now(); };
   const onLeave = () => { if (!dragging) hoverTarget = 0; };
@@ -265,6 +265,14 @@ function buildScene(el, THREE, L) {
   canvas.addEventListener('pointermove', onMove);
   canvas.addEventListener('pointerup', onUp);
   canvas.addEventListener('pointercancel', onUp);
+
+  function setWord(on) {
+    if (on === wordShown) return; wordShown = on;
+    const w = wordWrap.querySelector('[data-w]'), d = wordWrap.querySelector('[data-d]'), t = wordWrap.querySelector('[data-t]');
+    w.style.opacity = on ? 1 : 0; w.style.transform = on ? 'translateY(0) scale(1)' : 'translateY(16px) scale(0.96)'; w.style.filter = on ? 'blur(0px)' : 'blur(6px)';
+    d.style.opacity = on ? 1 : 0; d.style.transform = on ? 'translateY(0)' : 'translateY(12px)';
+    t.style.opacity = on ? 0.9 : 0; t.style.transform = on ? 'translateY(0)' : 'translateY(10px)';
+  }
 
   function resize() {
     const w = el.clientWidth || 600, h = el.clientHeight || 500;
@@ -330,6 +338,8 @@ function buildScene(el, THREE, L) {
     o1.spinner.rotation.z = t * 0.85; o2.spinner.rotation.z = -t * 0.62; o3.spinner.rotation.z = t * 0.45;
     ground.material.opacity = 0.5 + effHover * 0.5;
     
+    setWord(hover > 0.5 && performance.now() - hoverStart > 500);
+
     renderer.render(scene, camera);
     raf = requestAnimationFrame(tick);
   }
@@ -359,21 +369,30 @@ function ChakraModel(props) {
     const el = hostRef.current;
     if (!el) return;
     const L = theme === 'light';
-    if (!document.getElementById('pr-cursive-font')) {
-      const lk = document.createElement('link');
-      lk.id = 'pr-cursive-font'; lk.rel = 'stylesheet';
+    if (!document.getElementById('font-ls')) {
+      const lk = document.createElement('link'); lk.id = 'font-ls'; lk.rel = 'stylesheet';
       lk.href = 'https://fonts.googleapis.com/css2?family=League+Spartan:wght@600;700&family=Manrope:wght@400;500;600&family=Tiro+Devanagari+Sanskrit&display=swap';
       document.head.appendChild(lk);
     }
+    const wordCol = L ? '#38306e' : '#f4efe4', devCol = L ? '#7a4fc0' : '#e6c37a', tagCol = L ? '#7a6f9e' : '#9aa0b4';
+    const wordWrap = document.createElement('div');
+    wordWrap.style.cssText = 'position:absolute; left:0; right:0; bottom:6%; display:flex; flex-direction:column; align-items:center; gap:2px; pointer-events:none;';
+    wordWrap.innerHTML =
+      '<div data-w style="font-family:\'League Spartan\',sans-serif; font-weight:700; letter-spacing:.3em; margin-left:.3em; color:' + wordCol + '; font-size:38px; line-height:1.1; opacity:0; transform:translateY(16px) scale(0.96); filter:blur(6px); transition:all .9s cubic-bezier(.2,.8,.25,1);">PRARTHANA</div>' +
+      '<div data-d style="font-family:\'Tiro Devanagari Sanskrit\',serif; color:' + devCol + '; font-size:18px; opacity:0; transform:translateY(12px); transition:all .8s ease .25s;">\u092a\u094d\u0930\u093e\u0930\u094d\u0925\u0928\u093e</div>' +
+      '<div data-t style="color:' + tagCol + '; font-family:\'Manrope\',sans-serif; font-size:12.5px; letter-spacing:.14em; opacity:0; transform:translateY(10px); transition:all .8s ease .45s;">TRADITIONAL PRACTICE \u00b7 SCIENTIFIC FACT</div>';
+    el.appendChild(wordWrap);
+
     let cleanup = null;
     let disposed = false;
     loadThree().then(() => {
       if (disposed || !el.isConnected) return;
-      cleanup = buildScene(el, window.THREE, L);
+      cleanup = buildScene(el, window.THREE, L, wordWrap);
     });
     return () => {
       disposed = true;
       if (cleanup) cleanup();
+      if (wordWrap.parentNode) wordWrap.parentNode.removeChild(wordWrap);
     };
   }, [theme]);
 

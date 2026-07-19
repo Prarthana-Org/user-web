@@ -68,8 +68,7 @@ const Hero = () => {
                         initial={{ opacity: 0, y: 25, scale: 0.92 }}
                         animate={{ opacity: 1, y: 0, scale: 1 }}
                         transition={{ delay: 0.45, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-                        className="hero-buttons"
-                        style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}
+                        className="hero-buttons mt-4"
                     >
                         <motion.button
                             type="button"
@@ -85,8 +84,8 @@ const Hero = () => {
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
                             transition={{ delay: 0.55, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-                            className="btn-primary shadow-lg shadow-orange-500/30"
-                            style={{ padding: '16px 32px', margin: '8px', cursor: 'pointer' }}
+                            className="btn-primary shadow-lg shadow-orange-500/30 w-full sm:w-auto text-sm sm:text-base flex-1 whitespace-nowrap"
+                            style={{ padding: '12px 16px', cursor: 'pointer' }}
                         >
                             Begin your journey
                         </motion.button>
@@ -105,8 +104,8 @@ const Hero = () => {
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
                             transition={{ delay: 0.65, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-                            className="btn-glass border-2 border-orange-500/50 hover:border-orange-500 hover:bg-orange-500/10 text-[var(--text-primary)]"
-                            style={{ padding: '16px 32px', margin: '8px', cursor: 'pointer', border: '2px solid rgba(255, 107, 53, 0.5)' }}
+                            className="btn-glass border-2 border-orange-500/50 hover:border-orange-500 hover:bg-orange-500/10 text-[var(--text-primary)] w-full sm:w-auto text-sm sm:text-base flex-1 whitespace-nowrap"
+                            style={{ padding: '12px 16px', cursor: 'pointer', border: '2px solid rgba(255, 107, 53, 0.5)' }}
                         >
                             Explore features
                         </motion.button>

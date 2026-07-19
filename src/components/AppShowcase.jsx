@@ -757,7 +757,7 @@ const AppShowcase = () => {
                 </p>
             </div>
 
-            <div className="w-full flex justify-center mb-6">
+            <div className="w-full flex justify-center mb-2">
                 <p style={{
                     fontSize: 14, fontWeight: 700, textTransform: 'uppercase',
                     letterSpacing: '0.15em', color: '#FF6B35', textAlign: 'center',
@@ -767,7 +767,7 @@ const AppShowcase = () => {
                 </p>
             </div>
             
-            <div className="gallery-wrapper" ref={galleryRef} style={{ padding: '20px 16px', overflowX: 'auto', WebkitOverflowScrolling: 'touch', width: '100%', scrollBehavior: 'smooth' }}>
+            <div className="gallery-wrapper" ref={galleryRef} style={{ padding: '4px 16px 0px 16px', overflowX: 'auto', WebkitOverflowScrolling: 'touch', width: '100%', scrollBehavior: 'smooth' }}>
                 <div 
                     className="gallery" 
                     style={{ display: 'flex', gap: '34px', flexWrap: 'nowrap', alignItems: 'flex-start', minWidth: 'max-content' }}

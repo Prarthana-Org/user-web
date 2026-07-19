@@ -10,8 +10,14 @@
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  padding-top: 120px;
-  padding-bottom: 60px;
+  padding-top: 60px;
+  padding-bottom: 40px;
+}
+@media (min-width: 768px) {
+  .hero-section {
+    padding-top: 120px;
+    padding-bottom: 60px;
+  }
 }
 
 /* Background blobs - decorative only */
@@ -204,15 +210,16 @@
 /* Buttons row */
 .hero-buttons {
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: flex-start;
-  gap: 1rem;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%;
 }
 
 @media (min-width: 640px) {
   .hero-buttons {
-    flex-direction: row;
+    justify-content: flex-start;
     gap: 1.25rem;
   }
 }

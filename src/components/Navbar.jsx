@@ -30,11 +30,10 @@ const Navbar = () => {
             <motion.nav
                 initial={{ y: -100 }}
                 animate={{ y: 0 }}
-                className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-                    scrolled ? 'py-4 bg-[var(--surface-color)]/80 shadow-sm backdrop-blur-md' : 'py-6 bg-transparent'
-                }`}
+                className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'py-5 bg-[var(--surface-color)]/80 shadow-sm backdrop-blur-md' : 'py-6 bg-transparent'
+                    }`}
             >
-                <div className="w-full px-6 md:px-12">
+                <div className="container mx-auto px-6 md:px-12">
                     <div className={`flex items-center justify-between transition-all duration-300`}>
                         {/* Logo */}
                         <a href="#" className="flex items-center gap-3 group">
@@ -97,15 +96,16 @@ const Navbar = () => {
                         <div className="flex md:hidden items-center gap-2">
                             <button
                                 onClick={toggleTheme}
-                                className="p-2 text-[var(--text-secondary)] hover:bg-white/10 rounded-full transition-colors"
+                                className="p-2 text-[var(--text-primary)] hover:bg-white/10 rounded-full transition-colors"
+                                aria-label="Toggle Theme"
                             >
-                                {theme === 'light' ? <Moon size={20} /> : <Sun size={20} />}
+                                {theme === 'light' ? <Moon size={24} color="currentColor" /> : <Sun size={24} color="currentColor" />}
                             </button>
                             <button
-                                className="p-2 text-[var(--text-secondary)] hover:bg-white/10 rounded-full transition-colors"
+                                className="p-2 text-[var(--text-primary)] hover:bg-white/10 rounded-full transition-colors"
                                 onClick={() => setMobileMenuOpen(true)}
                             >
-                                <Menu size={24} />
+                                <Menu size={28} color="currentColor" />
                             </button>
                         </div>
                     </div>
@@ -127,7 +127,7 @@ const Navbar = () => {
                             animate={{ x: 0 }}
                             exit={{ x: '100%' }}
                             transition={{ type: "spring", damping: 25, stiffness: 200 }}
-                            className="absolute right-0 top-0 bottom-0 w-3/4 max-w-sm bg-[var(--surface-color)] shadow-2xl p-6"
+                            className="absolute top-0 bottom-0 w-4/5 max-w-sm bg-[var(--surface-color)] shadow-2xl p-8 pl-14"
                             onClick={e => e.stopPropagation()}
                         >
                             <div className="flex items-center justify-between mb-8">
@@ -140,7 +140,7 @@ const Navbar = () => {
                                 </button>
                             </div>
 
-                            <div className="flex flex-col gap-4">
+                            <div className="flex right-10 flex-col gap-4">
                                 {navLinks.map((link) => (
                                     <a
                                         key={link.name}

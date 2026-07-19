@@ -127,7 +127,7 @@ const Navbar = () => {
                             animate={{ x: 0 }}
                             exit={{ x: '100%' }}
                             transition={{ type: "spring", damping: 25, stiffness: 200 }}
-                            className="absolute top-0 bottom-0 w-4/5 max-w-sm bg-[var(--surface-color)] shadow-2xl p-8 pl-14"
+                            className="absolute right-0 top-0 bottom-0 w-4/5 max-w-sm bg-[var(--surface-color)] shadow-2xl p-8"
                             onClick={e => e.stopPropagation()}
                         >
                             <div className="flex items-center justify-between mb-8">
@@ -140,7 +140,7 @@ const Navbar = () => {
                                 </button>
                             </div>
 
-                            <div className="flex right-10 flex-col gap-4">
+                            <div className="flex flex-col gap-4 text-center mt-4">
                                 {navLinks.map((link) => (
                                     <a
                                         key={link.name}

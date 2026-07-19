@@ -21,6 +21,21 @@ const AppShowcase = () => {
         return () => observer.disconnect();
     }, []);
 
+    useEffect(() => {
+        // Center the first item on load for mobile view
+        if (galleryRef.current && window.innerWidth <= 768) {
+            setTimeout(() => {
+                const wrapper = galleryRef.current;
+                const items = Array.from(wrapper.querySelectorAll('.phone-wrap'));
+                if (items.length > 0) {
+                    const firstItem = items[0];
+                    const scrollLeft = firstItem.offsetLeft - (wrapper.clientWidth / 2) + (firstItem.clientWidth / 2);
+                    wrapper.scrollTo({ left: scrollLeft, behavior: 'auto' });
+                }
+            }, 500);
+        }
+    }, []);
+
     // Provide the extracted raw HTML from the prototype
         const galleryRef = useRef(null);
 

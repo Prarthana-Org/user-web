@@ -98,10 +98,12 @@
 
 /* Feature cards horizontal scroll */
 .features-grid {
+  align-self: stretch;
   width: auto;
   display: flex;
   gap: 2rem;
-  overflow-x: auto; -webkit-overflow-scrolling: touch;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
   padding: 1rem 1.5rem 3rem 1.5rem;
   margin-left: -1.5rem;
   margin-right: -1.5rem;

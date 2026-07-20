@@ -5,7 +5,7 @@
 .features-section {
   background: transparent;
   backdrop-filter: blur(4px);
-  padding: 4rem 0;
+  padding: 0;
 }
 
 /* Centered content wrapper - single source of truth for max-width and horizontal centering */
@@ -107,9 +107,11 @@
   padding: 1rem 1.5rem 3rem 1.5rem;
   margin-left: -1.5rem;
   margin-right: -1.5rem;
-  scroll-snap-type: x mandatory;
+  scroll-snap-type: none;
   scrollbar-width: none;
   -ms-overflow-style: none;
+  mask-image: linear-gradient(to right, transparent, white 8%, white 92%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, white 8%, white 92%, transparent);
 }
 @media (min-width: 768px) {
   .features-grid {
@@ -128,7 +130,6 @@
 .feature-card {
   flex: 0 0 280px;
   max-width: 320px;
-  scroll-snap-align: center;
   padding: 1.5rem;
   border-radius: 1rem;
   border: 1px solid;
@@ -216,31 +217,31 @@
 /* Spacer between grid and Pro banner - prevents margin collapse */
 .features-spacer {
   width: 100%;
-  height: 8rem;
+  height: 3rem;
   flex-shrink: 0;
 }
 
 @media (min-width: 640px) {
   .features-spacer {
-    height: 10rem;
+    height: 4rem;
   }
 }
 
 @media (min-width: 768px) {
   .features-spacer {
-    height: 12rem;
+    height: 5rem;
   }
 }
 
 @media (min-width: 1024px) {
   .features-spacer {
-    height: 16rem;
+    height: 6rem;
   }
 }
 
 @media (min-width: 1280px) {
   .features-spacer {
-    height: 20rem;
+    height: 8rem;
   }
 }
 

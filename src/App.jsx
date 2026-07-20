@@ -43,7 +43,7 @@ function App() {
     return (
       <ThemeContext.Provider value={{ theme, toggleTheme }}>
         <div className="min-h-screen bg-transparent text-[var(--text-primary)] transition-colors duration-300 selection:bg-orange-200 selection:text-orange-900">
-        <GalaxyBackground theme={theme} />
+          <GalaxyBackground theme={theme} />
           <Navbar />
           {currentHash === '#knowledge-tree' && <KnowledgeTree />}
           {currentHash === '#about-us' && <AboutUs />}
@@ -63,11 +63,11 @@ function App() {
             <Hero />
           </div>
 
-          <div className="py-16 md:py-32" id="showcase">
+          <div className="pt-0 pb-0 -mt-12 md:-mt-24" id="showcase">
             <AppShowcase />
           </div>
 
-          <div className="py-16 md:py-32" id="features">
+          <div className="pt-0 pb-16 md:pb-32 -mt-12 md:-mt-24" id="features">
             <Features />
           </div>
 

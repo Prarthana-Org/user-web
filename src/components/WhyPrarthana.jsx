@@ -119,9 +119,9 @@ const WhyPrarthana = () => {
                   .tree details { margin-left: 8px; } .leaf { margin-left: 8px; }
                 }
             `}} />
-            <div className="container mx-auto px-4 text-center mb-16">
-                <h2 className="text-4xl md:text-5xl font-bold mb-4" style={{ color: 'var(--text-primary)' }}>Why Prarthana</h2>
-                <p className="text-lg text-gray-500 max-w-2xl mx-auto">Tracing the unbroken thread of Indian knowledge with precision and clarity.</p>
+            <div className="container mx-auto px-4 md:px-8 lg:px-12 mb-24 md:mb-32 flex flex-col items-start justify-center" style={{ paddingLeft: '1rem' }}>
+                <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-[var(--text-primary)] leading-tight tracking-tight text-left" style={{ marginLeft: '-0.5rem' }}>Why Prarthana</h2>
+                <p className="text-lg sm:text-xl text-[var(--text-secondary)] max-w-2xl text-left leading-relaxed mt-4" style={{ marginLeft: '-0.5rem' }}>Tracing the unbroken thread of Indian knowledge with precision and clarity.</p>
             </div>
             <main className="sim" ref={simRef}>
                 <div id="pulse" ref={pulseRef}></div>

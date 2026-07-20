@@ -762,8 +762,8 @@ const AppShowcase = () => {
 </div>`;
 
     return (
-        <section id="showcase" className="overflow-hidden relative py-20 mt-12" data-theme={theme} style={{ background: "transparent" }}>
-            <div className="container mx-auto px-4 md:px-8 lg:px-12 mb-8 flex flex-col items-start justify-center" style={{ paddingLeft: '1rem' }}>
+        <section id="showcase" className="overflow-hidden relative pt-0 pb-0 mt-0" data-theme={theme} style={{ background: "transparent" }}>
+            <div className="container mx-auto px-4 md:px-8 lg:px-12 flex flex-col items-start justify-center" style={{ paddingLeft: '1rem', marginBottom: '3rem' }}>
                 <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-[var(--text-primary)] leading-tight tracking-tight text-left" style={{ marginLeft: '-0.5rem' }}>
                     Explore Prarthana
                 </h2>
@@ -771,18 +771,8 @@ const AppShowcase = () => {
                     Explore all screens of the Prarthana App. Scroll horizontally to see the entire gallery.
                 </p>
             </div>
-
-            <div className="w-full flex justify-center mb-2">
-                <p style={{
-                    fontSize: 14, fontWeight: 700, textTransform: 'uppercase',
-                    letterSpacing: '0.15em', color: '#FF6B35', textAlign: 'center',
-                    background: 'rgba(255, 107, 53, 0.1)', padding: '6px 16px', borderRadius: '20px'
-                }}>
-                    App Preview
-                </p>
-            </div>
             
-            <div className="gallery-wrapper" ref={galleryRef} style={{ padding: '4px 16px 0px 16px', overflowX: 'auto', WebkitOverflowScrolling: 'touch', width: '100%', scrollBehavior: 'smooth' }}>
+            <div className="gallery-wrapper" ref={galleryRef} style={{ padding: '24px 16px 0px 16px', overflowX: 'auto', WebkitOverflowScrolling: 'touch', width: '100%', scrollBehavior: 'smooth' }}>
                 <div 
                     className="gallery" 
                     style={{ display: 'flex', gap: '34px', flexWrap: 'nowrap', alignItems: 'flex-start', minWidth: 'max-content' }}

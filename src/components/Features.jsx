@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { Music, Video, BookOpen, MapPin, Star, Radio, Hash, VideoIcon, Library } from 'lucide-react';
 import './Features.css';
@@ -61,6 +61,54 @@ const features = [
 ];
 
 const Features = () => {
+    const gridRef = useRef(null);
+
+    useEffect(() => {
+        const grid = gridRef.current;
+        if (!grid) return;
+
+        let animationFrameId;
+        let isHovered = false;
+
+        const scroll = () => {
+            if (!isHovered) {
+                // Extremely slow and smooth scroll (around 0.4px per frame)
+                grid.scrollLeft += 0.4;
+                
+                // If we reach the end, reset back to 0
+                if (grid.scrollLeft >= grid.scrollWidth - grid.clientWidth - 1) {
+                    grid.scrollLeft = 0;
+                }
+            }
+            animationFrameId = requestAnimationFrame(scroll);
+        };
+
+        const handleMouseEnter = () => {
+            isHovered = true;
+        };
+
+        const handleMouseLeave = () => {
+            isHovered = false;
+        };
+
+        // Attach hover listeners to each individual card rather than the grid container
+        const cards = grid.querySelectorAll('.feature-card');
+        cards.forEach(card => {
+            card.addEventListener('mouseenter', handleMouseEnter);
+            card.addEventListener('mouseleave', handleMouseLeave);
+        });
+
+        animationFrameId = requestAnimationFrame(scroll);
+
+        return () => {
+            cancelAnimationFrame(animationFrameId);
+            cards.forEach(card => {
+                card.removeEventListener('mouseenter', handleMouseEnter);
+                card.removeEventListener('mouseleave', handleMouseLeave);
+            });
+        };
+    }, []);
+
     return (
         <section id="features" className="features-section">
             <div className="features-content">
@@ -73,7 +121,7 @@ const Features = () => {
                     </p>
                 </header>
 
-                <div className="features-grid">
+                <div className="features-grid" ref={gridRef}>
                     {features.map((feature, idx) => (
                         <motion.div
                             key={idx}

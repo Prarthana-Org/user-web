@@ -10,7 +10,7 @@ import KnowledgeTree from './components/KnowledgeTree';
 import WhyPrarthana from './components/WhyPrarthana';
 import { ThemeContext } from './ThemeContext';
 import GalaxyBackground from './components/GalaxyBackground';
-
+//comment
 function App() {
   const [theme, setTheme] = useState('light');
   const [currentHash, setCurrentHash] = useState(window.location.hash);
